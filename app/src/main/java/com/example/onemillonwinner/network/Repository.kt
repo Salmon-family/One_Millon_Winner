@@ -8,8 +8,9 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class Repository {
 
-    fun getEasyQuestion(): Single<TriviaResponse> {
+    fun getEasyQuestion(numberOfQuestions: Int): Single<TriviaResponse> {
         return Network.triviaService.getQuestions(
+            questionNumbers = numberOfQuestions,
             QuestionDifficulty = NetworkConstants.DIFFICULTY_LEVEL_EASY
         )
             .subscribeOn(Schedulers.io())
