@@ -1,32 +1,24 @@
 package com.example.onemillonwinner.network
 
-import com.example.onemillonwinner.data.NetworkStatus
+import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.data.TriviaResponse
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.Response
 
 class Repository {
 
-    fun getQuestion(numberOfQuestions: Int): Observable<NetworkStatus<TriviaResponse>> {
-        return wrapperWithRXJava(Network.triviaService::getQuestions)
+    fun getQuestion(numberOfQuestions: Int) : Single<State<TriviaResponse>> {
+        return wrapperWithState { Api.triviaService.getQuestions(numberOfQuestions) }
     }
 
-    private fun <T> wrapperWithRXJava(function: () -> Response<T>): Observable<NetworkStatus<T>> {
-        return Observable.create { emitter ->
-            emitter.onNext(NetworkStatus.Loading)
-            val result = function()
-            try {
-                if (result.isSuccessful) {
-                    emitter.onNext(NetworkStatus.Success(result.body()))
-                } else {
-                    emitter.onNext(NetworkStatus.Failure(result.message().toString()))
-                }
-            } catch (e: Exception) {
-                emitter.onNext(NetworkStatus.Failure(e.message.toString()))
+    private fun <T> wrapperWithState(function: () -> Single<Response<T>>): Single<State<T>> {
+        return function().map {
+            if (it.isSuccessful){
+                State.Success(it.body())
+            } else {
+                State.Failure(it.message())
             }
+
         }
     }
 

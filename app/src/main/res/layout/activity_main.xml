@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="question"
+            name="viewModel"
             type="com.example.onemillonwinner.ui.MainViewModel" />
     </data>
 
@@ -20,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="get questions"
+            android:onClick="@{() -> viewModel.getTriviaQuestions()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -28,7 +29,7 @@
             android:id="@+id/question_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{question.questions.toString()}"
+            android:text="@{viewModel.questions.toData().questions.get(0).question}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
