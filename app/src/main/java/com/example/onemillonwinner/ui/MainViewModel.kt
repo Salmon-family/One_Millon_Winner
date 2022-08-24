@@ -9,14 +9,11 @@ import com.example.onemillonwinner.data.TriviaResponse
 import com.example.onemillonwinner.network.Repository
 
 class MainViewModel : ViewModel() {
-    private val _repository = Repository()
-
-//    private val _questions = MutableLiveData<NetworkStatus<TriviaResponse>>()
+    private val _questions = MutableLiveData<NetworkStatus<TriviaResponse>>()
     val questions: LiveData<NetworkStatus<TriviaResponse>>
-        get() = _repository.questions
+        get() = _questions
 
     init {
-        _repository.getQuestions(5)
     }
 
 }
