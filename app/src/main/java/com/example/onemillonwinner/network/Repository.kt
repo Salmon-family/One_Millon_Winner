@@ -2,14 +2,17 @@ package com.example.onemillonwinner.network
 
 import com.example.onemillonwinner.data.NetworkStatus
 import com.example.onemillonwinner.data.TriviaResponse
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.Response
 
 class Repository {
 
-//    fun getQuestion(numberOfQuestions: Int): Observable<NetworkStatus<TriviaResponse>> {
-//        return wrapperWithRXJava(Network.triviaService::getQuestions)
-//    }
+    fun getQuestion(numberOfQuestions: Int): Observable<NetworkStatus<TriviaResponse>> {
+        return wrapperWithRXJava(Network.triviaService::getQuestions)
+    }
 
     private fun <T> wrapperWithRXJava(function: () -> Response<T>): Observable<NetworkStatus<T>> {
         return Observable.create { emitter ->
