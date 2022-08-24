@@ -1,34 +1,23 @@
 package com.example.onemillonwinner.ui
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.onemillonwinner.data.NetworkStatus
 import com.example.onemillonwinner.data.TriviaResponse
-import com.example.onemillonwinner.network.Network
 import com.example.onemillonwinner.network.Repository
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
 
 class MainViewModel : ViewModel() {
-    private val _repository = MutableLiveData<Repository>()
+    private val _repository = Repository()
 
-    private val _questions = MutableLiveData<TriviaResponse>()
-    val questions: LiveData<TriviaResponse>
-        get() = _questions
+//    private val _questions = MutableLiveData<NetworkStatus<TriviaResponse>>()
+    val questions: LiveData<NetworkStatus<TriviaResponse>>
+        get() = _repository.questions
 
-
-    fun getEasyQuestion() {
-        Network.triviaService.getQuestions()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    _questions.postValue(it)
-                },
-                {
-
-                }
-            )
+    init {
+        _repository.getQuestions(5)
     }
 
 }
+

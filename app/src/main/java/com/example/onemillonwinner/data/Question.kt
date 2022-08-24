@@ -9,8 +9,6 @@ data class Question(
     val incorrectAnswers: List<String>?,
     @SerializedName("question")
     val question: String?,
-
-    //Do we really need this?!!
     @SerializedName("difficulty")
     val difficulty: String?
 )

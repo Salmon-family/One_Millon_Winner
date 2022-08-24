@@ -1,19 +1,30 @@
 package com.example.onemillonwinner.network
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.example.onemillonwinner.data.NetworkStatus
 import com.example.onemillonwinner.data.TriviaResponse
-import com.example.onemillonwinner.util.NetworkConstants
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import com.example.onemillonwinner.data.enum.QuestionLevel
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 
 class Repository {
+    private val _questions = MutableLiveData<NetworkStatus<TriviaResponse>>()
+    val questions: LiveData<NetworkStatus<TriviaResponse>>
+        get() = _questions
 
-    fun getEasyQuestion(numberOfQuestions: Int): Single<TriviaResponse> {
-        return Network.triviaService.getQuestions(
+    fun getQuestions(numberOfQuestions: Int) {
+        Network.triviaService.getQuestions(
             questionNumbers = numberOfQuestions,
-            QuestionDifficulty = NetworkConstants.DIFFICULTY_LEVEL_EASY
-        )
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            QuestionDifficulty = QuestionLevel.EASY.value
+        ).subscribe(::onSuccess, ::onError)
+    }
+
+
+    private fun onSuccess(response: TriviaResponse) {
+        _questions.postValue(NetworkStatus.Success(response))
+    }
+
+    private fun onError(throwable: Throwable) {
+        _questions.postValue(NetworkStatus.Failure(throwable.message.toString()))
     }
 }
