@@ -11,7 +11,5 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
     override val inflate: (LayoutInflater, ViewGroup?, attachToRoot: Boolean) -> FragmentGameBinding
         get() = FragmentGameBinding::inflate
 
-    override fun addCallBacks() {
-        TODO("Not yet implemented")
-    }
+    override fun addCallBacks() {}
 }

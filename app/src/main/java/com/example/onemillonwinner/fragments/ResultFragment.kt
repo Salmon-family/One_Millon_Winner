@@ -11,7 +11,5 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
     override val inflate: (LayoutInflater, ViewGroup?, attachToRoot: Boolean) -> FragmentResultBinding
         get() = FragmentResultBinding::inflate
 
-    override fun addCallBacks() {
-        TODO("Not yet implemented")
-    }
+    override fun addCallBacks() {}
 }

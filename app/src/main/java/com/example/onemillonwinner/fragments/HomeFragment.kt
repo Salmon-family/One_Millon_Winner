@@ -11,7 +11,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override val inflate: (LayoutInflater, ViewGroup?, attachToRoot: Boolean) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
 
-    override fun addCallBacks() {
-        TODO("Not yet implemented")
-    }
+    override fun addCallBacks() {}
 }
