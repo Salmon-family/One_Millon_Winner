@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
     app:startDestination="@id/homeFragment">
-
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.onemillonwinner.ui.fragment.HomeFragment"
+        android:name="com.example.onemillonwinner.ui.fragments.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
@@ -16,6 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
+        android:name="com.example.onemillonwinner.ui.fragments.game.GameFragment"
         android:label="GameFragment"
         tools:layout="@layout/fragment_game">
         <action
@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
-        android:name="com.example.onemillonwinner.ui.fragment.ResultFragment"
+        android:name="com.example.onemillonwinner.ui.fragments.result.ResultFragment"
         android:label="ResultFragment"
         tools:layout="@layout/fragment_result"/>
 </navigation>

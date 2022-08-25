@@ -8,10 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
+
 abstract class BaseFragment<VDB : ViewDataBinding> : Fragment() {
 
     abstract val layoutIdFragment: Int
-
+    abstract fun setup()
     private lateinit var _binding: VDB
     protected val binding: VDB
         get() = _binding
@@ -27,6 +28,11 @@ abstract class BaseFragment<VDB : ViewDataBinding> : Fragment() {
         }
 
         return _binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setup()
     }
 
 }

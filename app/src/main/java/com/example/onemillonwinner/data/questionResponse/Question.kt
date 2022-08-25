@@ -1,4 +1,4 @@
-package com.example.onemillonwinner.data
+package com.example.onemillonwinner.data.questionResponse
 
 import com.google.gson.annotations.SerializedName
 

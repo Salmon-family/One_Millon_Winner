@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.onemillonwinner.data.State
-import com.example.onemillonwinner.data.TriviaResponse
+import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.data.enum.QuestionLevel
 import com.example.onemillonwinner.network.Repository
 
