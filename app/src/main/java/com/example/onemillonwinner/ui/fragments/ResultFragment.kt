@@ -1,4 +1,4 @@
-package com.example.onemillonwinner.fragments
+package com.example.onemillonwinner.ui.fragments
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,4 +12,8 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
         get() = FragmentResultBinding::inflate
 
     override fun addCallBacks() {}
+
+    override fun setup() {
+        TODO("Not yet implemented")
+    }
 }

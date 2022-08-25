@@ -1,4 +1,4 @@
-package com.example.onemillonwinner.fragments
+package com.example.onemillonwinner.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -23,6 +23,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = inflate(inflater, container, false)
+        setup()
         return _binding!!.root
     }
 
@@ -31,6 +32,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         addCallBacks()
     }
 
+    abstract fun setup()
 
     abstract fun addCallBacks()
 
