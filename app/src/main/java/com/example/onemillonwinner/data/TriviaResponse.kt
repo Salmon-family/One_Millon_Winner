@@ -1,6 +1,5 @@
 package com.example.onemillonwinner.data
 
-
 import com.google.gson.annotations.SerializedName
 
 data class TriviaResponse(

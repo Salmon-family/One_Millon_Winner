@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.data.TriviaResponse
+import com.example.onemillonwinner.data.enum.QuestionLevel
 import com.example.onemillonwinner.network.Repository
 
 class MainViewModel : ViewModel() {
@@ -15,17 +16,17 @@ class MainViewModel : ViewModel() {
     val questions: LiveData<State<TriviaResponse>>
         get() = _questions
 
-   fun getTriviaQuestions() {
-       _questions.postValue(State.Loading)
-       repository.getQuestion(5).subscribe(
-           {
-              _questions.postValue(it)
-               Log.v("testApi", it.toString())
-           },{
-               Log.v("testApi", it.message.toString())
-           }
-       )
-   }
+    fun getTriviaQuestions() {
+        _questions.postValue(State.Loading)
+        repository.getQuestion(5, QuestionLevel.EASY).subscribe(
+            {
+                _questions.postValue(it)
+                Log.v("testApi", it.toString())
+            }, {
+                Log.v("testApi", it.message.toString())
+            }
+        )
+    }
 
 }
 
