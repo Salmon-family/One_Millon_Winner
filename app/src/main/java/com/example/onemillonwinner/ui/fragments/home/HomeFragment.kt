@@ -1,7 +1,5 @@
 package com.example.onemillonwinner.ui.fragments.home
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.databinding.FragmentHomeBinding
