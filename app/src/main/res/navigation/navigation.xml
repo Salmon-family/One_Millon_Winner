@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.onemillonwinner.fragments.HomeFragment"
+        android:name="com.example.onemillonwinner.ui.fragments.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
-        android:name="com.example.onemillonwinner.fragments.GameFragment"
+        android:name="com.example.onemillonwinner.ui.fragments.game.GameFragment"
         android:label="GameFragment"
         tools:layout="@layout/fragment_game">
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
-        android:name="com.example.onemillonwinner.fragments.ResultFragment"
+        android:name="com.example.onemillonwinner.ui.fragments.ResultFragment"
         android:label="ResultFragment"
         tools:layout="@layout/fragment_result"/>
 </navigation>
