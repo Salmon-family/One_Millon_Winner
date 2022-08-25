@@ -14,21 +14,251 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/questions_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="@{()->gameViewModel.getTriviaQuestions()}"
-            android:text="get Questions"
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="327dp"
+            android:layout_height="12dp"
+            android:progress="25"
+            android:layout_marginTop="24dp"
+            android:progressBackgroundTint="#D1E4FC"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/texTimer"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{gameViewModel.questions.toData().questions.get(0).question}"
+            android:layout_gravity="center"
+            android:text="01:30"
+            android:textColor="#007CC5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/progressBar" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardPhone"
+            android:layout_width="47dp"
+            android:layout_height="46dp"
+            app:cardBackgroundColor="#D1E4FC"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="48dp"
+            app:cardCornerRadius="100dp"
+            app:layout_constraintEnd_toEndOf="@+id/cardView"
+            app:layout_constraintTop_toBottomOf="@+id/progressBar">
+
+            <ImageView
+                android:id="@+id/image_view"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_phone" />
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardDeletOption"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:cardBackgroundColor="#D1E4FC"
+            app:cardCornerRadius="100dp"
+            app:layout_constraintEnd_toStartOf="@+id/cardPhone"
+            app:layout_constraintStart_toEndOf="@+id/cardChangeQuestion"
+            app:layout_constraintTop_toTopOf="@+id/cardPhone">
+
+            <TextView
+                android:id="@+id/image_view3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="50:50"
+                android:layout_gravity="center"
+                />
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardChangeQuestion"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:cardBackgroundColor="#D1E4FC"
+            app:cardCornerRadius="100dp"
+            android:layout_marginStart="48dp"
+            app:layout_constraintStart_toStartOf="@+id/cardView"
+            app:layout_constraintTop_toTopOf="@+id/cardPhone">
+
+            <ImageView
+                android:id="@+id/image_view2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_repeat" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="380dp"
+            android:layout_height="215dp"
+            app:cardBackgroundColor="#007CC5"
+            app:cardCornerRadius="8dp"
+            android:layout_marginTop="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/questions_button" />
+            app:layout_constraintTop_toBottomOf="@+id/cardDeletOption">
+
+            <TextView
+                android:id="@+id/textQuestionNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingTop="8dp"
+                android:text="Question 1 of 15"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/textQuestion"
+                android:layout_width="332dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="A dialog is a type of modal window that appears in front of app content to provide critical information, or prompt for a decision to be made."
+                android:textColor="@color/white" />
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardFirstAnswer"
+            android:layout_width="360dp"
+            android:layout_height="60dp"
+            app:cardCornerRadius="8dp"
+            app:strokeColor="@color/black"
+            app:strokeWidth="5dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="@+id/cardView"
+            app:layout_constraintStart_toStartOf="@+id/cardView"
+            app:layout_constraintTop_toBottomOf="@+id/cardView"
+            >
+
+            <TextView
+                android:id="@+id/textFirstAnswer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity=""
+                android:gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:paddingStart="24dp"
+                android:text="Lable1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:paddingStart="8dp"
+                android:text="1"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardSecondAnswer"
+            android:layout_width="360dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/cardFirstAnswer"
+            app:layout_constraintStart_toStartOf="@+id/cardFirstAnswer"
+            app:layout_constraintTop_toBottomOf="@+id/cardFirstAnswer"
+            app:strokeColor="@color/black"
+            app:strokeWidth="5dp">
+            <TextView
+                android:id="@+id/textSecondAnswer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity=""
+                android:gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:paddingStart="24dp"
+                android:text="Lable2" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:paddingStart="8dp"
+                android:text="2"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardThirdAnswer"
+            android:layout_width="360dp"
+            android:layout_height="60dp"
+            app:cardCornerRadius="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/cardSecondAnswer"
+            app:layout_constraintStart_toStartOf="@+id/cardSecondAnswer"
+            app:layout_constraintTop_toBottomOf="@+id/cardSecondAnswer"
+            app:strokeColor="@color/black"
+            app:strokeWidth="5dp">
+            <TextView
+                android:id="@+id/textThirdAnswer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity=""
+                android:gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:paddingStart="24dp"
+                android:text="Lable3" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:paddingStart="8dp"
+                android:text="3"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardFourthAnswer"
+            android:layout_width="360dp"
+            android:layout_height="60dp"
+            app:cardCornerRadius="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/cardThirdAnswer"
+            app:layout_constraintStart_toStartOf="@+id/cardThirdAnswer"
+            app:layout_constraintTop_toBottomOf="@+id/cardThirdAnswer"
+            app:strokeColor="@color/black"
+            app:strokeWidth="5dp">
+            <TextView
+                android:id="@+id/textFourthAnswer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity=""
+                android:gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:paddingStart="24dp"
+                android:text="Lable4" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:paddingStart="8dp"
+                android:text="4"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/buttonSubmit"
+            android:layout_width="112dp"
+            android:layout_height="40dp"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/cardFourthAnswer"
+            app:layout_constraintTop_toBottomOf="@+id/cardFourthAnswer"
+            app:strokeColor="@color/black"
+            app:strokeWidth="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="#007CC5"
+                android:text="Submit"
+                android:drawableStart="@drawable/ic_arrow_right"
+                />
+        </androidx.cardview.widget.CardView>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
