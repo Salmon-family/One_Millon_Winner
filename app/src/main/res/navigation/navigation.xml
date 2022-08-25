@@ -16,7 +16,6 @@
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
-        android:name="com.example.onemillonwinner.ui.fragment.GameFragment"
         android:label="GameFragment"
         tools:layout="@layout/fragment_game">
         <action
