@@ -8,15 +8,20 @@ import com.example.onemillonwinner.network.Repository
 import io.reactivex.rxjava3.core.Single
 
 const val ONE_ITEM_LEFT = 1
-const val MAX_LEVEL = 3
 
 class QuestionLogic {
 
     private val repository: Repository by lazy { Repository() }
     private var counterLevel = QuestionLevel.values()
+    private var questionNumber: Int = 0
 
     fun updateQuestionsList(questions: List<Question>): Pair<List<Question>, Boolean> {
+        questionNumber++
         return Pair(questions.drop(1), isNeedToUpdateQuestions(questions))
+    }
+
+    fun getQuestionNumber(): Int {
+        return questionNumber
     }
 
     private fun isGameDone(): Boolean = counterLevel.isEmpty()

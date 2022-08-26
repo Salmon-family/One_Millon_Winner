@@ -57,6 +57,10 @@ class GameViewModel : ViewModel() {
         }
     }
 
+    fun updateQuestionNumber(): Int {
+        return questionLogic.getQuestionNumber()
+    }
+
     private fun gameDone() {
 
     }
