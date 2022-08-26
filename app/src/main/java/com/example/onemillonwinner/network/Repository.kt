@@ -3,21 +3,35 @@ package com.example.onemillonwinner.network
 import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.data.enum.QuestionLevel
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.core.Maybe
+import io.reactivex.rxjava3.core.Observable
 import retrofit2.Response
 
 class Repository {
 
-    fun getQuestion(numberOfQuestions: Int, level: QuestionLevel): Single<State<TriviaResponse>> {
+    fun getAllQuestions(): Maybe<State<TriviaResponse>> {
         return wrapperWithState {
-            Api.triviaService.getQuestions(
-                questionNumbers = numberOfQuestions,
-                QuestionDifficulty = level.value
-            )
+            Observable.fromIterable(QuestionLevel.values().asList())
+                .flatMapSingle {
+                    Api.triviaService.getQuestions(5, it.value)
+                }
+                .reduce { x, y ->
+                    combineResult(x, y)
+                }
         }
     }
 
-    private fun <T> wrapperWithState(function: () -> Single<Response<T>>): Single<State<T>> {
+    private fun combineResult(
+        firstResponse: Response<TriviaResponse>,
+        secondResponse: Response<TriviaResponse>
+    ): Response<TriviaResponse> {
+        firstResponse.body().apply {
+            secondResponse.body()?.questions?.let { this?.questions?.addAll(it) }
+        }
+        return firstResponse
+    }
+
+    private fun <T> wrapperWithState(function: () -> Maybe<Response<T>>): Maybe<State<T>> {
         return function().map {
             if (it.isSuccessful) {
                 State.Success(it.body())
