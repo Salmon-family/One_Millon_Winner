@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -45,7 +45,9 @@
             android:layout_height="48dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="48dp"
-            android:background="@color/blue_light"
+            disableButton="@{gameViewModel.isHelpByFriends()}"
+            android:onClick="@{() -> gameViewModel.helpByFriends()}"
+            android:background="@color/blue_200"
             android:scaleType="center"
             android:src="@drawable/ic_phone"
             app:layout_constraintEnd_toEndOf="@+id/cardView"
@@ -56,7 +58,9 @@
             android:id="@+id/cardDeletOption"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@color/blue_light"
+            disableButton="@{gameViewModel.isDeleteHalfOfAnswers()}"
+            android:onClick="@{() -> gameViewModel.deleteHalfOfAnswers()}"
+            android:background="@color/blue_200"
             android:scaleType="center"
             android:src="@drawable/ic_fifty_fifty"
             app:layout_constraintBottom_toBottomOf="@+id/cardPhone"
@@ -70,7 +74,9 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="48dp"
-            android:background="@color/blue_light"
+            android:background="@color/blue_200"
+            disableButton="@{gameViewModel.isChangeQuestion()}"
+            android:onClick="@{() -> gameViewModel.changeQuestion()}"
             android:scaleType="center"
             android:src="@drawable/ic_repeat"
             app:layout_constraintStart_toStartOf="@+id/cardView"
