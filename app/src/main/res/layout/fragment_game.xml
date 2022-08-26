@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="8dp"
                 android:paddingTop="8dp"
-                android:text="@{@string/question_number(gameViewModel.updateQuestionNumber())}"
+                android:text="@{@string/question_number(gameViewModel.questions.getQuestionNumber())}"
                 android:textColor="@color/white" />
 
             <TextView
@@ -40,7 +40,7 @@
                 android:layout_width="332dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@{gameViewModel.questions[0].question}"
+                android:text="@{gameViewModel.questions.getQuestion()}"
                 android:textColor="@color/white" />
 
         </androidx.cardview.widget.CardView>
@@ -50,6 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{ () -> gameViewModel.getNextQuestion()}"
+            android:text="Next"
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <ProgressBar

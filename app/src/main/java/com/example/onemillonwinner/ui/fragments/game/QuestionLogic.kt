@@ -9,20 +9,39 @@ import io.reactivex.rxjava3.core.Single
 
 const val ONE_ITEM_LEFT = 1
 
+enum class GameState {
+    DONE,
+    LEVEL_END,
+    IN_PROGRESS
+}
+
 class QuestionLogic {
 
-    private val repository: Repository by lazy { Repository() }
     private var counterLevel = QuestionLevel.values()
-    private var questionNumber: Int = 0
+    private var questionNumber: Int = 1
+    private val questions: ArrayList<Question> by lazy { ArrayList() }
 
-    fun updateQuestionsList(questions: List<Question>): Pair<List<Question>, Boolean> {
+    fun setQuestions(newQuestions: List<Question>) {
+        questions.clear()
+        questions.addAll(newQuestions)
+    }
+
+    fun getQuestion() = questions.first().question
+
+    fun updateQuestionsList(): GameState {
         questionNumber++
-        return Pair(questions.drop(1), isNeedToUpdateQuestions(questions))
+        questions.removeAt(0)
+
+        return if (isNeedToUpdateQuestions()) {
+            GameState.LEVEL_END
+        } else if (isGameDone()) {
+            GameState.DONE
+        } else {
+            GameState.IN_PROGRESS
+        }
     }
 
-    fun getQuestionNumber(): Int {
-        return questionNumber
-    }
+    fun getQuestionNumber() = questionNumber
 
     private fun isGameDone(): Boolean = counterLevel.isEmpty()
 
@@ -32,19 +51,18 @@ class QuestionLogic {
         return level
     }
 
-    fun updateQuestionsLevel(): Single<State<TriviaResponse>>? {
-        return if (isGameDone()) {
-            null
-        } else {
-            getTriviaQuestions(5, getLevel())
-        }
-    }
+    fun updateQuestionsLevel(
+        repository: Repository
+    ): Single<State<TriviaResponse>> =
+        getTriviaQuestions(5, getLevel(), repository)
 
-    private fun isNeedToUpdateQuestions(questions: List<Question>) = questions.size == ONE_ITEM_LEFT
+
+    private fun isNeedToUpdateQuestions() = questions.size <= ONE_ITEM_LEFT
 
     private fun getTriviaQuestions(
         numberOfQuestions: Int,
-        level: QuestionLevel
+        level: QuestionLevel,
+        repository: Repository
     ): Single<State<TriviaResponse>> {
         return repository.getQuestion(numberOfQuestions, level)
     }

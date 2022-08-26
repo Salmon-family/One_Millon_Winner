@@ -6,22 +6,24 @@ import androidx.lifecycle.ViewModel
 import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.data.questionResponse.Question
+import com.example.onemillonwinner.network.Repository
 
 class GameViewModel : ViewModel() {
     private val questionLogic: QuestionLogic by lazy { QuestionLogic() }
+    private val repository: Repository by lazy { Repository() }
 
     private val _questionsStateLiveData = MutableLiveData<State<TriviaResponse>>()
     val state: LiveData<State<TriviaResponse>>
         get() = _questionsStateLiveData
 
-    private val _questionsLevelLiveData = MutableLiveData<List<Question>?>()
-    val questions: LiveData<List<Question>?>
+    private val _questionsLevelLiveData = MutableLiveData<QuestionLogic>()
+    val questions: LiveData<QuestionLogic>
         get() = _questionsLevelLiveData
 
     init {
         _questionsStateLiveData.postValue(State.Loading)
-        questionLogic.updateQuestionsLevel()
-            ?.subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion)
+        questionLogic.updateQuestionsLevel(repository)
+            .subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion)
     }
 
     private fun onSuccessUpdateQuestion(state: State<TriviaResponse>) {
@@ -29,7 +31,8 @@ class GameViewModel : ViewModel() {
         when (state) {
             is State.Success -> {
                 state.toData()?.let {
-                    _questionsLevelLiveData.postValue(it.questions)
+                    questionLogic.setQuestions(it.questions)
+                    _questionsLevelLiveData.postValue(questionLogic)
                 }
             }
             is State.Failure -> {
@@ -47,22 +50,18 @@ class GameViewModel : ViewModel() {
     }
 
     fun getNextQuestion() {
-        _questionsLevelLiveData.value?.let { questions ->
-            val game = questionLogic.updateQuestionsList(questions)
-            _questionsLevelLiveData.postValue(game.first)
-            if (game.second) {
-                questionLogic.updateQuestionsLevel()
-                    ?.subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion) ?: gameDone()
+        when (questionLogic.updateQuestionsList()) {
+            GameState.LEVEL_END -> {
+                questionLogic.updateQuestionsLevel(repository)
+                    .subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion)
+            }
+            GameState.IN_PROGRESS -> {
+                _questionsLevelLiveData.postValue(questionLogic)
+            }
+            GameState.DONE -> {
+
             }
         }
-    }
-
-    fun updateQuestionNumber(): Int {
-        return questionLogic.getQuestionNumber()
-    }
-
-    private fun gameDone() {
-
     }
 
 }
