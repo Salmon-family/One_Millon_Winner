@@ -24,26 +24,15 @@ class GameViewModel : ViewModel() {
 
     init {
         _questionsStateLiveData.postValue(State.Loading)
-        repository.getQuestion(15, QuestionLevel.EASY)
-            .subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion)
+        repository.getAllQuestions().subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion)
     }
 
     private fun onSuccessUpdateQuestion(state: State<TriviaResponse>) {
         _questionsStateLiveData.postValue(state)
-        when (state) {
-            is State.Success -> {
-                state.toData()?.let {
-                    questionLogic.setQuestions(it.questions)
-                }
-            }
-            is State.Failure -> {
-
-            }
-            is State.Loading -> {
-
-            }
+        state.toData()?.let {
+            questionLogic.setQuestions(it.questions)
+            getNextQuestion()
         }
-
     }
 
     private fun onErrorUpdateQuestion(throwable: Throwable) {

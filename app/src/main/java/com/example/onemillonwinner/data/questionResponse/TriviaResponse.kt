@@ -6,5 +6,5 @@ data class TriviaResponse(
     @SerializedName("response_code")
     val responseCode: Int,
     @SerializedName("results")
-    val questions: List<Question>
+    val questions: MutableList<Question>
 )
