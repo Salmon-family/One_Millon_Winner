@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="8dp"
                 android:paddingTop="8dp"
-                android:text="@{@string/question_number(gameViewModel.questions.getQuestionNumber())}"
+                android:text="@{@string/question_number(gameViewModel.questions.number)}"
                 android:textColor="@color/white" />
 
             <TextView
@@ -40,7 +40,7 @@
                 android:layout_width="332dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@{gameViewModel.questions.getQuestion()}"
+                android:text="@{gameViewModel.questions.question.question}"
                 android:textColor="@color/white" />
 
         </androidx.cardview.widget.CardView>

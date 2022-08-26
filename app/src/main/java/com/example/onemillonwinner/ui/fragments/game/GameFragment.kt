@@ -9,7 +9,6 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
 
     private val gameViewModel: GameViewModel by viewModels()
 
-
     override fun setup() {
         binding.gameViewModel = gameViewModel
     }

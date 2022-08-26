@@ -16,8 +16,8 @@ class GameViewModel : ViewModel() {
     val state: LiveData<State<TriviaResponse>>
         get() = _questionsStateLiveData
 
-    private val _questionsLevelLiveData = MutableLiveData<QuestionLogic>()
-    val questions: LiveData<QuestionLogic>
+    private val _questionsLevelLiveData = MutableLiveData<QuestionModel>()
+    val questions: LiveData<QuestionModel>
         get() = _questionsLevelLiveData
 
     init {
@@ -32,7 +32,7 @@ class GameViewModel : ViewModel() {
             is State.Success -> {
                 state.toData()?.let {
                     questionLogic.setQuestions(it.questions)
-                    _questionsLevelLiveData.postValue(questionLogic)
+                    _questionsLevelLiveData.postValue(questionLogic.setCurrentQuestion())
                 }
             }
             is State.Failure -> {
@@ -56,7 +56,7 @@ class GameViewModel : ViewModel() {
                     .subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion)
             }
             GameState.IN_PROGRESS -> {
-                _questionsLevelLiveData.postValue(questionLogic)
+                _questionsLevelLiveData.postValue(questionLogic.setCurrentQuestion())
             }
             GameState.DONE -> {
 

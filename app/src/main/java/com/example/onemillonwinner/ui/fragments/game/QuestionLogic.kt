@@ -26,6 +26,9 @@ class QuestionLogic {
         questions.addAll(newQuestions)
     }
 
+    fun setCurrentQuestion() = QuestionModel(questionNumber, questions.first())
+
+
     fun getQuestion() = questions.first().question
 
     fun updateQuestionsList(): GameState {
