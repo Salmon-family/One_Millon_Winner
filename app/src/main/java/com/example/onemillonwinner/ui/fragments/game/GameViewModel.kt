@@ -4,11 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.onemillonwinner.data.State
+import com.example.onemillonwinner.data.enum.QuestionLevel
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
-import com.example.onemillonwinner.data.questionResponse.Question
 import com.example.onemillonwinner.network.Repository
 
 class GameViewModel : ViewModel() {
+
     private val questionLogic: QuestionLogic by lazy { QuestionLogic() }
     private val repository: Repository by lazy { Repository() }
 
@@ -22,7 +23,8 @@ class GameViewModel : ViewModel() {
 
     init {
         _questionsStateLiveData.postValue(State.Loading)
-        questionLogic.updateQuestionsLevel(repository)
+
+        repository.getQuestion(15, QuestionLevel.EASY)
             .subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion)
     }
 
@@ -32,7 +34,6 @@ class GameViewModel : ViewModel() {
             is State.Success -> {
                 state.toData()?.let {
                     questionLogic.setQuestions(it.questions)
-                    _questionsLevelLiveData.postValue(questionLogic.setCurrentQuestion())
                 }
             }
             is State.Failure -> {
@@ -49,20 +50,8 @@ class GameViewModel : ViewModel() {
 
     }
 
-    fun getNextQuestion() {
-        when (questionLogic.updateQuestionsList()) {
-            GameState.LEVEL_END -> {
-                questionLogic.updateQuestionsLevel(repository)
-                    .subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion)
-            }
-            GameState.IN_PROGRESS -> {
-                _questionsLevelLiveData.postValue(questionLogic.setCurrentQuestion())
-            }
-            GameState.DONE -> {
-
-            }
-        }
+    fun getNextQuestion(){
+        _questionsLevelLiveData.postValue(questionLogic.updateQuestion())
     }
-
 }
 

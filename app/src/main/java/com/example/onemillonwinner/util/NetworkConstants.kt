@@ -5,3 +5,7 @@ object NetworkConstants {
     const val MULTIPLE_QUESTION_TYPE = "multiple"
 
 }
+
+object Constants {
+    const val MAX_NUMBER_OF_QUESTIONS = 15
+}
