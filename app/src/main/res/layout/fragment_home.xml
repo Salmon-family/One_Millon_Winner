@@ -16,7 +16,7 @@
        >
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottie_certificate_paper"
+            android:id="@+id/lottie_congratulation"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_marginTop="125dp"
@@ -30,7 +30,7 @@
             app:lottie_rawRes="@raw/lottie_certificate_paper" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_information"
+            android:id="@+id/text_winner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_24"
@@ -42,7 +42,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lottie_certificate_paper" />
+            app:layout_constraintTop_toBottomOf="@+id/lottie_congratulation" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/Widget.Material3.Button.OutlinedButton"
@@ -57,7 +57,7 @@
             app:strokeColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_information"
+            app:layout_constraintTop_toBottomOf="@+id/text_winner"
             />
 
 

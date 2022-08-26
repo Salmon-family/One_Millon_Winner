@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">One Millon Winner</string>
     <string name="text_information">A dialog is a type of modal window that appears in front of app content to provide critical information, or prompt for a decision to be made.</string>
+    <string name="text_time">01:30</string>
+    <string name="text_question">A dialog is a type of modal window that appears in front of app content to provide critical information, or prompt for a decision to be made.</string>
+    <string name="text_submit">Submit</string>
 </resources>

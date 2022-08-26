@@ -9,251 +9,325 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin_16">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:layout_width="327dp"
-            android:layout_height="12dp"
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginEnd="@dimen/margin_8"
             android:progress="25"
-            android:layout_marginTop="24dp"
-            android:progressBackgroundTint="#D1E4FC"
+            app:trackCornerRadius="8dp"
+            app:indicatorColor="@color/yellow"
+            app:layout_constraintEnd_toStartOf="@+id/text_time"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:trackColor="@color/secondary_color"
+            />
 
         <TextView
-            android:id="@+id/texTimer"
+            android:id="@+id/text_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="01:30"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:text="@string/text_time"
             android:textColor="#007CC5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/progressBar" />
+            app:layout_constraintTop_toTopOf="@id/progress_bar"
+            app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardPhone"
-            android:layout_width="47dp"
-            android:layout_height="46dp"
-            app:cardBackgroundColor="#D1E4FC"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_phone"
+            android:layout_width="46dp"
+            android:layout_height="49dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="48dp"
-            app:cardCornerRadius="100dp"
-            app:layout_constraintEnd_toEndOf="@+id/cardView"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar">
+            app:cardBackgroundColor="@color/secondary_color"
+            app:cardCornerRadius="24dp"
+            app:layout_constraintEnd_toEndOf="@id/cardView"
+            app:layout_constraintTop_toBottomOf="@+id/progress_bar"
+            app:strokeWidth="1dp" />
 
-            <ImageView
-                android:id="@+id/image_view"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_phone" />
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardDeletOption"
+        <ImageView
+            android:id="@+id/image_phone"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_phone"
+            android:elevation="1dp"
+            app:layout_constraintBottom_toBottomOf="@+id/card_phone"
+            app:layout_constraintEnd_toEndOf="@+id/card_phone"
+            app:layout_constraintStart_toStartOf="@+id/card_phone"
+            app:layout_constraintTop_toTopOf="@+id/card_phone" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_fifty_fifty"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            app:cardBackgroundColor="#D1E4FC"
-            app:cardCornerRadius="100dp"
-            app:layout_constraintEnd_toStartOf="@+id/cardPhone"
-            app:layout_constraintStart_toEndOf="@+id/cardChangeQuestion"
-            app:layout_constraintTop_toTopOf="@+id/cardPhone">
+            app:strokeWidth="1dp"
+            app:cardBackgroundColor="@color/secondary_color"
+            app:cardCornerRadius="24dp"
+            app:layout_constraintEnd_toStartOf="@+id/card_phone"
+            app:layout_constraintStart_toEndOf="@+id/card_change_question"
+            app:layout_constraintTop_toTopOf="@+id/card_phone"
+            />
 
-            <TextView
-                android:id="@+id/image_view3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="50:50"
-                android:layout_gravity="center"
-                />
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardChangeQuestion"
+        <TextView
+            android:id="@+id/text_fifty_fifty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:elevation="1dp"
+            android:text="50:50"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/card_fifty_fifty"
+            app:layout_constraintEnd_toEndOf="@+id/card_fifty_fifty"
+            app:layout_constraintStart_toStartOf="@+id/card_fifty_fifty"
+            app:layout_constraintTop_toTopOf="@+id/card_fifty_fifty" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_change_question"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            app:cardBackgroundColor="#D1E4FC"
-            app:cardCornerRadius="100dp"
+            app:strokeWidth="1dp"
+            android:layout_marginEnd="48dp"
             android:layout_marginStart="48dp"
+            app:cardBackgroundColor="@color/secondary_color"
+            app:cardCornerRadius="24dp"
             app:layout_constraintStart_toStartOf="@+id/cardView"
-            app:layout_constraintTop_toTopOf="@+id/cardPhone">
+            app:layout_constraintTop_toTopOf="@+id/card_phone"
+            />
 
-            <ImageView
-                android:id="@+id/image_view2"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_repeat" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
+        <ImageView
+            android:id="@+id/image_change_question"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:elevation="1dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_repeat"
+            app:layout_constraintBottom_toBottomOf="@+id/card_change_question"
+            app:layout_constraintEnd_toEndOf="@+id/card_change_question"
+            app:layout_constraintStart_toStartOf="@+id/card_change_question"
+            app:layout_constraintTop_toTopOf="@+id/card_change_question" />
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardView"
-            android:layout_width="380dp"
-            android:layout_height="215dp"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            app:layout_constraintVertical_weight="1"
+            app:strokeWidth="1dp"
+            android:layout_marginTop="24dp"
             app:cardBackgroundColor="@color/primary_color"
-            app:cardCornerRadius="8dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginStart="@dimen/margin_4"
+            android:layout_marginEnd="@dimen/margin_4"
+            app:cardCornerRadius="@dimen/corner_radius_8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardDeletOption">
+            app:layout_constraintTop_toBottomOf="@+id/card_phone"
+            />
 
-            <TextView
-                android:id="@+id/textQuestionNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="8dp"
-                android:paddingTop="8dp"
-                android:text="Question 1 of 15"
-                android:textColor="@color/white" />
+        <TextView
+            android:id="@+id/text_question_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="1dp"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginStart="@dimen/margin_8"
+            android:text="Question 1 of 15"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@+id/cardView"
+            app:layout_constraintTop_toTopOf="@+id/cardView" />
 
-            <TextView
-                android:id="@+id/textQuestion"
-                android:layout_width="332dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="A dialog is a type of modal window that appears in front of app content to provide critical information, or prompt for a decision to be made."
-                android:textColor="@color/white" />
-
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardFirstAnswer"
-            android:layout_width="360dp"
+        <TextView
+            android:id="@+id/text_question"
+            android:layout_width="332dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:elevation="1dp"
+            android:text="@string/text_question"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/cardView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/cardView"
+            app:layout_constraintTop_toTopOf="@+id/cardView" />
+        <!--        cardFirstAnswer-->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_first_answer"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:cardCornerRadius="8dp"
-            app:strokeColor="@color/black"
-            app:strokeWidth="5dp"
+            app:strokeWidth="1dp"
             android:layout_marginTop="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="@dimen/corner_radius_8"
+            app:strokeColor="@color/cardview_dark_background"
             app:layout_constraintEnd_toEndOf="@+id/cardView"
             app:layout_constraintStart_toStartOf="@+id/cardView"
             app:layout_constraintTop_toBottomOf="@+id/cardView"
-            >
+            />
 
-            <TextView
-                android:id="@+id/textFirstAnswer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity=""
-                android:gravity="center_horizontal"
-                android:layout_marginTop="16dp"
-                android:paddingStart="24dp"
-                android:text="Lable1" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                android:paddingStart="8dp"
-                android:text="1"/>
-        </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/text_first_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity=""
+            android:elevation="1dp"
+            android:gravity="center_horizontal"
+            android:text="Label1"
+            android:layout_marginStart="@dimen/margin_4"
+            app:layout_constraintBottom_toBottomOf="@+id/card_first_answer"
+            app:layout_constraintStart_toEndOf="@+id/text_number_1"
+            app:layout_constraintTop_toTopOf="@+id/card_first_answer" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardSecondAnswer"
-            android:layout_width="360dp"
+        <TextView
+            android:id="@+id/text_number_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_4"
+            android:elevation="1dp"
+            android:text="1"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/card_first_answer"
+            app:layout_constraintStart_toStartOf="@+id/card_first_answer"
+            app:layout_constraintTop_toTopOf="@+id/card_first_answer" />
+<!--        cardSecondAnswer-->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_second_answer"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="8dp"
-            app:cardCornerRadius="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/cardFirstAnswer"
-            app:layout_constraintStart_toStartOf="@+id/cardFirstAnswer"
-            app:layout_constraintTop_toBottomOf="@+id/cardFirstAnswer"
-            app:strokeColor="@color/black"
-            app:strokeWidth="5dp">
-            <TextView
-                android:id="@+id/textSecondAnswer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity=""
-                android:gravity="center_horizontal"
-                android:layout_marginTop="16dp"
-                android:paddingStart="24dp"
-                android:text="Lable2" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                android:paddingStart="8dp"
-                android:text="2"/>
-        </androidx.cardview.widget.CardView>
+            app:strokeWidth="1dp"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="@dimen/corner_radius_8"
+            app:strokeColor="@color/cardview_dark_background"
+            app:layout_constraintEnd_toEndOf="@+id/card_first_answer"
+            app:layout_constraintStart_toStartOf="@+id/card_first_answer"
+            app:layout_constraintTop_toBottomOf="@+id/card_first_answer"
+            />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardThirdAnswer"
-            android:layout_width="360dp"
+        <TextView
+            android:id="@+id/text_second_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity=""
+            android:elevation="1dp"
+            android:gravity="center_horizontal"
+            android:layout_marginStart="@dimen/margin_4"
+            android:text="Label2"
+            app:layout_constraintBottom_toBottomOf="@+id/text_number_2"
+            app:layout_constraintStart_toEndOf="@+id/text_number_2"
+            app:layout_constraintTop_toTopOf="@+id/text_number_2" />
+
+        <TextView
+            android:id="@+id/text_number_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="1dp"
+            android:text="2"
+            android:textStyle="bold"
+            android:layout_marginStart="@dimen/margin_4"
+            app:layout_constraintBottom_toBottomOf="@+id/card_second_answer"
+            app:layout_constraintStart_toStartOf="@+id/card_second_answer"
+            app:layout_constraintTop_toTopOf="@+id/card_second_answer" />
+<!--        cardThirdAnswer-->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_third_answer"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:cardCornerRadius="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/cardSecondAnswer"
-            app:layout_constraintStart_toStartOf="@+id/cardSecondAnswer"
-            app:layout_constraintTop_toBottomOf="@+id/cardSecondAnswer"
-            app:strokeColor="@color/black"
-            app:strokeWidth="5dp">
-            <TextView
-                android:id="@+id/textThirdAnswer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity=""
-                android:gravity="center_horizontal"
-                android:layout_marginTop="16dp"
-                android:paddingStart="24dp"
-                android:text="Lable3" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                android:paddingStart="8dp"
-                android:text="3"/>
-        </androidx.cardview.widget.CardView>
+            app:strokeWidth="1dp"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="@dimen/corner_radius_8"
+            app:strokeColor="@color/cardview_dark_background"
+            app:layout_constraintEnd_toEndOf="@+id/card_second_answer"
+            app:layout_constraintStart_toStartOf="@+id/card_second_answer"
+            app:layout_constraintTop_toBottomOf="@+id/card_second_answer"
+            />
+        <TextView
+            android:id="@+id/text_third_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity=""
+            android:elevation="1dp"
+            android:gravity="center_horizontal"
+            android:layout_marginStart="@dimen/margin_4"
+            android:text="Label3"
+            app:layout_constraintBottom_toBottomOf="@+id/text_number_3"
+            app:layout_constraintStart_toEndOf="@+id/text_number_3"
+            app:layout_constraintTop_toTopOf="@+id/text_number_3" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardFourthAnswer"
-            android:layout_width="360dp"
+        <TextView
+            android:id="@+id/text_number_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="1dp"
+            android:text="3"
+            android:textStyle="bold"
+            android:layout_marginStart="@dimen/margin_4"
+            app:layout_constraintBottom_toBottomOf="@+id/card_third_answer"
+            app:layout_constraintStart_toStartOf="@+id/card_third_answer"
+            app:layout_constraintTop_toTopOf="@+id/card_third_answer" />
+
+
+<!--        cardFourthAnswer-->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_fourth_answer"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:cardCornerRadius="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/cardThirdAnswer"
-            app:layout_constraintStart_toStartOf="@+id/cardThirdAnswer"
-            app:layout_constraintTop_toBottomOf="@+id/cardThirdAnswer"
-            app:strokeColor="@color/black"
-            app:strokeWidth="5dp">
-            <TextView
-                android:id="@+id/textFourthAnswer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity=""
-                android:gravity="center_horizontal"
-                android:layout_marginTop="16dp"
-                android:paddingStart="24dp"
-                android:text="Lable4" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                android:paddingStart="8dp"
-                android:text="4"/>
-        </androidx.cardview.widget.CardView>
+            app:strokeWidth="1dp"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="@dimen/corner_radius_8"
+            app:strokeColor="@color/cardview_dark_background"
+            app:layout_constraintEnd_toEndOf="@+id/card_third_answer"
+            app:layout_constraintStart_toStartOf="@+id/card_third_answer"
+            app:layout_constraintTop_toBottomOf="@+id/card_third_answer"
+            />
+        <TextView
+            android:id="@+id/text_fourth_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity=""
+            android:elevation="1dp"
+            android:gravity="center_horizontal"
+            android:layout_marginStart="@dimen/margin_4"
+            android:text="Label3"
+            app:layout_constraintBottom_toBottomOf="@+id/text_number_4"
+            app:layout_constraintStart_toEndOf="@+id/text_number_4"
+            app:layout_constraintTop_toTopOf="@+id/text_number_4" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/buttonSubmit"
-            android:layout_width="112dp"
-            android:layout_height="40dp"
-            app:cardCornerRadius="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/cardFourthAnswer"
-            app:layout_constraintTop_toBottomOf="@+id/cardFourthAnswer"
-            app:strokeColor="@color/black"
-            app:strokeWidth="5dp">
-            <TextView
+        <TextView
+            android:id="@+id/text_number_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="1dp"
+            android:text="4"
+            android:textStyle="bold"
+            android:layout_marginStart="@dimen/margin_4"
+            app:layout_constraintBottom_toBottomOf="@+id/card_fourth_answer"
+            app:layout_constraintStart_toStartOf="@+id/card_fourth_answer"
+            app:layout_constraintTop_toTopOf="@+id/card_fourth_answer" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_submit"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="#007CC5"
-                android:text="Submit"
-                android:drawableStart="@drawable/ic_arrow_right"
-                />
-        </androidx.cardview.widget.CardView>
+                android:textSize="@dimen/text_size_16"
+                android:text="@string/text_submit"
+                app:cornerRadius="8dp"
+                app:iconGravity="start"
+                app:strokeColor="@color/black"
+                app:icon="@drawable/ic_arrow_right"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/card_fourth_answer"
+                app:layout_constraintTop_toBottomOf="@+id/card_fourth_answer"
+                 />
 
 
 
