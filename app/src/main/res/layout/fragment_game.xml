@@ -23,12 +23,12 @@
             android:layout_marginEnd="16dp"
             android:progress="25"
             android:progressBackgroundTint="#D1E4FC"
-            app:layout_constraintEnd_toStartOf="@+id/tex_timer"
+            app:layout_constraintEnd_toStartOf="@+id/text_timer"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tex_timer"
+            android:id="@+id/text_timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -38,56 +38,52 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/timer_progress_bar" />
 
-        <com.google.android.material.imageview.ShapeableImageView
+        <Button
             android:id="@+id/phone_button"
+            style="@style/Widget.Material3.Button.Icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="48dp"
-            android:background="@color/blue_200"
             android:onClick="@{() -> gameViewModel.helpByFriends()}"
-            android:scaleType="center"
-            android:src="@drawable/ic_phone"
             app:disableButton="@{gameViewModel.isHelpByFriends()}"
+            app:icon="@drawable/ic_phone"
             app:layout_constraintEnd_toEndOf="@+id/card_view"
-            app:layout_constraintTop_toBottomOf="@+id/timer_progress_bar"
-            app:shapeAppearanceOverlay="@style/HelpButtonShapeable" />
+            app:layout_constraintTop_toBottomOf="@+id/timer_progress_bar" />
 
-        <com.google.android.material.imageview.ShapeableImageView
+        <Button
             android:id="@+id/delete_half_answer_button"
+            style="@style/Widget.Material3.Button.Icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@color/blue_200"
             android:onClick="@{() -> gameViewModel.deleteHalfOfAnswers()}"
-            android:scaleType="center"
-            android:src="@drawable/ic_fifty_fifty"
             app:disableButton="@{gameViewModel.isDeleteHalfOfAnswers()}"
+            app:icon="@drawable/ic_fifty_fifty"
             app:layout_constraintBottom_toBottomOf="@+id/phone_button"
             app:layout_constraintEnd_toStartOf="@+id/phone_button"
             app:layout_constraintStart_toEndOf="@+id/change_question_button"
-            app:layout_constraintTop_toTopOf="@+id/phone_button"
-            app:shapeAppearanceOverlay="@style/HelpButtonShapeable" />
+            app:layout_constraintTop_toTopOf="@+id/phone_button" />
 
-        <com.google.android.material.imageview.ShapeableImageView
+        <Button
             android:id="@+id/change_question_button"
+            style="@style/Widget.Material3.Button.Icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="48dp"
-            android:background="@color/blue_200"
             android:onClick="@{() -> gameViewModel.changeQuestion()}"
-            android:scaleType="center"
-            android:src="@drawable/ic_repeat"
             app:disableButton="@{gameViewModel.isChangeQuestion()}"
+            app:icon="@drawable/ic_repeat"
             app:layout_constraintStart_toStartOf="@+id/card_view"
-            app:layout_constraintTop_toTopOf="@+id/delete_half_answer_button"
-            app:shapeAppearanceOverlay="@style/HelpButtonShapeable" />
+            app:layout_constraintTop_toTopOf="@+id/delete_half_answer_button" />
 
-        <View
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_view"
+            style="?attr/materialCardViewStyle"
             android:layout_width="0dp"
             android:layout_height="215dp"
             android:layout_marginTop="32dp"
-            android:background="@drawable/question_card_shape"
+            app:cardBackgroundColor="@color/blue_700"
+            app:cardCornerRadius="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/delete_half_answer_button" />
@@ -122,12 +118,14 @@
             app:layout_constraintTop_toBottomOf="@+id/text_question_number"
             app:layout_constraintVertical_bias="0.25" />
 
-        <View
+        <Button
             android:id="@+id/item_one2"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/raw_unselected_answers_shape"
+            app:cornerRadius="8dp"
+            app:strokeColor="@color/black"
             app:layout_constraintEnd_toEndOf="@+id/card_view"
             app:layout_constraintStart_toStartOf="@+id/card_view"
             app:layout_constraintTop_toBottomOf="@+id/card_view" />
@@ -156,12 +154,14 @@
             app:layout_constraintStart_toEndOf="@+id/index_one"
             app:layout_constraintTop_toTopOf="@+id/index_one" />
 
-        <View
+        <Button
             android:id="@+id/item_two"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/raw_unselected_answers_shape"
+            app:cornerRadius="8dp"
+            app:strokeColor="@color/black"
             app:layout_constraintEnd_toEndOf="@+id/item_one2"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/item_one2"
@@ -191,12 +191,14 @@
             app:layout_constraintStart_toEndOf="@+id/index_two"
             app:layout_constraintTop_toTopOf="@+id/index_two" />
 
-        <View
+        <Button
             android:id="@+id/item_three"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/raw_unselected_answers_shape"
+            app:cornerRadius="8dp"
+            app:strokeColor="@color/black"
             app:layout_constraintEnd_toEndOf="@+id/item_two"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/item_two"
@@ -226,12 +228,14 @@
             app:layout_constraintStart_toEndOf="@+id/index_three"
             app:layout_constraintTop_toTopOf="@+id/index_three" />
 
-        <View
+        <Button
             android:id="@+id/item_four"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/raw_unselected_answers_shape"
+            app:cornerRadius="8dp"
+            app:strokeColor="@color/black"
             app:layout_constraintEnd_toEndOf="@+id/card_view"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/item_three"
@@ -261,31 +265,22 @@
             app:layout_constraintStart_toEndOf="@+id/index_four"
             app:layout_constraintTop_toTopOf="@+id/index_four" />
 
-        <View
+        <Button
             android:id="@+id/submit_button"
             android:layout_width="112dp"
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/submit_button_shape"
+            android:text="@string/submit"
+            android:textColor="@color/blue_700"
+            app:cornerRadius="8dp"
+            app:strokeColor="@color/black"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:drawableStart="@drawable/ic_arrow_right"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/item_four" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/submit"
-            android:textColor="#007CC5"
-            app:drawableEndCompat="@drawable/ic_arrow_right"
-            app:layout_constraintBottom_toBottomOf="@+id/submit_button"
-            app:layout_constraintEnd_toEndOf="@+id/submit_button"
-            app:layout_constraintHorizontal_bias="0.65"
-            app:layout_constraintStart_toStartOf="@+id/submit_button"
-            app:layout_constraintTop_toTopOf="@+id/submit_button" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
