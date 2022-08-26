@@ -51,8 +51,10 @@ class GameViewModel : ViewModel() {
 
     }
 
-    fun getNextQuestion(){
-        _questionsLevelLiveData.postValue(questionLogic.updateQuestion())
+    fun getNextQuestion() {
+        if (questionLogic.isGameDone()) {
+            _questionsLevelLiveData.postValue(questionLogic.updateQuestion())
+        }
     }
 }
 
