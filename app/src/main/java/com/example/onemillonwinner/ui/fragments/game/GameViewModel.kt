@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.data.enum.QuestionLevel
+import com.example.onemillonwinner.data.questionResponse.Question
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.network.Repository
 
@@ -17,8 +18,8 @@ class GameViewModel : ViewModel() {
     val state: LiveData<State<TriviaResponse>>
         get() = _questionsStateLiveData
 
-    private val _questionsLevelLiveData = MutableLiveData<QuestionModel>()
-    val questions: LiveData<QuestionModel>
+    private val _questionsLevelLiveData = MutableLiveData<Question>()
+    val questions: LiveData<Question>
         get() = _questionsLevelLiveData
 
     init {
