@@ -6,7 +6,7 @@ import androidx.databinding.BindingAdapter
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.data.enum.SelectAnswer
 
-@BindingAdapter(value = ["disableButton"])
+@BindingAdapter(value = ["app:disableButton"])
 fun disableButton(view: View, value: Boolean?) {
     if (value == true) {
         view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.red_200))
@@ -16,7 +16,7 @@ fun disableButton(view: View, value: Boolean?) {
     }
 }
 
-@BindingAdapter(value = ["rawAnswersColor"])
+@BindingAdapter(value = ["app:rawAnswersColor"])
 fun rawAnswersColor(view: View, selectedAnswer: SelectAnswer?) {
     when (selectedAnswer) {
         SelectAnswer.UNSELECTED_ANSWER -> view.background = ContextCompat
