@@ -13,11 +13,12 @@ class QuestionLogic {
     }
 
     fun updateQuestion(): Question {
+        questions.first().questionNumber = MAX_NUMBER_OF_QUESTIONS - questions.lastIndex
+        val currentQuestion = questions.first()
         questions.removeAt(0)
-        questions.first().questionNumber = MAX_NUMBER_OF_QUESTIONS - questions.count()
-        return questions.first()
+        return currentQuestion
     }
 
-    fun isGameDone() = questions.size == 0
+    fun isGameDone() = questions.isEmpty()
 
 }
