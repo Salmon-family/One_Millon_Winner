@@ -90,7 +90,7 @@
             android:id="@+id/cardView"
             android:layout_width="380dp"
             android:layout_height="215dp"
-            app:cardBackgroundColor="#007CC5"
+            app:cardBackgroundColor="@color/primary_color"
             app:cardCornerRadius="8dp"
             android:layout_marginTop="32dp"
             app:layout_constraintEnd_toEndOf="parent"
