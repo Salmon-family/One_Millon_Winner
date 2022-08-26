@@ -24,7 +24,6 @@ class GameViewModel : ViewModel() {
 
     init {
         _questionsStateLiveData.postValue(State.Loading)
-
         repository.getQuestion(15, QuestionLevel.EASY)
             .subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion)
     }
@@ -52,7 +51,7 @@ class GameViewModel : ViewModel() {
     }
 
     fun getNextQuestion() {
-        if (questionLogic.isGameDone()) {
+        if (!questionLogic.isGameDone()) {
             _questionsLevelLiveData.postValue(questionLogic.updateQuestion())
         }
     }
