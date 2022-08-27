@@ -20,7 +20,7 @@
             android:layout_width="327dp"
             android:layout_height="12dp"
             android:progress="25"
-            app:timerProgressBar="@{10000L}"
+            app:timerProgressBar="@{gameViewModel.QUESTION_TIME_IN_MILLISECOND}"
             android:layout_marginTop="24dp"
             android:progressBackgroundTint="#D1E4FC"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="01:30"
-            app:timerText="@{10000L}"
+            app:timerText="@{gameViewModel.QUESTION_TIME_IN_MILLISECOND}"
             android:textColor="#007CC5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/progressBar" />

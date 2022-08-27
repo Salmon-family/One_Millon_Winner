@@ -16,6 +16,10 @@ class GameViewModel : ViewModel() {
     val questions: LiveData<State<TriviaResponse>>
         get() = _questionsLiveData
 
+    private val _isQuestionTimeOver = MutableLiveData(false)
+    val questionTime: LiveData<Boolean>
+        get() = _isQuestionTimeOver
+
     fun getTriviaQuestions() {
         _questionsLiveData.postValue(State.Loading)
 
@@ -27,6 +31,14 @@ class GameViewModel : ViewModel() {
                 Log.v("testApi", it.message.toString())
             }
         )
+    }
+
+    fun questionTimeIsOver(){
+        _isQuestionTimeOver.value = true
+    }
+
+    companion object {
+        const val QUESTION_TIME_IN_MILLISECOND: Long = 10000
     }
 
 }

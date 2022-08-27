@@ -4,7 +4,7 @@ import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.os.CountDownTimer
-import android.view.View
+import android.util.Log
 import android.view.animation.DecelerateInterpolator
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -13,20 +13,28 @@ import androidx.databinding.BindingAdapter
 @SuppressLint("ObjectAnimatorBinding")
 @BindingAdapter(value = ["app:timerProgressBar"])
 fun timerProgressBar(progressBar: ProgressBar, timeMillisecond: Long) {
+    val viewModel = GameViewModel()
+
     val animation = ObjectAnimator.ofInt(progressBar, "progress", 100, 0)
     animation.duration = timeMillisecond
     animation.interpolator = DecelerateInterpolator()
     animation.addListener(object : Animator.AnimatorListener {
 
-        override fun onAnimationStart(animator: Animator) {}
-
-        override fun onAnimationEnd(animator: Animator) {
-            //do something when the countdown is complete
+        override fun onAnimationStart(animator: Animator) {
+            Log.i("questionTimeIsOver", viewModel.questionTime.value.toString())
         }
 
-        override fun onAnimationCancel(animator: Animator) {}
+        override fun onAnimationEnd(animator: Animator) {
+            viewModel.questionTimeIsOver()
+            Log.i("questionTimeIsOver", viewModel.questionTime.value.toString())
+        }
 
-        override fun onAnimationRepeat(animator: Animator) {}
+        override fun onAnimationCancel(animator: Animator) {
+        }
+
+        override fun onAnimationRepeat(animator: Animator) {
+
+        }
     })
     animation.start()
 }
