@@ -13,8 +13,7 @@ class GameQuestionList {
         questions.addAll(newQuestions)
     }
 
-    private fun getQuestionNumber() = MAX_NUMBER_OF_QUESTIONS - questions.size + 1
-
+    private fun getQuestionNumber() = MAX_NUMBER_OF_QUESTIONS - questions.indices.last
 
     fun updateQuestion(): GameQuestion {
         val currentQuestion = GameQuestion()

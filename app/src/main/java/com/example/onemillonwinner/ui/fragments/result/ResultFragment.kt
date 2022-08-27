@@ -9,7 +9,6 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
 
 
     override fun setup() {
-        TODO("Not yet implemented")
     }
 
     override val layoutIdFragment = R.layout.fragment_result

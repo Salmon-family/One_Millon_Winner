@@ -1,7 +1,10 @@
 package com.example.onemillonwinner.ui.fragments.game
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.onemillonwinner.R
+import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.databinding.FragmentGameBinding
 import com.example.onemillonwinner.ui.base.BaseFragment
 
@@ -11,6 +14,20 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
 
     override fun setup() {
         binding.gameViewModel = gameViewModel
+
+        observeOnGameDone()
+    }
+
+    private fun observeOnGameDone() {
+        gameViewModel.state.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                if (it is State.Complete) {
+                    findNavController().navigate(
+                        GameFragmentDirections.actionGameFragmentToResultFragment()
+                    )
+                }
+            }
+        })
     }
 
     override val layoutIdFragment = R.layout.fragment_game
