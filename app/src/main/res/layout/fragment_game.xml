@@ -27,6 +27,7 @@
                 android:layout_marginEnd="16dp"
                 android:progress="25"
                 android:progressBackgroundTint="#D1E4FC"
+                app:isSuccess="@{gameViewModel.state}"
                 app:layout_constraintEnd_toStartOf="@+id/tex_timer"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -47,13 +48,14 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="32dp"
-                android:layout_marginEnd="48dp"
                 android:background="@color/blue_200"
                 android:onClick="@{() -> gameViewModel.helpByFriends()}"
                 android:scaleType="center"
                 android:src="@drawable/ic_phone"
                 app:disableButton="@{gameViewModel.isHelpByFriends()}"
-                app:layout_constraintEnd_toEndOf="@+id/card_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/delete_half_answer_button"
                 app:layout_constraintTop_toBottomOf="@+id/timer_progress_bar"
                 app:shapeAppearanceOverlay="@style/HelpButtonShapeable" />
 
@@ -68,21 +70,24 @@
                 app:disableButton="@{gameViewModel.isDeleteHalfOfAnswers()}"
                 app:layout_constraintBottom_toBottomOf="@+id/phone_button"
                 app:layout_constraintEnd_toStartOf="@+id/phone_button"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/change_question_button"
                 app:layout_constraintTop_toTopOf="@+id/phone_button"
+                app:layout_constraintVertical_bias="0.0"
                 app:shapeAppearanceOverlay="@style/HelpButtonShapeable" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/change_question_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_marginStart="48dp"
                 android:background="@color/blue_200"
                 android:onClick="@{() -> gameViewModel.changeQuestion()}"
                 android:scaleType="center"
                 android:src="@drawable/ic_repeat"
                 app:disableButton="@{gameViewModel.isChangeQuestion()}"
-                app:layout_constraintStart_toStartOf="@+id/card_view"
+                app:layout_constraintEnd_toStartOf="@+id/delete_half_answer_button"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/delete_half_answer_button"
                 app:shapeAppearanceOverlay="@style/HelpButtonShapeable" />
 
@@ -279,6 +284,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/item_four" />
 
             <TextView
+                android:id="@+id/text_submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -292,19 +298,35 @@
                 app:layout_constraintTop_toTopOf="@+id/submit_button" />
 
             <ProgressBar
-                isLoadingProgress="@{gameViewModel.state}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:isLoading="@{gameViewModel.state}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.Group
-                isLoadingView="@{gameViewModel.state}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:constraint_referenced_ids="card_view" />
+                app:isSuccess="@{gameViewModel.state}"
+                app:constraint_referenced_ids="card_view,
+                 timer_progress_bar,
+                 tex_timer,
+                 change_question_button,
+                 delete_half_answer_button,
+                 phone_button,
+                 item_one2,
+                 item_two,
+                 item_three,
+                 item_four,
+                 submit_button,
+                 text_submit,
+                 index_one,
+                 index_two,
+                 index_three,
+                 index_four "
+                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
