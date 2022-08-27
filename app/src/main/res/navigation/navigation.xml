@@ -26,5 +26,9 @@
         android:id="@+id/resultFragment"
         android:name="com.example.onemillonwinner.ui.fragments.result.ResultFragment"
         android:label="ResultFragment"
-        tools:layout="@layout/fragment_result"/>
+        tools:layout="@layout/fragment_result">
+        <argument
+            android:name="score"
+            app:argType="integer" />
+    </fragment>
 </navigation>

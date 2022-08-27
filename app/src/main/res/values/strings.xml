@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">One Millon Winner</string>
     <string name="submit">Submit</string>
+    <string name="latest_score">You\'re score is: %s</string>
+    <string name="highest_score">You\'re highest score is: %s</string>
 </resources>
