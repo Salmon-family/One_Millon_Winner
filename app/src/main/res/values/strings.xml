@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">One Millon Winner</string>
     <string name="question_number">Question %s of 15</string>
+    <string name="submit">Submit</string>
 </resources>
