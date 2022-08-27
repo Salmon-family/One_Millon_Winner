@@ -2,7 +2,7 @@ package com.example.onemillonwinner.network
 
 import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
-import com.example.onemillonwinner.data.enum.QuestionLevel
+import com.example.onemillonwinner.util.enum.QuestionLevel
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.Response

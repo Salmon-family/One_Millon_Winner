@@ -4,7 +4,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.example.onemillonwinner.R
-import com.example.onemillonwinner.data.enum.SelectAnswer
+import com.example.onemillonwinner.util.enum.SelectAnswer
 
 @BindingAdapter(value = ["app:disableButton"])
 fun disableButton(view: View, value: Boolean?) {

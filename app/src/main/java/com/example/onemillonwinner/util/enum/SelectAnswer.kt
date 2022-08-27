@@ -1,4 +1,4 @@
-package com.example.onemillonwinner.data.enum
+package com.example.onemillonwinner.util.enum
 
 enum class SelectAnswer {
     UNSELECTED_ANSWER,

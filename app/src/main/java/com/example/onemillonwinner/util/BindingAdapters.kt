@@ -18,7 +18,7 @@ fun bindViewVisibilityProgressBar(view: ProgressBar, state: State<TriviaResponse
 @BindingAdapter("isLoadingView")
 fun bindViewVisibilityView(view: View, state: State<TriviaResponse>?) {
     if (state != null && state is State.Loading) {
-        view.visibility = View.GONE
+        view.visibility = View.INVISIBLE
     } else {
         view.visibility = View.VISIBLE
     }

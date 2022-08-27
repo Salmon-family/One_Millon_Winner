@@ -9,20 +9,20 @@ import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.network.Repository
 
 class GameViewModel : ViewModel() {
-    private val repository = Repository()
+
     var isChangeQuestion = MutableLiveData(false)
     var isDeleteHalfOfAnswers = MutableLiveData(false)
     var isHelpByFriends = MutableLiveData(false)
 
-    private val questionLogic: QuestionLogic by lazy { QuestionLogic() }
+    private val questionLogic: GameQuestionList by lazy { GameQuestionList() }
     private val repository: Repository by lazy { Repository() }
 
     private val _gameStateLiveData = MutableLiveData<State<TriviaResponse>>()
     val state: LiveData<State<TriviaResponse>>
         get() = _gameStateLiveData
 
-    private val _questionLiveData = MutableLiveData<Question>()
-    val question: LiveData<Question>
+    private val _questionLiveData = MutableLiveData<GameQuestion>()
+    val question: LiveData<GameQuestion>
         get() = _questionLiveData
 
     init {
@@ -47,15 +47,16 @@ class GameViewModel : ViewModel() {
             _questionLiveData.postValue(questionLogic.updateQuestion())
         }
     }
-    fun changeQuestion(){
+
+    fun changeQuestion() {
         isChangeQuestion.value = true
     }
 
-    fun deleteHalfOfAnswers(){
+    fun deleteHalfOfAnswers() {
         isDeleteHalfOfAnswers.value = true
     }
 
-    fun helpByFriends(){
+    fun helpByFriends() {
         isHelpByFriends.value = true
     }
 

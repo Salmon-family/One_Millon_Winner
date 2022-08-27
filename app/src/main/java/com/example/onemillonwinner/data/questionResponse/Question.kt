@@ -10,7 +10,5 @@ data class Question(
     @SerializedName("question")
     val question: String?,
     @SerializedName("difficulty")
-    val difficulty: String?,
-    @SerializedName("question_number")
-    var questionNumber: Int
+    val difficulty: String?
 )

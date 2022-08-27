@@ -3,10 +3,9 @@ package com.example.onemillonwinner.ui.fragments.game
 import com.example.onemillonwinner.data.questionResponse.Question
 import com.example.onemillonwinner.util.Constants.MAX_NUMBER_OF_QUESTIONS
 import java.util.*
-import kotlin.collections.ArrayDeque
 
 
-class QuestionLogic {
+class GameQuestionList {
 
     private val questions: Queue<Question> = LinkedList()
 
@@ -14,13 +13,13 @@ class QuestionLogic {
         questions.addAll(newQuestions)
     }
 
-    private fun updateQuestionNumber() {
-        questions.first().questionNumber = MAX_NUMBER_OF_QUESTIONS - questions.size + 1
-    }
+    private fun getQuestionNumber() = MAX_NUMBER_OF_QUESTIONS - questions.size + 1
 
-    fun updateQuestion(): Question {
-        val currentQuestion = questions.first()
-        updateQuestionNumber()
+
+    fun updateQuestion(): GameQuestion {
+        val currentQuestion = GameQuestion()
+        currentQuestion.setQuestion(questions.first())
+        currentQuestion.setQuestionNumber(getQuestionNumber())
         questions.poll()
         return currentQuestion
     }
