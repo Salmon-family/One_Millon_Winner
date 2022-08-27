@@ -17,8 +17,4 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
     override fun setup() {
         binding.gameViewModel = gameViewModel
     }
-    fun endTheGame() {
-        Navigation.findNavController(binding.root)
-            .navigate(GameFragmentDirections.actionGameFragmentToResultFragment())
-    }
 }
