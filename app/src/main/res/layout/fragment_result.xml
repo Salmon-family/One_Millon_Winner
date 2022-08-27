@@ -8,16 +8,109 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Result Fragment"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_congratulation"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.7"
+            app:layout_constraintHeight_percent="0.4"
+            android:layout_marginTop="16dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/lottie_congratulation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:text="@string/text_result"
+            android:textAlignment="center"
+            android:textColor="#373B3F"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="b"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lottie_congratulation" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_congratulation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/text_congratulation"
+            android:textAlignment="center"
+            android:textColor="#373B3F"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_result" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_my_result_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/text_my_result_number"
+            android:gravity="end"
+            android:textSize="24sp"
+            android:textColor="#373B3F"
+            app:layout_constraintBottom_toBottomOf="@+id/text_number_question"
+            app:layout_constraintEnd_toStartOf="@+id/text_number_question"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/text_number_question" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_number_question"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:textSize="24sp"
+            android:gravity="start"
+            android:textColor="#373B3F"
+            android:text="  /  10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/text_my_result_number"
+            app:layout_constraintTop_toBottomOf="@id/text_congratulation"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_play_again"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.9"
+            android:layout_marginTop="32dp"
+            android:text="@string/button_play_again"
+            android:textSize="18sp"
+            app:cornerRadius="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/text_back_home"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_number_question"
+            app:layout_constraintVertical_bias="0.457"
+          />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_back_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_back_to_home"
+            android:layout_marginBottom="16dp"
+            android:textSize="18sp"
+            android:textColor="#373B3F"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
