@@ -9,7 +9,7 @@ import retrofit2.Response
 
 class Repository {
 
-    fun getAllQuestions(): Maybe<State<TriviaResponse>> {
+    fun getAllQuestions(): Observable<State<TriviaResponse>> {
         return wrapperWithState {
             Observable.fromIterable(QuestionLevel.values().asList())
                 .flatMapSingle {
@@ -17,7 +17,7 @@ class Repository {
                 }
                 .reduce { x, y ->
                     combineResult(x, y)
-                }
+                }.toObservable()
         }
     }
 
@@ -31,7 +31,7 @@ class Repository {
         return firstResponse
     }
 
-    private fun <T> wrapperWithState(function: () -> Maybe<Response<T>>): Maybe<State<T>> {
+    private fun <T> wrapperWithState(function: () -> Observable<Response<T>>): Observable<State<T>> {
         return function().map {
             if (it.isSuccessful) {
                 State.Success(it.body())

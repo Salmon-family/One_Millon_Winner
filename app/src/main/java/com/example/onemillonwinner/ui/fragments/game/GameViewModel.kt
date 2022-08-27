@@ -16,21 +16,21 @@ class GameViewModel : ViewModel() {
     private val questionLogic: GameQuestionList by lazy { GameQuestionList() }
     private val repository: Repository by lazy { Repository() }
 
-    private val _gameStateLiveData = MutableLiveData<State<TriviaResponse>>()
+    private val _gameState = MutableLiveData<State<TriviaResponse>>()
     val state: LiveData<State<TriviaResponse>>
-        get() = _gameStateLiveData
+        get() = _gameState
 
-    private val _questionLiveData = MutableLiveData<GameQuestion>()
+    private val _question = MutableLiveData<GameQuestion>()
     val question: LiveData<GameQuestion>
-        get() = _questionLiveData
+        get() = _question
 
     init {
-        _gameStateLiveData.postValue(State.Loading)
+        _gameState.postValue(State.Loading)
         repository.getAllQuestions().subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion)
     }
 
     private fun onSuccessUpdateQuestion(state: State<TriviaResponse>) {
-        _gameStateLiveData.postValue(state)
+        _gameState.postValue(state)
         state.toData()?.let {
             questionLogic.setQuestions(it.questions)
             getNextQuestion()
@@ -43,9 +43,9 @@ class GameViewModel : ViewModel() {
 
     fun getNextQuestion() {
         if (!questionLogic.isGameDone()) {
-            _questionLiveData.postValue(questionLogic.updateQuestion())
+            _question.postValue(questionLogic.updateQuestion())
         }else{
-            _gameStateLiveData.postValue(State.Complete)
+            _gameState.postValue(State.Complete)
         }
     }
 
