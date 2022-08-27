@@ -14,9 +14,13 @@ class QuestionLogic {
         questions.addAll(newQuestions)
     }
 
-    fun updateQuestion(): Question {
+    private fun updateQuestionNumber() {
         questions.first().questionNumber = MAX_NUMBER_OF_QUESTIONS - questions.size + 1
+    }
+
+    fun updateQuestion(): Question {
         val currentQuestion = questions.first()
+        updateQuestionNumber()
         questions.poll()
         return currentQuestion
     }
