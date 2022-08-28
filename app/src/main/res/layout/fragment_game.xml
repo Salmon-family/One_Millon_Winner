@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -25,6 +26,7 @@
             android:progressBackgroundTint="#D1E4FC"
             app:layout_constraintEnd_toStartOf="@+id/text_timer"
             app:layout_constraintHeight_percent="0.015"
+            app:layout_constraintWidth_percent="0.8"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,11 +34,11 @@
             android:id="@+id/text_timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="01:30"
+            android:text="@string/_01_30"
             android:textColor="#007CC5"
             app:layout_constraintBottom_toBottomOf="@+id/timer_progress_bar"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/timer_progress_bar"
             app:layout_constraintTop_toTopOf="@+id/timer_progress_bar" />
 
         <com.google.android.material.button.MaterialButton
@@ -66,15 +68,18 @@
             app:layout_constraintStart_toEndOf="@+id/change_question_button"
             app:layout_constraintTop_toTopOf="@+id/phone_button" />
 
-        <ImageView
+        <TextView
             android:id="@+id/image_fifty_fifty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_fifty_fifty"
+            android:text="@string/_50_50"
+            android:textSize="12sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/delete_half_answer_button"
             app:layout_constraintEnd_toEndOf="@+id/delete_half_answer_button"
             app:layout_constraintStart_toStartOf="@+id/delete_half_answer_button"
-            app:layout_constraintTop_toTopOf="@+id/delete_half_answer_button" />
+            app:layout_constraintTop_toTopOf="@+id/delete_half_answer_button"
+            tools:ignore="ContentDescription" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/change_question_button"
@@ -91,7 +96,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_view"
-            style="?attr/materialCardViewStyle"
+            style="@style/Widget.Material3.CardView.Filled"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin_large"
@@ -109,20 +114,19 @@
             android:layout_marginStart="@dimen/margin_large"
             android:layout_marginTop="@dimen/margin_large"
             android:elevation="8dp"
-            android:paddingStart="@dimen/corner_radius_small"
             android:paddingTop="@dimen/corner_radius_small"
             android:text="@{@string/question_number(gameViewModel.question.questionNumber)}"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@+id/card_view"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/card_view"
-            app:layout_constraintTop_toTopOf="@+id/card_view" />
+            app:layout_constraintTop_toTopOf="@+id/card_view"
+            tools:text="question 1 of 15"/>
 
         <TextView
             android:id="@+id/text_question"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginEnd="@dimen/margin_medium"
             android:text="@{gameViewModel.question.question}"
             android:textColor="@color/white"
@@ -150,7 +154,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_medium"
-            android:text="1"
+            android:text="@string/_1"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/item_one"
             app:layout_constraintStart_toStartOf="@+id/item_one"
@@ -161,10 +165,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_medium"
-            android:gravity="center_horizontal"
             android:text="@{gameViewModel.question.answers[0]}"
             app:layout_constraintBottom_toBottomOf="@+id/index_one"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/item_one"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/index_one"
             app:layout_constraintTop_toTopOf="@+id/index_one" />
@@ -178,7 +181,6 @@
             app:cornerRadius="@dimen/corner_radius_small"
             app:layout_constraintEnd_toEndOf="@+id/item_one"
             app:layout_constraintHeight_percent="0.075"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/item_one"
             app:layout_constraintTop_toBottomOf="@+id/item_one"
             app:strokeColor="@color/gray_700" />
@@ -188,7 +190,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_medium"
-            android:text="2"
+            android:text="@string/_2"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/item_two"
             app:layout_constraintStart_toStartOf="@+id/item_two"
@@ -199,10 +201,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_medium"
-            android:gravity="center_horizontal"
             android:text="@{gameViewModel.question.answers[1]}"
             app:layout_constraintBottom_toBottomOf="@+id/index_two"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/item_two"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/index_two"
             app:layout_constraintTop_toTopOf="@+id/index_two" />
@@ -216,7 +217,6 @@
             app:cornerRadius="@dimen/corner_radius_small"
             app:layout_constraintEnd_toEndOf="@+id/item_two"
             app:layout_constraintHeight_percent="0.075"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/item_two"
             app:layout_constraintTop_toBottomOf="@+id/item_two"
             app:strokeColor="@color/gray_700" />
@@ -226,7 +226,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_medium"
-            android:text="3"
+            android:text="@string/_3"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/item_three"
             app:layout_constraintStart_toStartOf="@+id/item_three"
@@ -237,10 +237,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_medium"
-            android:gravity="center_horizontal"
             android:text="@{gameViewModel.question.answers[2]}"
             app:layout_constraintBottom_toBottomOf="@+id/index_three"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/item_three"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/index_three"
             app:layout_constraintTop_toTopOf="@+id/index_three" />
@@ -264,7 +263,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_medium"
-            android:text="4"
+            android:text="@string/_4"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/item_four"
             app:layout_constraintStart_toStartOf="@+id/item_four"
@@ -275,33 +274,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_medium"
-            android:gravity="center_horizontal"
             android:text="@{gameViewModel.question.answers[3]}"
             app:layout_constraintBottom_toBottomOf="@+id/index_four"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/item_four"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/index_four"
             app:layout_constraintTop_toTopOf="@+id/index_four" />
 
         <Button
             android:id="@+id/submit_button"
-            style="@style/Widget.Material3.Button.OutlinedButton"
+            style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium"
+            android:backgroundTint="@color/blue_700"
             android:drawableEnd="@drawable/ic_arrow_right"
-            android:drawableTint="@color/gray_700"
-            android:paddingEnd="@dimen/corner_radius_small"
             android:text="@string/submit"
-            android:textColor="@color/blue_700"
+            android:textColor="@color/white"
             android:textSize="12sp"
             app:cornerRadius="@dimen/corner_radius_small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item_four"
-            app:strokeColor="@color/gray_700" />
+            app:layout_constraintTop_toBottomOf="@+id/item_four" />
 
         <ProgressBar
             android:layout_width="wrap_content"
