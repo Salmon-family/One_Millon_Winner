@@ -12,6 +12,7 @@ class GameQuestion {
     fun setQuestion(question: Question) {
         questionDescription = question.question ?: ""
         answers.clear()
+        selectedAnswerIndex = -1
         question.incorrectAnswers?.let { incorrectAnswers ->
             answers.addAll(incorrectAnswers)
         }

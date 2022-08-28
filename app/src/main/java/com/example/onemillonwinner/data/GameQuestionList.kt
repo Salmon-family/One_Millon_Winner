@@ -7,11 +7,9 @@ import java.util.*
 
 
 class GameQuestionList {
-
     private val questions: Queue<Question> = LinkedList()
     private val currentQuestion = GameQuestion()
     private var currentQuestionSubmitted: Boolean = false
-
 
     fun setQuestions(newQuestions: List<Question>) {
         questions.addAll(newQuestions)

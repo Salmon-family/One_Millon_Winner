@@ -1,6 +1,7 @@
 package com.example.onemillonwinner.util
 
 import android.view.View
+import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.databinding.*
@@ -62,6 +63,19 @@ fun showWhenFail(view: View, state: State<TriviaResponse>?) {
         view.visibility = View.INVISIBLE
     }
 }
+
+@BindingAdapter("app:buttonUpdateText")
+fun updateTextButton(submitButton: Button, question: GameQuestion?) {
+    question?.let {
+        if (it.selectedAnswerIndex != -1) {
+            submitButton.text = "Next Question"
+        } else {
+            submitButton.text = "Submit"
+        }
+    }
+
+}
+
 
 @BindingAdapter("app:selectAnswer")
 fun bindSelectAnswerChip(chipGroup: ChipGroup, question: GameQuestion?) {
