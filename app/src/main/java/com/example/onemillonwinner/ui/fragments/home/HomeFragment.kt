@@ -5,7 +5,6 @@ import androidx.navigation.Navigation
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.databinding.FragmentHomeBinding
 import com.example.onemillonwinner.ui.base.BaseFragment
-import com.example.onemillonwinner.util.EventObserve
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
@@ -13,17 +12,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun setup() {
         binding.homeViewModel = homeViewModel
-        //only for test
-        startTheGame()
+        binding.startGameButton.setOnClickListener {
+            startTheGame()
+        }
     }
 
     private fun startTheGame() {
-        homeViewModel.naveToGameFragment.observe(viewLifecycleOwner, EventObserve{
-            if(it){
-                Navigation.findNavController(binding.root)
-                    .navigate(HomeFragmentDirections.actionHomeFragmentToGameFragment())
-            }
-        })
+        Navigation.findNavController(binding.root)
+            .navigate(HomeFragmentDirections.actionHomeFragmentToGameFragment())
     }
 
     override val layoutIdFragment = R.layout.fragment_home
