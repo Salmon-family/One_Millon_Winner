@@ -11,7 +11,7 @@ import com.example.onemillonwinner.databinding.FragmentGameBindingImpl
 import com.example.onemillonwinner.databinding.FragmentGameTestBinding
 import com.example.onemillonwinner.ui.base.BaseFragment
 
-class GameFragment : BaseFragment<FragmentGameTestBinding>() {
+class GameFragment : BaseFragment<FragmentGameBinding>() {
 
     private val gameViewModel: GameViewModel by viewModels()
 
@@ -33,5 +33,5 @@ class GameFragment : BaseFragment<FragmentGameTestBinding>() {
         })
     }
 
-    override val layoutIdFragment = R.layout.fragment_game_test
+    override val layoutIdFragment = R.layout.fragment_game
 }

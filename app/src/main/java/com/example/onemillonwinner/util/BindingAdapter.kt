@@ -76,7 +76,7 @@ fun updateTextButton(submitButton: Button, question: GameQuestion?) {
 
 }
 
-
+//colors change
 @BindingAdapter("app:selectAnswer")
 fun bindSelectAnswerChip(chipGroup: ChipGroup, question: GameQuestion?) {
     val selectedID = chipGroup.checkedChipId

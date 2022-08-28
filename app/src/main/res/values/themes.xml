@@ -21,6 +21,10 @@
         <item name="android:statusBarColor">@color/splash_screen_color</item>
     </style>
 
+    <style name="HelpButtonShapeable">
+        <item name="cornerSize">40%</item>
+    </style>
+
     <style name="chip" parent="Widget.Material3.Chip.Suggestion">
         <item name="chipStrokeColor">@color/gray_700</item>
         <item name="chipSurfaceColor">@color/white</item>

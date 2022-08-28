@@ -7,6 +7,7 @@ import java.util.*
 
 
 class GameQuestionList {
+    // change to array list
     private val questions: Queue<Question> = LinkedList()
     private val currentQuestion = GameQuestion()
     private var currentQuestionSubmitted: Boolean = false
