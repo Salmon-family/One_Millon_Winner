@@ -48,6 +48,7 @@ class GameViewModel : ViewModel() {
             questionLogic.setCurrentQuestionSubmitted(true)
             _question.postValue(questionLogic.getCurrentQuestion())
         } else if (questionLogic.isCurrentQuestionSubmitted()) {
+            questionLogic.setCurrentQuestionSubmitted(false)
             updateView()
         }
     }

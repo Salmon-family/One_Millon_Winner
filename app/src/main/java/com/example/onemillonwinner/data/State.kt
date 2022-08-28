@@ -6,8 +6,6 @@ sealed class State<out T> {
     object Loading : State<Nothing>()
 
     object Complete : State<Nothing>()
-//    object SubmittedQuestion : State<Nothing>()
-//    object NotSubmitted : State<Nothing>()
 
     fun toData(): T? = if (this is Success) data else null
 }

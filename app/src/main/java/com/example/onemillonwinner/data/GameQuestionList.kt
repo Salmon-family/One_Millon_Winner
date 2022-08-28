@@ -10,7 +10,6 @@ class GameQuestionList {
 
     private val questions: Queue<Question> = LinkedList()
     private val currentQuestion = GameQuestion()
-
     private var currentQuestionSubmitted: Boolean = false
 
 

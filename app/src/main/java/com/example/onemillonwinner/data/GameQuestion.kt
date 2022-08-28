@@ -7,18 +7,19 @@ class GameQuestion {
     private var questionNumber: Int = 0
     private val answers: MutableList<String> = mutableListOf()
     var selectedAnswerIndex = -1
-    var correctAnswerIndex = -1
+    var correctAnswer: String = ""
 
     fun setQuestion(question: Question) {
         questionDescription = question.question ?: ""
+        answers.clear()
         question.incorrectAnswers?.let { incorrectAnswers ->
             answers.addAll(incorrectAnswers)
         }
-        question.correctAnswer?.let { correctAnswer ->
-            answers.add(correctAnswer)
+        question.correctAnswer?.let { correct ->
+            answers.add(correct)
+            correctAnswer = correct
         }
         answers.shuffle()
-        correctAnswerIndex = answers.indexOf(question.correctAnswer)
     }
 
     fun getQuestion() = questionDescription

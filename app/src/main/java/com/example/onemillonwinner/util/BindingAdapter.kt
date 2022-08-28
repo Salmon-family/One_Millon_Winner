@@ -2,6 +2,7 @@ package com.example.onemillonwinner.util
 
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import androidx.databinding.*
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.data.GameQuestion
@@ -64,25 +65,27 @@ fun showWhenFail(view: View, state: State<TriviaResponse>?) {
 
 @BindingAdapter("app:selectAnswer")
 fun bindSelectAnswerChip(chipGroup: ChipGroup, question: GameQuestion?) {
-    val listAnswers =
-        listOf(R.id.first_answer, R.id.second_answer, R.id.third_answer, R.id.fourth_answer)
-
-    question?.let {
-        val chip = chipGroup.findViewById<Chip>(chipGroup.checkedChipId)
-        if (question.selectedAnswerIndex != -1 && question.correctAnswerIndex != -1) {
-            listAnswers.forEach { itemID ->
-                if (itemID == chipGroup.checkedChipId) {
-                    chip.chipBackgroundColor =
-                        chip.context.resources.getColorStateList(R.color.selected_chip)
+    val selectedID = chipGroup.checkedChipId
+    chipGroup.clearCheck()
+    if (selectedID == -1) {
+        chipGroup.children.forEach { chip ->
+            chip as Chip
+            chip.isEnabled = true
+            chip.chipBackgroundColor =
+                chip.context.resources.getColorStateList(R.color.selected_chip)
+        }
+    } else {
+        question?.let {
+            chipGroup.children.forEach { chip ->
+                chip as Chip
+                chip.isEnabled = false
+                if (chip.text.toString() == question.correctAnswer) {
+                    chip.setChipBackgroundColorResource(R.color.teal_200)
                 }
-            }
-        } else {
-            listAnswers.forEachIndexed { index, itemId ->
-                if (chipGroup.checkedChipId == itemId && index == question.correctAnswerIndex) {
-                    chip.chipBackgroundColor =
-                        chip.context.resources.getColorStateList(R.color.correct_answer_chip)
-                } else if (chipGroup.checkedChipId == itemId && index == question.selectedAnswerIndex) {
-                    chip.context.resources.getColorStateList(R.color.wrong_anser_chip)
+                if (selectedID == chip.id &&
+                    chip.text.toString() != question.correctAnswer
+                ) {
+                    chip.setChipBackgroundColorResource(R.color.red_200)
                 }
             }
         }
