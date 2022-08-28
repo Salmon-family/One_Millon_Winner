@@ -1,5 +1,6 @@
 package com.example.onemillonwinner.ui.fragments.game
 
+import androidx.databinding.ObservableInt
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController

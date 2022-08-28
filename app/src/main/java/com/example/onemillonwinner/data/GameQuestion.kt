@@ -1,4 +1,4 @@
-package com.example.onemillonwinner.ui.fragments.game
+package com.example.onemillonwinner.data
 
 import com.example.onemillonwinner.data.questionResponse.Question
 
@@ -6,14 +6,19 @@ class GameQuestion {
     private var questionDescription: String = ""
     private var questionNumber: Int = 0
     private val answers: MutableList<String> = mutableListOf()
+    var selectedAnswerIndex = -1
+    var correctAnswer: String = ""
 
     fun setQuestion(question: Question) {
         questionDescription = question.question ?: ""
+        answers.clear()
+        selectedAnswerIndex = -1
         question.incorrectAnswers?.let { incorrectAnswers ->
             answers.addAll(incorrectAnswers)
         }
-        question.correctAnswer?.let { correctAnswer ->
-            answers.add(correctAnswer)
+        question.correctAnswer?.let { correct ->
+            answers.add(correct)
+            correctAnswer = correct
         }
         answers.shuffle()
     }

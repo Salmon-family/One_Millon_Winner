@@ -3,6 +3,8 @@ package com.example.onemillonwinner.ui.fragments.game
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.onemillonwinner.data.GameQuestion
+import com.example.onemillonwinner.data.GameQuestionList
 import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.network.Repository
@@ -17,7 +19,7 @@ class GameViewModel : ViewModel() {
     private val questionLogic: GameQuestionList by lazy { GameQuestionList() }
     private val repository: Repository by lazy { Repository() }
 
-    lateinit var timerDisposable : Disposable
+    lateinit var timerDisposable: Disposable
 
     var isChangeQuestion = MutableLiveData(false)
     var isDeleteHalfOfAnswers = MutableLiveData(false)
@@ -36,7 +38,7 @@ class GameViewModel : ViewModel() {
         get() = _questionsLiveData
 
     private val _questionTime = MutableLiveData(100)
-    val questionTime : LiveData<Int>
+    val questionTime: LiveData<Int>
         get() = _questionTime
 
     val questionTimeOver = MutableLiveData(false)
@@ -52,7 +54,7 @@ class GameViewModel : ViewModel() {
         timer()
         state.toData()?.let {
             questionLogic.setQuestions(it.questions)
-            getNextQuestion()
+            updateView()
         }
     }
 
@@ -60,17 +62,31 @@ class GameViewModel : ViewModel() {
 
     }
 
-    fun getNextQuestion() {
+    fun onClickToUpdateView() {
+        if (questionLogic.isReadyToSubmit()) {
+            questionLogic.setCurrentQuestionSubmitted(true)
+            _question.postValue(questionLogic.getCurrentQuestion())
+        } else if (questionLogic.isCurrentQuestionSubmitted()) {
+            questionLogic.setCurrentQuestionSubmitted(false)
+            updateView()
+        }
+    }
+
+    private fun updateView() {
         if (!questionLogic.isGameDone()) {
             _question.postValue(questionLogic.updateQuestion())
             timerDisposable.dispose()
             timer()
-        }else{
+        } else {
             timerDisposable.dispose()
             _gameState.postValue(State.Complete)
+
         }
     }
 
+    fun onClickAnswer(selectedAnswerIndex: Int) {
+        questionLogic.setSelectedAnswer(selectedAnswerIndex)
+    }
 
     fun changeQuestion() {
         isChangeQuestion.postValue(true)
@@ -89,17 +105,15 @@ class GameViewModel : ViewModel() {
         _questionTime.postValue(100)
         val timeInSecond: Long = 100
         timerDisposable = Observable.interval(1, TimeUnit.SECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .take(timeInSecond).map {
-                    ((timeInSecond - 1) - it)
-                }.subscribe {
-                    _questionTime.postValue(it.toInt())
-                    if(it.toInt() == 0){
-                        endTheCountDown()
-                    }
+            .observeOn(AndroidSchedulers.mainThread())
+            .take(timeInSecond).map {
+                ((timeInSecond - 1) - it)
+            }.subscribe {
+                _questionTime.postValue(it.toInt())
+                if (it.toInt() == 0) {
+                    endTheCountDown()
                 }
-
-
+            }
     }
 
     private fun endTheCountDown() {
