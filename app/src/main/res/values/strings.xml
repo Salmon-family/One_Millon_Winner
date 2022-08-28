@@ -2,4 +2,15 @@
     <string name="app_name">One Millon Winner</string>
     <string name="question_number">Question %s of 15</string>
     <string name="submit">Submit</string>
+    <string name="text_result">Result</string>
+    <string name="text_congratulation">congratulation !</string>
+    <string name="button_play_again">Play Again</string>
+    <string name="text_my_result_number">%1$s / 10</string>
+    <string name="text_back_to_home">Back to Home</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="_50_50">50:50</string>
+    <string name="_01_30">01:30</string>
 </resources>

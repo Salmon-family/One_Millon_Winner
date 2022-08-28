@@ -9,6 +9,7 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
 
 
     override fun setup() {
+
     }
 
     override val layoutIdFragment = R.layout.fragment_result

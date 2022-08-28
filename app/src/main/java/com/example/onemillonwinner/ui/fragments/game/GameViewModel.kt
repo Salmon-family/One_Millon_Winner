@@ -8,15 +8,22 @@ import com.example.onemillonwinner.data.GameQuestionList
 import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.network.Repository
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.Disposable
+import java.util.concurrent.TimeUnit
+
 
 class GameViewModel : ViewModel() {
+
+    private val questionLogic: GameQuestionList by lazy { GameQuestionList() }
+    private val repository: Repository by lazy { Repository() }
+
+    lateinit var timerDisposable : Disposable
 
     var isChangeQuestion = MutableLiveData(false)
     var isDeleteHalfOfAnswers = MutableLiveData(false)
     var isHelpByFriends = MutableLiveData(false)
-
-    private val questionLogic: GameQuestionList by lazy { GameQuestionList() }
-    private val repository: Repository by lazy { Repository() }
 
     private val _gameState = MutableLiveData<State<TriviaResponse>>()
     val state: LiveData<State<TriviaResponse>>
@@ -26,6 +33,17 @@ class GameViewModel : ViewModel() {
     val question: LiveData<GameQuestion>
         get() = _question
 
+    private val _questionsLiveData = MutableLiveData<State<TriviaResponse>>()
+    val questions: LiveData<State<TriviaResponse>>
+        get() = _questionsLiveData
+
+    private val _questionTime = MutableLiveData(100)
+    val questionTime : LiveData<Int>
+        get() = _questionTime
+
+    val questionTimeOver = MutableLiveData(false)
+
+
     init {
         _gameState.postValue(State.Loading)
         repository.getAllQuestions().subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion)
@@ -33,6 +51,7 @@ class GameViewModel : ViewModel() {
 
     private fun onSuccessUpdateQuestion(state: State<TriviaResponse>) {
         _gameState.postValue(state)
+        timer()
         state.toData()?.let {
             questionLogic.setQuestions(it.questions)
             updateView()
@@ -56,7 +75,10 @@ class GameViewModel : ViewModel() {
     private fun updateView(){
         if (!questionLogic.isGameDone()) {
             _question.postValue(questionLogic.updateQuestion())
+            timerDisposable.dispose()
+            timer()
         }else{
+            timerDisposable.dispose()
             _gameState.postValue(State.Complete)
 
         }
@@ -67,16 +89,40 @@ class GameViewModel : ViewModel() {
     }
 
     fun changeQuestion() {
-        isChangeQuestion.value = true
+        isChangeQuestion.postValue(true)
     }
 
     fun deleteHalfOfAnswers() {
-        isDeleteHalfOfAnswers.value = true
+        isDeleteHalfOfAnswers.postValue(true)
     }
 
     fun helpByFriends() {
-        isHelpByFriends.value = true
+        isHelpByFriends.postValue(true)
     }
+
+
+    private fun timer() {
+        _questionTime.postValue(100)
+        val timeInSecond: Long = 100
+        timerDisposable = Observable.interval(1, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .take(timeInSecond).map {
+                    ((timeInSecond - 1) - it)
+                }.subscribe {
+                    _questionTime.postValue(it.toInt())
+                    if(it.toInt() == 0){
+                        endTheCountDown()
+                    }
+                }
+
+
+    }
+
+    private fun endTheCountDown() {
+        timerDisposable.dispose()
+        questionTimeOver.postValue(true)
+    }
+
 
 }
 

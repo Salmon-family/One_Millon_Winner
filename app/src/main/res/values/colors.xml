@@ -8,11 +8,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-
+    <color name="background">#FFFFFFFF</color>
     <color name="gray_700">#FF72777F</color>
     <color name="blue_700">#FF007CC5</color>
     <color name="blue_200">#FFD1E4FC</color>
     <color name="red_200">#FFFF8B8B</color>
     <color name="green_200">#FFC9FDCE</color>
     <color name="gold">#FFEF00</color>
+    <color name="splash_screen_color">#FF0077CC</color>
 </resources>
