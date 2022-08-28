@@ -9,35 +9,10 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import java.util.concurrent.TimeUnit
 
-@SuppressLint("ObjectAnimatorBinding")
-@BindingAdapter(value = ["app:timerProgressBar"])
-fun timerProgressBar(progressBar: ProgressBar, timeMillisecond: Long) {
-    val viewModel = GameViewModel()
-
-    val animation = ObjectAnimator.ofInt(progressBar, "progress", 100, 0)
-    animation.duration = timeMillisecond
-    animation.interpolator = DecelerateInterpolator()
-    animation.addListener(object : Animator.AnimatorListener {
-
-        override fun onAnimationStart(animator: Animator) {
-            Log.i("questionTimeIsOver", viewModel.questionTime.value.toString())
-        }
-
-        override fun onAnimationEnd(animator: Animator) {
-            viewModel.questionTimeIsOver()
-            Log.i("questionTimeIsOver", viewModel.questionTime.value.toString())
-        }
-
-        override fun onAnimationCancel(animator: Animator) {
-        }
-
-        override fun onAnimationRepeat(animator: Animator) {
-
-        }
-    })
-    animation.start()
-}
 
 @BindingAdapter(value = ["app:timerText"])
 fun timerText(textView: TextView, timeMillisecond: Long) {

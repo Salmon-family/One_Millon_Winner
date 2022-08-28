@@ -5,9 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.onemillonwinner.data.State
-import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.data.enum.QuestionLevel
+import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.network.Repository
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
+
 
 class GameViewModel : ViewModel() {
     private val repository = Repository()
@@ -16,9 +22,13 @@ class GameViewModel : ViewModel() {
     val questions: LiveData<State<TriviaResponse>>
         get() = _questionsLiveData
 
-    private val _isQuestionTimeOver = MutableLiveData(false)
-    val questionTime: LiveData<Boolean>
-        get() = _isQuestionTimeOver
+    val questionTime = MutableLiveData<Int>()
+    val questionTimeOver = MutableLiveData(false)
+
+    init {
+        timer()
+    }
+
 
     fun getTriviaQuestions() {
         _questionsLiveData.postValue(State.Loading)
@@ -33,13 +43,25 @@ class GameViewModel : ViewModel() {
         )
     }
 
-    fun questionTimeIsOver(){
-        _isQuestionTimeOver.value = true
+
+    private fun timer(): Disposable {
+        val timeInMillisecond: Long = 100
+        return Observable.interval(timeInMillisecond, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .take(timeInMillisecond).map {
+                ((timeInMillisecond - 1) - it)
+            }.subscribe {
+                questionTime.postValue(it.toInt())
+                if(it.toInt() == 0){
+                    questionTimeIsUp()
+                }
+            }
     }
 
-    companion object {
-        const val QUESTION_TIME_IN_MILLISECOND: Long = 10000
+    private fun questionTimeIsUp() {
+        questionTimeOver.value = true
     }
+
 
 }
 
