@@ -67,6 +67,7 @@
             app:layout_constraintTop_toTopOf="@+id/phone_button" />
 
         <ImageView
+            android:id="@+id/image_fifty_fifty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_fifty_fifty"
@@ -317,16 +318,16 @@
             app:isSuccess="@{gameViewModel.state}"
             app:constraint_referenced_ids="card_view,
                  timer_progress_bar,
-                 tex_timer,
+                 text_timer,
                  change_question_button,
+                 image_fifty_fifty,
                  delete_half_answer_button,
                  phone_button,
-                 item_one2,
+                 item_one,
                  item_two,
                  item_three,
                  item_four,
                  submit_button,
-                 text_submit,
                  index_one,
                  index_two,
                  index_three,
