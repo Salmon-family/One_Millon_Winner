@@ -66,6 +66,7 @@ class GameViewModel : ViewModel() {
         if (questionLogic.isReadyToSubmit()) {
             questionLogic.setCurrentQuestionSubmitted(true)
             _question.postValue(questionLogic.getCurrentQuestion())
+            timerDisposable.dispose()
         } else if (questionLogic.isCurrentQuestionSubmitted()) {
             questionLogic.setCurrentQuestionSubmitted(false)
             updateView()
