@@ -7,8 +7,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.databinding.FragmentGameBinding
-import com.example.onemillonwinner.databinding.FragmentGameBindingImpl
-import com.example.onemillonwinner.databinding.FragmentGameTestBinding
 import com.example.onemillonwinner.ui.base.BaseFragment
 
 class GameFragment : BaseFragment<FragmentGameBinding>() {
