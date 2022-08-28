@@ -11,7 +11,6 @@ import com.example.onemillonwinner.network.Repository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 
@@ -22,7 +21,11 @@ class GameViewModel : ViewModel() {
     val questions: LiveData<State<TriviaResponse>>
         get() = _questionsLiveData
 
-    val questionTime = MutableLiveData<Int>()
+    private val _questionTime = MutableLiveData<Int>(100)
+    val questionTime : LiveData<Int>
+        get() = _questionTime
+
+
     val questionTimeOver = MutableLiveData(false)
 
     init {
@@ -45,21 +48,21 @@ class GameViewModel : ViewModel() {
 
 
     private fun timer(): Disposable {
-        val timeInMillisecond: Long = 100
-        return Observable.interval(timeInMillisecond, TimeUnit.MILLISECONDS)
+        val timeInSecond: Long = 100
+        return Observable.interval(1, TimeUnit.SECONDS)
             .observeOn(AndroidSchedulers.mainThread())
-            .take(timeInMillisecond).map {
-                ((timeInMillisecond - 1) - it)
+            .take(timeInSecond).map {
+                ((timeInSecond - 1) - it)
             }.subscribe {
-                questionTime.postValue(it.toInt())
+                _questionTime.postValue(it.toInt())
                 if(it.toInt() == 0){
-                    questionTimeIsUp()
+                    endTheCountDown()
                 }
             }
     }
 
-    private fun questionTimeIsUp() {
-        questionTimeOver.value = true
+    private fun endTheCountDown() {
+        questionTimeOver.postValue(true)
     }
 
 
