@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+    <dimen name="corner_radius_small">8dp</dimen>
+    <dimen name="corner_radius_medium">20dp</dimen>
+    <dimen name="help_button_dimension">48dp</dimen>
+    <dimen name="margin_large_x">32dp</dimen>
+</resources>
