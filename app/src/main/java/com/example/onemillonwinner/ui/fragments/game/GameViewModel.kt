@@ -19,7 +19,7 @@ class GameViewModel : ViewModel() {
     private val questionLogic: GameQuestionList by lazy { GameQuestionList() }
     private val repository: Repository by lazy { Repository() }
 
-    lateinit var timerDisposable : Disposable
+    lateinit var timerDisposable: Disposable
 
     var isChangeQuestion = MutableLiveData(false)
     var isDeleteHalfOfAnswers = MutableLiveData(false)
@@ -38,7 +38,7 @@ class GameViewModel : ViewModel() {
         get() = _questionsLiveData
 
     private val _questionTime = MutableLiveData(100)
-    val questionTime : LiveData<Int>
+    val questionTime: LiveData<Int>
         get() = _questionTime
 
     val questionTimeOver = MutableLiveData(false)
@@ -72,12 +72,12 @@ class GameViewModel : ViewModel() {
         }
     }
 
-    private fun updateView(){
+    private fun updateView() {
         if (!questionLogic.isGameDone()) {
             _question.postValue(questionLogic.updateQuestion())
             timerDisposable.dispose()
             timer()
-        }else{
+        } else {
             timerDisposable.dispose()
             _gameState.postValue(State.Complete)
 
@@ -105,17 +105,15 @@ class GameViewModel : ViewModel() {
         _questionTime.postValue(100)
         val timeInSecond: Long = 100
         timerDisposable = Observable.interval(1, TimeUnit.SECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .take(timeInSecond).map {
-                    ((timeInSecond - 1) - it)
-                }.subscribe {
-                    _questionTime.postValue(it.toInt())
-                    if(it.toInt() == 0){
-                        endTheCountDown()
-                    }
+            .observeOn(AndroidSchedulers.mainThread())
+            .take(timeInSecond).map {
+                ((timeInSecond - 1) - it)
+            }.subscribe {
+                _questionTime.postValue(it.toInt())
+                if (it.toInt() == 0) {
+                    endTheCountDown()
                 }
-
-
+            }
     }
 
     private fun endTheCountDown() {

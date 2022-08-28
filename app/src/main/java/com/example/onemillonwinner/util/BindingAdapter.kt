@@ -2,6 +2,7 @@ package com.example.onemillonwinner.util
 
 import android.view.View
 import android.widget.Button
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.databinding.*
@@ -68,15 +69,16 @@ fun showWhenFail(view: View, state: State<TriviaResponse>?) {
 fun updateTextButton(submitButton: Button, question: GameQuestion?) {
     question?.let {
         if (it.selectedAnswerIndex != -1) {
-            submitButton.text = "Next Question"
+            submitButton.text = submitButton.context.resources.getText(R.string.next_question)
+            submitButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_right, 0)
         } else {
-            submitButton.text = "Submit"
+            submitButton.text = submitButton.context.resources.getText(R.string.submit)
+            submitButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
         }
     }
 
 }
 
-//colors change
 @BindingAdapter("app:selectAnswer")
 fun bindSelectAnswerChip(chipGroup: ChipGroup, question: GameQuestion?) {
     val selectedID = chipGroup.checkedChipId
@@ -86,7 +88,7 @@ fun bindSelectAnswerChip(chipGroup: ChipGroup, question: GameQuestion?) {
             chip as Chip
             chip.isEnabled = true
             chip.chipBackgroundColor =
-                chip.context.resources.getColorStateList(R.color.selected_chip)
+                AppCompatResources.getColorStateList(chip.context, R.color.selected_chip)
         }
     } else {
         question?.let {

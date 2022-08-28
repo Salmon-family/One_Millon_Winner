@@ -4,11 +4,11 @@ import com.example.onemillonwinner.data.questionResponse.Question
 import com.example.onemillonwinner.util.Constants.MAX_NUMBER_OF_QUESTIONS
 import com.example.onemillonwinner.util.enum.SelectAnswer
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class GameQuestionList {
-    // change to array list
-    private val questions: Queue<Question> = LinkedList()
+    private val questions = ArrayList<Question>()
     private val currentQuestion = GameQuestion()
     private var currentQuestionSubmitted: Boolean = false
 
@@ -37,7 +37,7 @@ class GameQuestionList {
     fun updateQuestion(): GameQuestion {
         currentQuestion.setQuestion(questions.first())
         currentQuestion.setQuestionNumber(getQuestionNumber())
-        questions.poll()
+        questions.removeFirst()
         return currentQuestion
     }
 
