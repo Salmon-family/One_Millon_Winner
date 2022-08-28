@@ -12,18 +12,19 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:padding="@dimen/margin_medium">
 
         <ProgressBar
             android:id="@+id/timer_progress_bar"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="0dp"
-            android:layout_height="12dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginEnd="@dimen/margin_medium"
             android:progress="25"
             android:progressBackgroundTint="#D1E4FC"
             app:layout_constraintEnd_toStartOf="@+id/text_timer"
+            app:layout_constraintHeight_percent="0.015"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,7 +39,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/timer_progress_bar" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/phone_button"
             style="@style/Widget.Material3.Button.Icon"
             android:layout_width="48dp"
@@ -46,31 +47,42 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="48dp"
             android:onClick="@{() -> gameViewModel.helpByFriends()}"
+            app:cornerRadius="@dimen/corner_radius_medium"
             app:disableButton="@{gameViewModel.isHelpByFriends()}"
             app:icon="@drawable/ic_phone"
             app:layout_constraintEnd_toEndOf="@+id/card_view"
             app:layout_constraintTop_toBottomOf="@+id/timer_progress_bar" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/delete_half_answer_button"
             style="@style/Widget.Material3.Button.Icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:onClick="@{() -> gameViewModel.deleteHalfOfAnswers()}"
+            app:cornerRadius="@dimen/corner_radius_medium"
             app:disableButton="@{gameViewModel.isDeleteHalfOfAnswers()}"
-            app:icon="@drawable/ic_fifty_fifty"
             app:layout_constraintBottom_toBottomOf="@+id/phone_button"
             app:layout_constraintEnd_toStartOf="@+id/phone_button"
             app:layout_constraintStart_toEndOf="@+id/change_question_button"
             app:layout_constraintTop_toTopOf="@+id/phone_button" />
 
-        <Button
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_fifty_fifty"
+            app:layout_constraintBottom_toBottomOf="@+id/delete_half_answer_button"
+            app:layout_constraintEnd_toEndOf="@+id/delete_half_answer_button"
+            app:layout_constraintStart_toStartOf="@+id/delete_half_answer_button"
+            app:layout_constraintTop_toTopOf="@+id/delete_half_answer_button" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/change_question_button"
             style="@style/Widget.Material3.Button.Icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="48dp"
             android:onClick="@{() -> gameViewModel.changeQuestion()}"
+            app:cornerRadius="@dimen/corner_radius_medium"
             app:disableButton="@{gameViewModel.isChangeQuestion()}"
             app:icon="@drawable/ic_repeat"
             app:layout_constraintStart_toStartOf="@+id/card_view"
@@ -80,11 +92,12 @@
             android:id="@+id/card_view"
             style="?attr/materialCardViewStyle"
             android:layout_width="0dp"
-            android:layout_height="215dp"
+            android:layout_height="0dp"
             android:layout_marginTop="32dp"
             app:cardBackgroundColor="@color/blue_700"
-            app:cardCornerRadius="8dp"
+            app:cardCornerRadius="@dimen/corner_radius_small"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/delete_half_answer_button" />
 
@@ -121,14 +134,15 @@
         <Button
             android:id="@+id/item_one2"
             style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginTop="16dp"
-            app:cornerRadius="8dp"
-            app:strokeColor="@color/black"
+            app:cornerRadius="@dimen/corner_radius_small"
             app:layout_constraintEnd_toEndOf="@+id/card_view"
+            app:layout_constraintHeight_percent="0.08"
             app:layout_constraintStart_toStartOf="@+id/card_view"
-            app:layout_constraintTop_toBottomOf="@+id/card_view" />
+            app:layout_constraintTop_toBottomOf="@+id/card_view"
+            app:strokeColor="@color/gray_700" />
 
         <TextView
             android:id="@+id/index_one"
@@ -157,15 +171,16 @@
         <Button
             android:id="@+id/item_two"
             style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginTop="16dp"
-            app:cornerRadius="8dp"
-            app:strokeColor="@color/black"
+            app:cornerRadius="@dimen/corner_radius_small"
             app:layout_constraintEnd_toEndOf="@+id/item_one2"
+            app:layout_constraintHeight_percent="0.08"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/item_one2"
-            app:layout_constraintTop_toBottomOf="@+id/item_one2" />
+            app:layout_constraintTop_toBottomOf="@+id/item_one2"
+            app:strokeColor="@color/gray_700" />
 
         <TextView
             android:id="@+id/index_two"
@@ -194,15 +209,16 @@
         <Button
             android:id="@+id/item_three"
             style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginTop="16dp"
-            app:cornerRadius="8dp"
-            app:strokeColor="@color/black"
+            app:cornerRadius="@dimen/corner_radius_small"
             app:layout_constraintEnd_toEndOf="@+id/item_two"
+            app:layout_constraintHeight_percent="0.08"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/item_two"
-            app:layout_constraintTop_toBottomOf="@+id/item_two" />
+            app:layout_constraintTop_toBottomOf="@+id/item_two"
+            app:strokeColor="@color/gray_700" />
 
         <TextView
             android:id="@+id/index_three"
@@ -231,15 +247,16 @@
         <Button
             android:id="@+id/item_four"
             style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="16dp"
-            app:cornerRadius="8dp"
-            app:strokeColor="@color/black"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_medium"
+            app:cornerRadius="@dimen/corner_radius_small"
             app:layout_constraintEnd_toEndOf="@+id/card_view"
+            app:layout_constraintHeight_percent="0.08"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/item_three"
-            app:layout_constraintTop_toBottomOf="@+id/item_three" />
+            app:layout_constraintTop_toBottomOf="@+id/item_three"
+            app:strokeColor="@color/gray_700" />
 
         <TextView
             android:id="@+id/index_four"
@@ -267,20 +284,23 @@
 
         <Button
             android:id="@+id/submit_button"
-            android:layout_width="112dp"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:drawableEnd="@drawable/ic_arrow_right"
+            android:drawableTint="@color/gray_700"
+            android:paddingEnd="@dimen/corner_radius_small"
             android:text="@string/submit"
             android:textColor="@color/blue_700"
-            app:cornerRadius="8dp"
-            app:strokeColor="@color/black"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:drawableStart="@drawable/ic_arrow_right"
+            android:textSize="12sp"
+            app:cornerRadius="@dimen/corner_radius_small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item_four" />
+            app:layout_constraintTop_toBottomOf="@+id/item_four"
+            app:strokeColor="@color/gray_700" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
