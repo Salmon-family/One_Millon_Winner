@@ -290,6 +290,7 @@
             android:backgroundTint="@color/blue_700"
             android:drawableEnd="@drawable/ic_arrow_right"
             android:text="@string/submit"
+            android:onClick="@{ () -> gameViewModel.getNextQuestion()}"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:cornerRadius="@dimen/corner_radius_small"
