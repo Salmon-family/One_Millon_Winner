@@ -3,7 +3,7 @@
     <style name="Theme.OneMillonWinner" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -18,4 +18,8 @@
         <item name="cornerSize">40%</item>
     </style>
 
+    <style name="splashScreenTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen_list</item>
+        <item name="android:statusBarColor">@color/splash_screen_color</item>
+    </style>
 </resources>
