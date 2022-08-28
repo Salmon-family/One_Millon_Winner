@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="gameViewModel"
+            type="com.example.onemillonwinner.ui.fragments.game.GameViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp">
+
+        <ProgressBar
+            android:id="@+id/timer_progress_bar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="12dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:progress="25"
+            android:progressBackgroundTint="#D1E4FC"
+            app:isSuccess="@{gameViewModel.state}"
+            app:layout_constraintEnd_toStartOf="@+id/tex_timer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tex_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="01:30"
+            android:textColor="#007CC5"
+            app:layout_constraintBottom_toBottomOf="@+id/timer_progress_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/timer_progress_bar" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/phone_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="32dp"
+            android:background="@color/blue_200"
+            android:onClick="@{() -> gameViewModel.helpByFriends()}"
+            android:scaleType="center"
+            android:src="@drawable/ic_phone"
+            app:disableButton="@{gameViewModel.isHelpByFriends()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/delete_half_answer_button"
+            app:layout_constraintTop_toBottomOf="@+id/timer_progress_bar"
+            app:shapeAppearanceOverlay="@style/HelpButtonShapeable" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/delete_half_answer_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@color/blue_200"
+            android:onClick="@{() -> gameViewModel.deleteHalfOfAnswers()}"
+            android:scaleType="center"
+            android:src="@drawable/ic_fifty_fifty"
+            app:disableButton="@{gameViewModel.isDeleteHalfOfAnswers()}"
+            app:layout_constraintBottom_toBottomOf="@+id/phone_button"
+            app:layout_constraintEnd_toStartOf="@+id/phone_button"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/change_question_button"
+            app:layout_constraintTop_toTopOf="@+id/phone_button"
+            app:layout_constraintVertical_bias="0.0"
+            app:shapeAppearanceOverlay="@style/HelpButtonShapeable" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/change_question_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@color/blue_200"
+            android:onClick="@{() -> gameViewModel.changeQuestion()}"
+            android:scaleType="center"
+            android:src="@drawable/ic_repeat"
+            app:disableButton="@{gameViewModel.isChangeQuestion()}"
+            app:layout_constraintEnd_toStartOf="@+id/delete_half_answer_button"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/delete_half_answer_button"
+            app:shapeAppearanceOverlay="@style/HelpButtonShapeable" />
+
+        <View
+            android:id="@+id/card_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/question_card_shape"
+            app:layout_constraintDimensionRatio="2:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/delete_half_answer_button" />
+
+        <TextView
+            android:id="@+id/text_question_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:elevation="8dp"
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            android:text="@{@string/question_number(gameViewModel.question.questionNumber)}"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/card_view"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/card_view"
+            app:layout_constraintTop_toTopOf="@+id/card_view" />
+
+        <TextView
+            android:id="@+id/text_question"
+            android:layout_width="332dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="16dp"
+            android:text="@{gameViewModel.question.question}"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/card_view"
+            app:layout_constraintEnd_toEndOf="@+id/card_view"
+            app:layout_constraintStart_toStartOf="@+id/text_question_number"
+            app:layout_constraintTop_toBottomOf="@+id/text_question_number"
+            app:layout_constraintVertical_bias="0.25" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/answersChipGroup"
+            style="@style/Widget.Material3.ChipGroup"
+            app:selectAnswer="@{gameViewModel.question}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_view"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/first_answer"
+                style="@style/chip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:onClick="@{() -> gameViewModel.onClickAnswer(0)}"
+                android:text="@{gameViewModel.question.answers[0]}"
+                app:chipMinHeight="50dp"
+                app:chipMinTouchTargetSize="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/second_answer"
+                style="@style/chip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:onClick="@{() -> gameViewModel.onClickAnswer(1)}"
+                android:text="@{gameViewModel.question.answers[1]}"
+                app:chipMinHeight="50dp"
+                app:chipMinTouchTargetSize="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/third_answer"
+                style="@style/chip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:onClick="@{() -> gameViewModel.onClickAnswer(2)}"
+                android:text="@{gameViewModel.question.answers[2]}"
+                app:chipMinHeight="50dp"
+                app:chipMinTouchTargetSize="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/fourth_answer"
+                style="@style/chip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:onClick="@{() -> gameViewModel.onClickAnswer(3)}"
+                android:text="@{gameViewModel.question.answers[3]}"
+                app:chipMinHeight="50dp"
+                app:chipMinTouchTargetSize="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+
+        <Button
+            android:id="@+id/submit_button"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> gameViewModel.onClickToUpdateView() }"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="0dp"
+            android:text="@string/submit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/answersChipGroup"
+            app:layout_constraintVertical_bias="1" />
+
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:isLoading="@{gameViewModel.state}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="card_view,
+                 timer_progress_bar,
+                 tex_timer,
+                 answersChipGroup,
+                 submit_button"
+            app:isSuccess="@{gameViewModel.state}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
