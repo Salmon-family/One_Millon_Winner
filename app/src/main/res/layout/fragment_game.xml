@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -97,7 +98,7 @@
             app:cardBackgroundColor="@color/blue_700"
             app:cardCornerRadius="@dimen/corner_radius_small"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.25"
+            app:layout_constraintHeight_percent="0.3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/delete_half_answer_button" />
 
