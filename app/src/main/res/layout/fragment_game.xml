@@ -234,6 +234,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/text_calculate_prize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:textSize="24sp"
+            android:text="@{gameViewModel.prize}"
+            app:layout_constraintBottom_toBottomOf="@+id/submit_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/submit_button" />
+
         <androidx.constraintlayout.widget.Group
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -249,16 +260,6 @@
                  submit_button "
             app:isSuccess="@{gameViewModel.state}" />
 
-        <TextView
-            android:id="@+id/text_calculate_prize"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:hint="$ 0"
-            android:text="@{gameViewModel.countPrize}"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/submit_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/submit_button" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
