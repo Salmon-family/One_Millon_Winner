@@ -23,7 +23,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_rawRes="@raw/lottie_congratulation" />
+            app:lottie_rawRes="@raw/lottie_congratulation"
+            tools:ignore="MissingClass" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_result"
@@ -79,17 +80,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_result_number" />
 
-        <com.google.android.material.textview.MaterialTextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/text_back_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="@string/text_back_to_home"
             android:textColor="#373B3F"
-            android:textSize="18sp"
+            android:textSize="16sp"
+            android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
