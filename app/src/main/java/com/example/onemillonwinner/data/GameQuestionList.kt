@@ -21,16 +21,12 @@ class GameQuestionList {
         }
     }
 
-    fun replaceQuestion(): GameQuestion? {
-        if (replaceableQuestions.isNotEmpty()) {
-           val replaceableQuestion = replaceableQuestions.first {
-                it.difficulty == currentQuestion.getDifficulty()
-            }
-            replaceableQuestions.clear()
-            currentQuestion.setQuestion(replaceableQuestion)
-            return currentQuestion
+    fun replaceQuestion(): GameQuestion {
+        val replaceableQuestion = replaceableQuestions.first {
+            it.difficulty == currentQuestion.getDifficulty()
         }
-        return null
+        currentQuestion.setQuestion(replaceableQuestion)
+        return currentQuestion
     }
 
     private fun getQuestionNumber() = MAX_NUMBER_OF_QUESTIONS - questions.indices.last

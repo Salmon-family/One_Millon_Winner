@@ -21,6 +21,10 @@ class GameViewModel : ViewModel() {
     private val repository: Repository by lazy { Repository() }
     lateinit var timerDisposable: Disposable
 
+    var isChangeQuestion = MutableLiveData(false)
+    var isDeleteHalfOfAnswers = MutableLiveData(false)
+    var isHelpByFriends = MutableLiveData(false)
+
     private val _gameState = MutableLiveData<GameState>()
     val state: LiveData<GameState>
         get() = _gameState
@@ -81,27 +85,24 @@ class GameViewModel : ViewModel() {
     }
 
     fun updateGameState(state: GameState) {
-        when (state) {
-            GameState.REPLACING_QUESTION -> {
-                if (!questionLogic.isReplaceQuestionUsed()) {
-                    replaceQuestion()
-                } else {
-                    /**
-                     * Toast or anything tell user that can used only one time.
-                     * */
-                }
-            }
-
-            else -> {}
-        }
         _gameState.postValue(state)
     }
 
-    private fun replaceQuestion() {
-        _gameState.postValue(GameState.QUESTION_START)
-        _question.postValue(questionLogic.replaceQuestion())
-        timerDisposable.dispose()
-        timer()
+    fun replaceQuestion() {
+        if (_gameState.value != GameState.QUESTION_SUBMITTED) {
+            isChangeQuestion.postValue(true)
+            _question.postValue(questionLogic.replaceQuestion())
+            timerDisposable.dispose()
+            timer()
+        }
+    }
+
+    fun deleteHalfOfAnswers() {
+        isDeleteHalfOfAnswers.postValue(true)
+    }
+
+    fun helpByFriends() {
+        isHelpByFriends.postValue(true)
     }
 
     private fun timer() {
