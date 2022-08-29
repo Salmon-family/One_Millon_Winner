@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="gameViewModel"
             type="com.example.onemillonwinner.ui.fragments.game.GameViewModel" />
@@ -131,6 +130,7 @@
             android:layout_marginEnd="@dimen/margin_medium"
             android:text="@{gameViewModel.question.question}"
             android:textColor="@color/white"
+            app:formatTextFromHtml="@{gameViewModel.question.question}"
             app:layout_constraintBottom_toBottomOf="@+id/card_view"
             app:layout_constraintEnd_toEndOf="@+id/card_view"
             app:layout_constraintStart_toStartOf="@+id/text_question_number"
@@ -159,7 +159,7 @@
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:onClick="@{() -> gameViewModel.onClickAnswer(0)}"
-                android:text="@{gameViewModel.question.answers[0]}"
+                app:formatTextFromHtml="@{gameViewModel.question.answers[0]}"
                 app:chipMinHeight="50dp"
                 app:chipMinTouchTargetSize="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -172,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:onClick="@{() -> gameViewModel.onClickAnswer(1)}"
-                android:text="@{gameViewModel.question.answers[1]}"
+                app:formatTextFromHtml="@{gameViewModel.question.answers[1]}"
                 app:chipMinHeight="50dp"
                 app:chipMinTouchTargetSize="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -185,7 +185,7 @@
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:onClick="@{() -> gameViewModel.onClickAnswer(2)}"
-                android:text="@{gameViewModel.question.answers[2]}"
+                app:formatTextFromHtml="@{gameViewModel.question.answers[2]}"
                 app:chipMinHeight="50dp"
                 app:chipMinTouchTargetSize="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -198,7 +198,7 @@
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:onClick="@{() -> gameViewModel.onClickAnswer(3)}"
-                android:text="@{gameViewModel.question.answers[3]}"
+                app:formatTextFromHtml="@{gameViewModel.question.answers[3]}"
                 app:chipMinHeight="50dp"
                 app:chipMinTouchTargetSize="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
