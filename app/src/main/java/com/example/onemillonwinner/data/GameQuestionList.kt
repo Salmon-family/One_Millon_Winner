@@ -12,6 +12,21 @@ class GameQuestionList {
     private val currentQuestion = GameQuestion()
     private val replaceableQuestions: ArrayList<Question> = ArrayList()
 
+    fun deleteTwoWrongAnswersRandomly(): GameQuestion {
+        var deletedAnswers = 0
+        while (deletedAnswers != 2) {
+            val randomNumber = (0..3).random()
+            if (
+                currentQuestion.getAnswers()[randomNumber] != currentQuestion.correctAnswer &&
+                currentQuestion.getAnswers()[randomNumber] != ""
+            ) {
+                currentQuestion.getAnswers()[randomNumber] = ""
+                deletedAnswers += 1
+            }
+        }
+        return currentQuestion
+    }
+
     fun setQuestions(newQuestions: List<Question>) {
         QuestionLevel.values().forEach { level ->
             questions.addAll(newQuestions.filter { it.difficulty == level.value }

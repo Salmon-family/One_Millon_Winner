@@ -2,8 +2,10 @@ package com.example.onemillonwinner.util
 
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
+import androidx.databinding.BindingAdapter
 import androidx.core.view.children
 import androidx.databinding.*
 import com.example.onemillonwinner.R
@@ -11,6 +13,7 @@ import com.example.onemillonwinner.data.GameQuestion
 import com.example.onemillonwinner.data.GameState
 import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.util.enum.SelectAnswer
+import com.example.onemillonwinner.util.extension.htmlText
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
@@ -107,4 +110,20 @@ fun updateColorSelectedAnswer(chipGroup: ChipGroup, question: GameQuestion?) {
     }
 }
 
+@BindingAdapter(value = ["app:textAnswer"])
+fun setAnswer(chip: Chip, answer: String?) {
+    if (answer != "" && answer != null) {
+        chip.text = answer.htmlText()
+        chip.isEnabled = true
+    } else {
+        chip.isEnabled = false
+    }
+}
 
+
+@BindingAdapter("app:formatTextFromHtml")
+fun formatTextFromHtml(view: TextView, text: String?) {
+    text?.let {
+        view.text = it.htmlText()
+    }
+}

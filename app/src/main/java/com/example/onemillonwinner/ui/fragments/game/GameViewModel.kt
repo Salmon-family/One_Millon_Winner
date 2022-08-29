@@ -99,6 +99,8 @@ class GameViewModel : ViewModel() {
 
     fun deleteHalfOfAnswers() {
         isDeleteHalfOfAnswers.postValue(true)
+        _question.postValue(questionLogic.deleteTwoWrongAnswersRandomly())
+
     }
 
     fun helpByFriends() {
