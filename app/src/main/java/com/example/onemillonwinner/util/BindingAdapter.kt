@@ -114,7 +114,7 @@ fun bindSelectAnswerChip(chipGroup: ChipGroup, question: GameQuestion?) {
 @BindingAdapter(value = ["app:textAnswer"])
 fun setAnswer(chip: Chip, answer: String?) {
     if (answer != "" && answer != null) {
-        chip.text = answer
+        chip.text = answer.htmlText()
         chip.isEnabled = true
     } else {
         chip.isEnabled = false
@@ -125,6 +125,6 @@ fun setAnswer(chip: Chip, answer: String?) {
 @BindingAdapter("app:formatTextFromHtml")
 fun formatTextFromHtml(view: TextView, text: String?) {
     text?.let {
-        view.htmlText(text)
+        view.text = it.htmlText()
     }
 }
