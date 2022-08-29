@@ -12,6 +12,21 @@ class GameQuestionList {
     private val currentQuestion = GameQuestion()
     private var currentQuestionSubmitted: Boolean = false
 
+    fun deleteTwoWrongAnswersRandomly(): GameQuestion {
+        var deletedAnswers = 0
+        while (deletedAnswers != 2) {
+            val randomNumber = (0..3).random()
+            if (
+                currentQuestion.getAnswers()[randomNumber] != currentQuestion.correctAnswer &&
+                currentQuestion.getAnswers()[randomNumber] != ""
+            ) {
+                currentQuestion.getAnswers()[randomNumber] = ""
+                deletedAnswers += 1
+            }
+        }
+        return currentQuestion
+    }
+
     fun setQuestions(newQuestions: List<Question>) {
         questions.addAll(newQuestions)
     }

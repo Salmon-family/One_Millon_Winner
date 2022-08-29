@@ -1,5 +1,6 @@
 package com.example.onemillonwinner.util
 
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.content.res.AppCompatResources
@@ -105,6 +106,16 @@ fun bindSelectAnswerChip(chipGroup: ChipGroup, question: GameQuestion?) {
                 }
             }
         }
+    }
+}
+
+@BindingAdapter(value = ["app:textAnswer"])
+fun setAnswer(chip: Chip, answer: String?) {
+    if (answer != "" && answer != null) {
+        chip.text = answer
+        chip.isEnabled = true
+    } else {
+        chip.isEnabled = false
     }
 }
 
