@@ -43,6 +43,8 @@ class GameViewModel : ViewModel() {
 
     val questionTimeOver = MutableLiveData(false)
 
+  
+
 
     init {
         _gameState.postValue(State.Loading)
@@ -72,16 +74,27 @@ class GameViewModel : ViewModel() {
             updateView()
         }
     }
+    private val _countPrize = MutableLiveData<String>()
+    val countPrize:LiveData<String>
+        get() = _countPrize
 
     private fun updateView() {
         if (!questionLogic.isGameDone()) {
             _question.postValue(questionLogic.updateQuestion())
             timerDisposable.dispose()
             timer()
+       calculatePrize()
         } else {
             timerDisposable.dispose()
             _gameState.postValue(State.Complete)
+        }
+    }
 
+    private fun calculatePrize() {
+        when(question.value?.getQuestionNumber()) {
+            5 -> _countPrize.postValue("$1000")
+            10-> _countPrize.postValue("$32000")
+            15 -> _countPrize.postValue("$1000,000")
         }
     }
 
