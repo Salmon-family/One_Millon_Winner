@@ -5,14 +5,14 @@ import com.example.onemillonwinner.data.questionResponse.Question
 class GameQuestion {
     private var questionDescription: String = ""
     private var questionNumber: Int = 0
+    private var difficulty: String = ""
     private val answers: MutableList<String> = mutableListOf()
-    var selectedAnswerIndex = -1
     var correctAnswer: String = ""
 
     fun setQuestion(question: Question) {
         questionDescription = question.question ?: ""
+        difficulty = question.difficulty ?: ""
         answers.clear()
-        selectedAnswerIndex = -1
         question.incorrectAnswers?.let { incorrectAnswers ->
             answers.addAll(incorrectAnswers)
         }
@@ -32,5 +32,7 @@ class GameQuestion {
     fun getQuestionNumber() = questionNumber
 
     fun getAnswers() = answers
+
+    fun getDifficulty() = difficulty
 
 }

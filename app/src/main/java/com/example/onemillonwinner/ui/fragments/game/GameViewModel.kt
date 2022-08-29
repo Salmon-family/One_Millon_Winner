@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.onemillonwinner.data.GameQuestion
 import com.example.onemillonwinner.data.GameQuestionList
+import com.example.onemillonwinner.data.GameState
 import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.network.Repository
@@ -18,39 +19,30 @@ class GameViewModel : ViewModel() {
 
     private val questionLogic: GameQuestionList by lazy { GameQuestionList() }
     private val repository: Repository by lazy { Repository() }
-
     lateinit var timerDisposable: Disposable
 
-    var isChangeQuestion = MutableLiveData(false)
-    var isDeleteHalfOfAnswers = MutableLiveData(false)
-    var isHelpByFriends = MutableLiveData(false)
-
-    private val _gameState = MutableLiveData<State<TriviaResponse>>()
-    val state: LiveData<State<TriviaResponse>>
+    private val _gameState = MutableLiveData<GameState>()
+    val state: LiveData<GameState>
         get() = _gameState
 
     private val _question = MutableLiveData<GameQuestion>()
     val question: LiveData<GameQuestion>
         get() = _question
 
-    private val _questionsLiveData = MutableLiveData<State<TriviaResponse>>()
-    val questions: LiveData<State<TriviaResponse>>
-        get() = _questionsLiveData
-
     private val _questionTime = MutableLiveData(100)
     val questionTime: LiveData<Int>
         get() = _questionTime
 
-    val questionTimeOver = MutableLiveData(false)
+    private val questionTimeOver = MutableLiveData(false)
 
 
     init {
-        _gameState.postValue(State.Loading)
+        _gameState.postValue(GameState.Loading)
         repository.getAllQuestions().subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion)
     }
 
     private fun onSuccessUpdateQuestion(state: State<TriviaResponse>) {
-        _gameState.postValue(state)
+        _gameState.postValue(GameState.Success)
         timer()
         state.toData()?.let {
             questionLogic.setQuestions(it.questions)
@@ -63,44 +55,54 @@ class GameViewModel : ViewModel() {
     }
 
     fun onClickToUpdateView() {
-        if (questionLogic.isReadyToSubmit()) {
-            questionLogic.setCurrentQuestionSubmitted(true)
-            _question.postValue(questionLogic.getCurrentQuestion())
-            timerDisposable.dispose()
-        } else if (questionLogic.isCurrentQuestionSubmitted()) {
-            questionLogic.setCurrentQuestionSubmitted(false)
+        if (_gameState.value == GameState.ANSWER_SELECTED) {
+            showAnswer()
+        } else if (_gameState.value == GameState.QUESTION_SUBMITTED) {
             updateView()
         }
     }
 
+    private fun showAnswer() {
+        _gameState.postValue(GameState.QUESTION_SUBMITTED)
+        _question.postValue(questionLogic.getCurrentQuestion())
+        timerDisposable.dispose()
+    }
+
     private fun updateView() {
         if (!questionLogic.isGameDone()) {
+            _gameState.postValue(GameState.QUESTION_START)
             _question.postValue(questionLogic.updateQuestion())
             timerDisposable.dispose()
             timer()
         } else {
             timerDisposable.dispose()
-            _gameState.postValue(State.Complete)
-
+            _gameState.postValue(GameState.GameComplete)
         }
     }
 
-    fun onClickAnswer(selectedAnswerIndex: Int) {
-        questionLogic.setSelectedAnswer(selectedAnswerIndex)
+    fun updateGameState(state: GameState) {
+        when (state) {
+            GameState.REPLACING_QUESTION -> {
+                if (!questionLogic.isReplaceQuestionUsed()) {
+                    replaceQuestion()
+                } else {
+                    /**
+                     * Toast or anything tell user that can used only one time.
+                     * */
+                }
+            }
+
+            else -> {}
+        }
+        _gameState.postValue(state)
     }
 
-    fun changeQuestion() {
-        isChangeQuestion.postValue(true)
+    private fun replaceQuestion() {
+        _gameState.postValue(GameState.QUESTION_START)
+        _question.postValue(questionLogic.replaceQuestion())
+        timerDisposable.dispose()
+        timer()
     }
-
-    fun deleteHalfOfAnswers() {
-        isDeleteHalfOfAnswers.postValue(true)
-    }
-
-    fun helpByFriends() {
-        isHelpByFriends.postValue(true)
-    }
-
 
     private fun timer() {
         _questionTime.postValue(100)
@@ -121,7 +123,6 @@ class GameViewModel : ViewModel() {
         timerDisposable.dispose()
         questionTimeOver.postValue(true)
     }
-
 
 }
 
