@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="gameViewModel"
             type="com.example.onemillonwinner.ui.fragments.game.GameViewModel" />
@@ -129,8 +128,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_medium"
-            android:text="@{gameViewModel.question.question}"
             android:textColor="@color/white"
+            app:formatTextFromHtml="@{gameViewModel.question.question}"
             app:layout_constraintBottom_toBottomOf="@+id/card_view"
             app:layout_constraintEnd_toEndOf="@+id/card_view"
             app:layout_constraintStart_toStartOf="@+id/text_question_number"
