@@ -1,8 +1,6 @@
 package com.example.onemillonwinner.ui.fragments.result
 
 
-import android.annotation.SuppressLint
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.databinding.FragmentResultBinding
