@@ -11,19 +11,19 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
     override val layoutIdFragment = R.layout.fragment_result
 
     override fun setup() {
-        goToGameFragment()
-        goToHomeFragment()
+        navigateToGameFragment()
+        navigateToHomeFragment()
     }
 
-    private fun goToGameFragment() {
+    private fun navigateToGameFragment() {
         binding.buttonPlayAgain.setOnClickListener {
             it.findNavController().navigate(R.id.gameFragment)
         }
     }
 
-    private fun goToHomeFragment() {
+    private fun navigateToHomeFragment() {
         binding.textBackHome.setOnClickListener {
-            it.findNavController().popBackStack(R.id.homeFragment, true)
+            it.findNavController().popBackStack(R.id.homeFragment, false)
         }
     }
 }
