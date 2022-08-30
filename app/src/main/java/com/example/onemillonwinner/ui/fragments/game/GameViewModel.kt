@@ -60,21 +60,35 @@ class GameViewModel : ViewModel() {
     }
 
     fun onClickToUpdateView() {
-        if (_gameState.value == GameState.ANSWER_SELECTED) {
-            showAnswer()
-        } else if (_gameState.value == GameState.QUESTION_SUBMITTED) {
-            updateView()
-        }
+       when(_gameState.value){
+           GameState.ANSWER_SELECTED->{
+               showAnswer()
+           }
+           GameState.QUESTION_SUBMITTED->{
+               updateView()
+           }
+           else -> {
+               _gameState.postValue(GameState.GameOver)
+           }
+       }
     }
 
     private fun showAnswer() {
-        _gameState.postValue(GameState.QUESTION_SUBMITTED)
+        setGameState()
         _question.postValue(questionLogic.getCurrentQuestion())
         timerDisposable.dispose()
     }
 
+    private fun setGameState() {
+        if (questionLogic.isGameOver())
+            _gameState.postValue(GameState.WRONG_ANSWER_SUBMITTED)
+        else
+            _gameState.postValue(GameState.QUESTION_SUBMITTED)
+    }
+
+
     private fun updateView() {
-        if (!questionLogic.isGameDone()) {
+        if (!questionLogic.isGameOver()) {
             _gameState.postValue(GameState.QUESTION_START)
             _question.postValue(questionLogic.updateQuestion())
             restartTimer()
@@ -103,9 +117,11 @@ class GameViewModel : ViewModel() {
     }
 
     fun deleteHalfOfAnswers() {
-        _gameState.postValue(GameState.QUESTION_START)
-        isDeleteHalfOfAnswers.postValue(true)
-        _question.postValue(questionLogic.deleteTwoWrongAnswersRandomly())
+        if (_gameState.value != GameState.QUESTION_SUBMITTED) {
+            _gameState.postValue(GameState.QUESTION_START)
+            isDeleteHalfOfAnswers.postValue(true)
+            _question.postValue(questionLogic.deleteTwoWrongAnswersRandomly())
+        }
     }
 
     fun helpByFriends() {

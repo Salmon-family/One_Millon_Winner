@@ -58,12 +58,24 @@ fun showWhenFail(view: View, state: State<GameState>?) {
 @BindingAdapter("app:buttonUpdateText")
 fun updateTextButton(submitButton: Button, state: GameState?) {
     state?.let {
-        if (state == GameState.QUESTION_SUBMITTED) {
-            submitButton.text = submitButton.context.resources.getText(R.string.next_question)
-            submitButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_right, 0)
-        } else {
-            submitButton.text = submitButton.context.resources.getText(R.string.submit)
-            submitButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+        when (state) {
+            GameState.QUESTION_SUBMITTED -> {
+                submitButton.text = submitButton.context.resources.getText(R.string.next_question)
+                submitButton.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.ic_arrow_right,
+                    0
+                )
+            }
+            GameState.WRONG_ANSWER_SUBMITTED -> {
+                submitButton.text = submitButton.context.resources.getText(R.string.game_over)
+                submitButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+            }
+            else -> {
+                submitButton.text = submitButton.context.resources.getText(R.string.submit)
+                submitButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+            }
         }
     }
 }
@@ -73,17 +85,16 @@ fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameSta
     val selectedID = chipGroup.checkedChipId
     question?.let {
         when (gameState) {
-            GameState.QUESTION_SUBMITTED -> {
+            GameState.QUESTION_SUBMITTED,
+            GameState.WRONG_ANSWER_SUBMITTED -> {
                 chipGroup.children.forEachIndexed { index, chip ->
                     chip as Chip
                     chip.isEnabled = false
                     if (chip.text.toString() == question.correctAnswer) {
                         chip.setChipBackgroundColorResource(R.color.teal_200)
                     }
-                    if (selectedID == chip.id) {
-                        question.selectedAnswer = index
-                        if (chip.text.toString() != question.correctAnswer)
-                            chip.setChipBackgroundColorResource(R.color.red_200)
+                    if (selectedID == chip.id && chip.text.toString() != question.correctAnswer) {
+                        chip.setChipBackgroundColorResource(R.color.red_200)
                     }
                 }
             }
@@ -96,7 +107,16 @@ fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameSta
                         AppCompatResources.getColorStateList(chip.context, R.color.selected_chip)
                 }
             }
-            else -> {}
+            GameState.ANSWER_SELECTED -> {
+                chipGroup.children.forEachIndexed { index, chip ->
+                    if (selectedID == chip.id) {
+                        question.selectedAnswer = index
+                    }
+                }
+            }
+            else -> {
+
+            }
         }
     }
 }

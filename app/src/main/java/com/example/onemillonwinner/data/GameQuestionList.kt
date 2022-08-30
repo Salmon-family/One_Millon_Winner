@@ -60,7 +60,7 @@ class GameQuestionList {
                 currentQuestion.selectedAnswer
     }
 
-    fun isGameDone(): Boolean {
+    fun isGameOver(): Boolean {
         return questions.isEmpty() || isSelectWrongAnswer()
     }
 
