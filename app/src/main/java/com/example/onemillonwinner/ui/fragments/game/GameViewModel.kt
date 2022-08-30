@@ -67,8 +67,10 @@ class GameViewModel : ViewModel() {
            GameState.QUESTION_SUBMITTED->{
                updateView()
            }
+           GameState.WRONG_ANSWER_SUBMITTED -> _gameState.postValue(GameState.GameOver)
+
            else -> {
-               _gameState.postValue(GameState.GameOver)
+
            }
        }
     }
