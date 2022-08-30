@@ -90,7 +90,7 @@ fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameSta
                 chipGroup.children.forEachIndexed { index, chip ->
                     chip as Chip
                     chip.isEnabled = false
-                    if (chip.text.toString() == question.correctAnswer) {
+                    if (chip.text.toString() == question.correctAnswer.htmlText()) {
                         chip.setChipBackgroundColorResource(R.color.teal_200)
                     }
                     if (selectedID == chip.id && chip.text.toString() != question.correctAnswer) {
