@@ -3,6 +3,7 @@
     <string name="app_name">من سيربح المليون</string>
     <string name="question_number">سؤال %s من 15</string>
     <string name="submit">إرسال</string>
+    <string name="game_over">انتهت اللعبة</string>
     <string name="next_question">سؤال التالي</string>
     <string name="text_result">النتيجة</string>
     <string name="text_congratulation">تهانينا !</string>

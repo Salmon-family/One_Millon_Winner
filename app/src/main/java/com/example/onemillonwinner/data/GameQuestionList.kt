@@ -2,15 +2,15 @@ package com.example.onemillonwinner.data
 
 import com.example.onemillonwinner.data.questionResponse.Question
 import com.example.onemillonwinner.util.Constants.MAX_NUMBER_OF_QUESTIONS
-import com.example.onemillonwinner.util.enum.SelectAnswer
-import java.util.*
+import com.example.onemillonwinner.util.Constants.NUMBER_OF_QUESTIONS_PER_LEVEL
+import com.example.onemillonwinner.util.enum.QuestionLevel
 import kotlin.collections.ArrayList
 
 
 class GameQuestionList {
     private val questions = ArrayList<Question>()
     private val currentQuestion = GameQuestion()
-    private var currentQuestionSubmitted: Boolean = false
+    private val replaceableQuestions: ArrayList<Question> = ArrayList()
 
     fun deleteTwoWrongAnswersRandomly(): GameQuestion {
         var deletedAnswers = 0
@@ -28,24 +28,21 @@ class GameQuestionList {
     }
 
     fun setQuestions(newQuestions: List<Question>) {
-        questions.addAll(newQuestions)
+        QuestionLevel.values().forEach { level ->
+            questions.addAll(newQuestions.filter { it.difficulty == level.value }
+                .apply {
+                    replaceableQuestions.add(this.last())
+                }.take(NUMBER_OF_QUESTIONS_PER_LEVEL))
+        }
     }
 
-    fun setSelectedAnswer(selectAnswerIndex: Int) {
-        currentQuestion.selectedAnswerIndex = selectAnswerIndex
+    fun replaceQuestion(): GameQuestion {
+        val replaceableQuestion = replaceableQuestions.first {
+            it.difficulty == currentQuestion.getDifficulty()
+        }
+        currentQuestion.setQuestion(replaceableQuestion)
+        return currentQuestion
     }
-
-    fun isCurrentQuestionSubmitted() = currentQuestionSubmitted
-
-    fun setCurrentQuestionSubmitted(value: Boolean) {
-        currentQuestionSubmitted = value
-    }
-
-    fun isReadyToSubmit(): Boolean {
-        return (currentQuestion.selectedAnswerIndex != -1
-                && !currentQuestionSubmitted)
-    }
-
 
     private fun getQuestionNumber() = MAX_NUMBER_OF_QUESTIONS - questions.indices.last
 
@@ -58,6 +55,13 @@ class GameQuestionList {
 
     fun getCurrentQuestion() = currentQuestion
 
-    fun isGameDone() = questions.isEmpty()
+   private fun isSelectWrongAnswer(): Boolean {
+        return currentQuestion.getAnswers().indexOf(currentQuestion.correctAnswer) !=
+                currentQuestion.selectedAnswer
+    }
+
+    fun isGameOver(): Boolean {
+        return questions.isEmpty() || isSelectWrongAnswer()
+    }
 
 }
