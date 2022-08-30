@@ -9,4 +9,5 @@ object NetworkConstants {
 object Constants {
     const val MAX_NUMBER_OF_QUESTIONS = 15
     const val NUMBER_OF_QUESTIONS_PER_LEVEL = 5
+    const val QUESTION_TIME = 100
 }

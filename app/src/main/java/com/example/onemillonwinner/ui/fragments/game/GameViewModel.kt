@@ -9,6 +9,7 @@ import com.example.onemillonwinner.data.GameState
 import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.network.Repository
+import com.example.onemillonwinner.util.Constants.QUESTION_TIME
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.Disposable
@@ -19,7 +20,7 @@ class GameViewModel : ViewModel() {
 
     private val questionLogic: GameQuestionList by lazy { GameQuestionList() }
     private val repository: Repository by lazy { Repository() }
-    lateinit var timerDisposable: Disposable
+    private lateinit var timerDisposable: Disposable
 
     var isChangeQuestion = MutableLiveData(false)
     var isDeleteHalfOfAnswers = MutableLiveData(false)
@@ -33,7 +34,7 @@ class GameViewModel : ViewModel() {
     val question: LiveData<GameQuestion>
         get() = _question
 
-    private val _questionTime = MutableLiveData(100)
+    private val _questionTime = MutableLiveData(QUESTION_TIME)
     val questionTime: LiveData<Int>
         get() = _questionTime
 
@@ -55,7 +56,7 @@ class GameViewModel : ViewModel() {
     }
 
     private fun onErrorUpdateQuestion(throwable: Throwable) {
-
+        _gameState.postValue(GameState.Failure)
     }
 
     fun onClickToUpdateView() {
@@ -76,8 +77,7 @@ class GameViewModel : ViewModel() {
         if (!questionLogic.isGameDone()) {
             _gameState.postValue(GameState.QUESTION_START)
             _question.postValue(questionLogic.updateQuestion())
-            timerDisposable.dispose()
-            timer()
+            restartTimer()
         } else {
             timerDisposable.dispose()
             _gameState.postValue(GameState.GameOver)
@@ -93,16 +93,19 @@ class GameViewModel : ViewModel() {
             _gameState.postValue(GameState.QUESTION_START)
             isChangeQuestion.postValue(true)
             _question.postValue(questionLogic.replaceQuestion())
-            timerDisposable.dispose()
-            timer()
+            restartTimer()
         }
+    }
+
+    private fun restartTimer() {
+        timerDisposable.dispose()
+        timer()
     }
 
     fun deleteHalfOfAnswers() {
         _gameState.postValue(GameState.QUESTION_START)
         isDeleteHalfOfAnswers.postValue(true)
         _question.postValue(questionLogic.deleteTwoWrongAnswersRandomly())
-
     }
 
     fun helpByFriends() {
@@ -110,8 +113,8 @@ class GameViewModel : ViewModel() {
     }
 
     private fun timer() {
-        _questionTime.postValue(100)
-        val timeInSecond: Long = 100
+        _questionTime.postValue(QUESTION_TIME)
+        val timeInSecond: Long = QUESTION_TIME.toLong()
         timerDisposable = Observable.interval(1, TimeUnit.SECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .take(timeInSecond).map {
@@ -126,6 +129,7 @@ class GameViewModel : ViewModel() {
 
     private fun endTheCountDown() {
         timerDisposable.dispose()
+        _gameState.postValue(GameState.GameOver)
         questionTimeOver.postValue(true)
     }
 

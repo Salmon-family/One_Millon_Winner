@@ -7,6 +7,7 @@ class GameQuestion {
     private var questionNumber: Int = 0
     private var difficulty: String = ""
     private val answers: MutableList<String> = mutableListOf()
+    var selectedAnswer = -1
     var correctAnswer: String = ""
 
     fun setQuestion(question: Question) {

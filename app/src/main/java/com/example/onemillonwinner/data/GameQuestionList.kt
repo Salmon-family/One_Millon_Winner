@@ -55,8 +55,13 @@ class GameQuestionList {
 
     fun getCurrentQuestion() = currentQuestion
 
-    fun isGameDone() = questions.isEmpty()
+   private fun isSelectWrongAnswer(): Boolean {
+        return currentQuestion.getAnswers().indexOf(currentQuestion.correctAnswer) !=
+                currentQuestion.selectedAnswer
+    }
 
-    fun isReplaceQuestionUsed() = replaceableQuestions.isEmpty()
+    fun isGameDone(): Boolean {
+        return questions.isEmpty() || isSelectWrongAnswer()
+    }
 
 }

@@ -28,20 +28,6 @@ fun disableButton(view: View, value: Boolean?) {
     }
 }
 
-@BindingAdapter(value = ["app:rawAnswersColor"])
-fun rawAnswersColor(view: View, selectedAnswer: SelectAnswer?) {
-    when (selectedAnswer) {
-        SelectAnswer.UNSELECTED_ANSWER -> view.background = ContextCompat
-            .getDrawable(view.context, R.drawable.raw_unselected_answers_shape)
-        SelectAnswer.CORRECT_ANSWER -> view.background = ContextCompat
-            .getDrawable(view.context, R.drawable.raw_correct_answers_shape)
-        SelectAnswer.INCORRECT_ANSWER -> view.background = ContextCompat
-            .getDrawable(view.context, R.drawable.raw_incorrect_answers_shape)
-        else -> view.background = ContextCompat
-            .getDrawable(view.context, R.drawable.raw_unselected_answers_shape)
-    }
-}
-
 @BindingAdapter("app:isLoading")
 fun showWhenLoading(view: View, state: GameState?) {
     if (state == GameState.Loading) {
@@ -88,16 +74,16 @@ fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameSta
     question?.let {
         when (gameState) {
             GameState.QUESTION_SUBMITTED -> {
-                chipGroup.children.forEach { chip ->
+                chipGroup.children.forEachIndexed { index, chip ->
                     chip as Chip
                     chip.isEnabled = false
                     if (chip.text.toString() == question.correctAnswer) {
                         chip.setChipBackgroundColorResource(R.color.teal_200)
                     }
-                    if (selectedID == chip.id &&
-                        chip.text.toString() != question.correctAnswer
-                    ) {
-                        chip.setChipBackgroundColorResource(R.color.red_200)
+                    if (selectedID == chip.id) {
+                        question.selectedAnswer = index
+                        if (chip.text.toString() != question.correctAnswer)
+                            chip.setChipBackgroundColorResource(R.color.red_200)
                     }
                 }
             }
@@ -112,7 +98,6 @@ fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameSta
             }
             else -> {}
         }
-
     }
 }
 
