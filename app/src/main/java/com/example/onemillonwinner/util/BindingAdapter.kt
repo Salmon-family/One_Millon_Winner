@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.core.view.children
 import androidx.databinding.*
+import androidx.lifecycle.MutableLiveData
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.data.GameQuestion
 import com.example.onemillonwinner.data.GameState
@@ -81,45 +82,39 @@ fun updateTextButton(submitButton: Button, state: GameState?) {
     }
 }
 
-@BindingAdapter("app:changeColorSelection")
-fun updateColorSelectedAnswer(chipGroup: ChipGroup, question: GameQuestion?) {
+@BindingAdapter(value = ["app:changeColorSelection", "app:gameState"])
+fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameState?) {
     val selectedID = chipGroup.checkedChipId
-    chipGroup.clearCheck()
-    if (selectedID == -1) {
-        chipGroup.children.forEach { chip ->
-            chip as Chip
-            chip.isEnabled = true
-            chip.chipBackgroundColor =
-                AppCompatResources.getColorStateList(chip.context, R.color.selected_chip)
-        }
-    } else {
-        question?.let {
-            chipGroup.children.forEach { chip ->
-                chip as Chip
-                chip.isEnabled = false
-                if (chip.text.toString() == question.correctAnswer) {
-                    chip.setChipBackgroundColorResource(R.color.teal_200)
-                }
-                if (selectedID == chip.id &&
-                    chip.text.toString() != question.correctAnswer
-                ) {
-                    chip.setChipBackgroundColorResource(R.color.red_200)
+    question?.let {
+        when (gameState) {
+            GameState.QUESTION_SUBMITTED -> {
+                chipGroup.children.forEach { chip ->
+                    chip as Chip
+                    chip.isEnabled = false
+                    if (chip.text.toString() == question.correctAnswer) {
+                        chip.setChipBackgroundColorResource(R.color.teal_200)
+                    }
+                    if (selectedID == chip.id &&
+                        chip.text.toString() != question.correctAnswer
+                    ) {
+                        chip.setChipBackgroundColorResource(R.color.red_200)
+                    }
                 }
             }
+            GameState.QUESTION_START -> {
+                chipGroup.clearCheck()
+                chipGroup.children.forEachIndexed { index, chip ->
+                    chip as Chip
+                    chip.isEnabled = question.getAnswers()[index] != ""
+                    chip.chipBackgroundColor =
+                        AppCompatResources.getColorStateList(chip.context, R.color.selected_chip)
+                }
+            }
+            else -> {}
         }
+
     }
 }
-
-@BindingAdapter(value = ["app:textAnswer"])
-fun setAnswer(chip: Chip, answer: String?) {
-    if (answer != "" && answer != null) {
-        chip.text = answer.htmlText()
-        chip.isEnabled = true
-    } else {
-        chip.isEnabled = false
-    }
-}
-
 
 @BindingAdapter("app:formatTextFromHtml")
 fun formatTextFromHtml(view: TextView, text: String?) {

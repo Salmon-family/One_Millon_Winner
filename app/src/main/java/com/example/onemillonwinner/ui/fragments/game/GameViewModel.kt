@@ -80,7 +80,7 @@ class GameViewModel : ViewModel() {
             timer()
         } else {
             timerDisposable.dispose()
-            _gameState.postValue(GameState.GameComplete)
+            _gameState.postValue(GameState.GameOver)
         }
     }
 
@@ -90,6 +90,7 @@ class GameViewModel : ViewModel() {
 
     fun replaceQuestion() {
         if (_gameState.value != GameState.QUESTION_SUBMITTED) {
+            _gameState.postValue(GameState.QUESTION_START)
             isChangeQuestion.postValue(true)
             _question.postValue(questionLogic.replaceQuestion())
             timerDisposable.dispose()
@@ -98,6 +99,7 @@ class GameViewModel : ViewModel() {
     }
 
     fun deleteHalfOfAnswers() {
+        _gameState.postValue(GameState.QUESTION_START)
         isDeleteHalfOfAnswers.postValue(true)
         _question.postValue(questionLogic.deleteTwoWrongAnswersRandomly())
 

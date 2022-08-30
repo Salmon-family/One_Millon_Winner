@@ -4,7 +4,7 @@ enum class GameState {
     Loading,
     Success,
     Failure,
-    GameComplete,
+    GameOver,
 
     QUESTION_START,
     ANSWER_SELECTED,
