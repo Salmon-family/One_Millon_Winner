@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="com.example.onemillonwinner.data.GameState" />
+
         <variable
             name="gameViewModel"
             type="com.example.onemillonwinner.ui.fragments.game.GameViewModel" />
@@ -88,7 +90,7 @@
             android:layout_width="@dimen/help_button_dimension"
             android:layout_height="@dimen/help_button_dimension"
             android:layout_marginStart="@dimen/help_button_dimension"
-            android:onClick="@{() -> gameViewModel.changeQuestion()}"
+            android:onClick="@{() -> gameViewModel.replaceQuestion()}"
             app:cornerRadius="@dimen/corner_radius_medium"
             app:disableButton="@{gameViewModel.isChangeQuestion()}"
             app:icon="@drawable/ic_repeat"
@@ -129,8 +131,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_medium"
-            android:text="@{gameViewModel.question.question}"
             android:textColor="@color/white"
+            app:formatTextFromHtml="@{gameViewModel.question.question}"
             app:layout_constraintBottom_toBottomOf="@+id/card_view"
             app:layout_constraintEnd_toEndOf="@+id/card_view"
             app:layout_constraintStart_toStartOf="@+id/text_question_number"
@@ -144,10 +146,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            app:changeColorSelection="@{gameViewModel.question}"
+            app:gameState="@{gameViewModel.state}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/card_view"
-            app:selectAnswer="@{gameViewModel.question}"
             app:selectionRequired="true"
             app:singleSelection="true">
 
@@ -158,10 +161,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:onClick="@{() -> gameViewModel.onClickAnswer(0)}"
-                android:text="@{gameViewModel.question.answers[0]}"
+                android:onClick="@{() -> gameViewModel.updateGameState(GameState.ANSWER_SELECTED)}"
                 app:chipMinHeight="50dp"
                 app:chipMinTouchTargetSize="0dp"
+                app:formatTextFromHtml="@{gameViewModel.question.answers[0]}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -171,10 +174,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:onClick="@{() -> gameViewModel.onClickAnswer(1)}"
-                android:text="@{gameViewModel.question.answers[1]}"
+                android:onClick="@{() -> gameViewModel.updateGameState(GameState.ANSWER_SELECTED)}"
                 app:chipMinHeight="50dp"
                 app:chipMinTouchTargetSize="0dp"
+                app:formatTextFromHtml="@{gameViewModel.question.answers[1]}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -184,10 +187,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:onClick="@{() -> gameViewModel.onClickAnswer(2)}"
-                android:text="@{gameViewModel.question.answers[2]}"
+                android:onClick="@{() -> gameViewModel.updateGameState(GameState.ANSWER_SELECTED)}"
                 app:chipMinHeight="50dp"
                 app:chipMinTouchTargetSize="0dp"
+                app:formatTextFromHtml="@{gameViewModel.question.answers[2]}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -197,10 +200,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:onClick="@{() -> gameViewModel.onClickAnswer(3)}"
-                android:text="@{gameViewModel.question.answers[3]}"
+                android:onClick="@{() -> gameViewModel.updateGameState(GameState.ANSWER_SELECTED)}"
                 app:chipMinHeight="50dp"
                 app:chipMinTouchTargetSize="0dp"
+                app:formatTextFromHtml="@{gameViewModel.question.answers[3]}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -219,7 +222,7 @@
             android:text="@string/submit"
             android:textColor="@color/white"
             android:textSize="12sp"
-            app:buttonUpdateText="@{gameViewModel.question}"
+            app:buttonUpdateText="@{gameViewModel.state}"
             app:cornerRadius="@dimen/corner_radius_small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -248,6 +251,7 @@
         <androidx.constraintlayout.widget.Group
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             app:constraint_referenced_ids="card_view,
                  timer_progress_bar,
                  text_timer,
