@@ -11,6 +11,25 @@ class GameQuestionList {
     private val questions = ArrayList<Question>()
     private val currentQuestion = GameQuestion()
     private val replaceableQuestions: ArrayList<Question> = ArrayList()
+    private val prizeList = mapOf(
+        1 to 100,
+        2 to 200,
+        3 to 300,
+        4 to 500,
+        5 to 1000,
+        6 to 2000,
+        7 to 4000,
+        8 to 8000,
+        9 to 16000,
+        10 to 32000,
+        11 to 64000,
+        12 to 125000,
+        13 to 250000,
+        14 to 500000,
+        15 to 1000000
+
+    )
+
 
     fun deleteTwoWrongAnswersRandomly(): GameQuestion {
         var deletedAnswers = 0
@@ -54,6 +73,8 @@ class GameQuestionList {
     }
 
     fun getCurrentQuestion() = currentQuestion
+
+    fun getPrize() = prizeList[currentQuestion.getQuestionNumber()]
 
    private fun isSelectWrongAnswer(): Boolean {
         return currentQuestion.getAnswers().indexOf(currentQuestion.correctAnswer) !=

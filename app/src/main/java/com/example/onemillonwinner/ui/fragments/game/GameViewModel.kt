@@ -38,6 +38,10 @@ class GameViewModel : ViewModel() {
     val questionTime: LiveData<Int>
         get() = _questionTime
 
+    private val _prize = MutableLiveData("$0")
+    val prize : LiveData<String>
+        get() = _prize
+
     private val questionTimeOver = MutableLiveData(false)
 
 
@@ -75,6 +79,10 @@ class GameViewModel : ViewModel() {
        }
     }
 
+    private fun calculatePrize() {
+        _prize.postValue("$${questionLogic.getPrize()}")
+    }
+
     private fun showAnswer() {
         setGameState()
         _question.postValue(questionLogic.getCurrentQuestion())
@@ -94,6 +102,7 @@ class GameViewModel : ViewModel() {
             _gameState.postValue(GameState.QUESTION_START)
             _question.postValue(questionLogic.updateQuestion())
             restartTimer()
+            calculatePrize()
         } else {
             timerDisposable.dispose()
             _gameState.postValue(GameState.GameOver)
