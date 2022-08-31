@@ -2,7 +2,6 @@ package com.example.onemillonwinner.ui.fragments.game
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.onemillonwinner.data.GameQuestion
 import com.example.onemillonwinner.data.GameQuestionList
 import com.example.onemillonwinner.data.GameState
