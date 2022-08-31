@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -13,15 +14,96 @@
         android:layout_height="match_parent"
         android:background="@color/background">
 
-        <Button
-            android:id="@+id/start_game_button"
-            android:layout_width="wrap_content"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_home"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:layout_marginEnd="@dimen/margin_medium"
+            android:elevation="@dimen/margin_small"
+            app:layout_constraintBottom_toBottomOf="@+id/card_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.45"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/welcome" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_view"
+            style="@style/Widget.Material3.CardView.Filled"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:layout_marginEnd="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/margin_small"
+            app:cardBackgroundColor="@color/blue_200"
+            app:cardCornerRadius="@dimen/corner_radius_small"
+            app:layout_constraintBottom_toTopOf="@+id/start_game_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.62" />
+
+        <TextView
+            android:id="@+id/account_name"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Home Fragment"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:layout_marginEnd="@dimen/margin_medium"
+            android:text="Hello Amnah"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/card_view"
+            app:layout_constraintStart_toStartOf="@+id/card_view"
+            app:layout_constraintTop_toBottomOf="@+id/lottie_home" />
+
+        <TextView
+            android:id="@+id/account_balance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:layout_marginEnd="@dimen/margin_medium"
+            android:text="Your balance of score is : 2000"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/card_view"
+            app:layout_constraintEnd_toEndOf="@+id/card_view"
+            app:layout_constraintStart_toStartOf="@+id/card_view"
+            app:layout_constraintTop_toBottomOf="@+id/account_name" />
+
+        <TextView
+            android:id="@+id/hint_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:layout_marginEnd="@dimen/margin_medium"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textColor="@color/gray_700"
+            android:text="@string/start_hint"
+            app:layout_constraintBottom_toTopOf="@+id/start_game_button"
+            app:layout_constraintEnd_toEndOf="@+id/card_view"
+            app:layout_constraintStart_toStartOf="@+id/card_view"
+            app:layout_constraintTop_toBottomOf="@+id/card_view" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/start_game_button"
+            style="@style/ShapeAppearanceOverlay.Material3.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_large_x"
+            android:layout_marginEnd="@dimen/margin_large_x"
+            android:backgroundTint="@color/blue_700"
+            android:padding="14dp"
+            android:text="@string/start_the_game"
+            app:cornerRadius="@dimen/corner_radius_small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.87" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
