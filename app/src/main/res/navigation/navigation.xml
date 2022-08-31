@@ -20,15 +20,19 @@
         tools:layout="@layout/fragment_game">
         <action
             android:id="@+id/action_gameFragment_to_resultFragment"
-            app:destination="@id/resultFragment" />
+            app:destination="@id/resultFragment"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/resultFragment"
         android:name="com.example.onemillonwinner.ui.fragments.result.ResultFragment"
         android:label="ResultFragment"
-        tools:layout="@layout/fragment_result">
+        tools:layout="@layout/fragment_result" >
+
         <argument
-            android:name="score"
+            android:name="prize"
             app:argType="integer" />
+
     </fragment>
 </navigation>

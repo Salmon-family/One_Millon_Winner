@@ -5,5 +5,5 @@ sealed class State<out T> {
     class Failure(val message: String) : State<Nothing>()
     object Loading : State<Nothing>()
 
-    fun toData():T? = if (this is Success) data else null
+    fun toData(): T? = if (this is Success) data else null
 }

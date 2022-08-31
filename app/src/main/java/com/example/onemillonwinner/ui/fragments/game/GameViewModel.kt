@@ -1,47 +1,166 @@
 package com.example.onemillonwinner.ui.fragments.game
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.example.onemillonwinner.data.GameQuestion
+import com.example.onemillonwinner.data.GameQuestionList
+import com.example.onemillonwinner.data.GameState
 import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
-import com.example.onemillonwinner.data.enum.QuestionLevel
 import com.example.onemillonwinner.network.Repository
+import com.example.onemillonwinner.ui.base.BaseViewModel
+import com.example.onemillonwinner.util.Constants.QUESTION_TIME
+import com.example.onemillonwinner.util.extension.addTo
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.Disposable
+import java.util.concurrent.TimeUnit
 
-class GameViewModel : ViewModel() {
-    private val repository = Repository()
+
+class GameViewModel : BaseViewModel() {
+
+    private val questionLogic: GameQuestionList by lazy { GameQuestionList() }
+    private val repository: Repository by lazy { Repository() }
+    private lateinit var timerDisposable: Disposable
+
     var isChangeQuestion = MutableLiveData(false)
     var isDeleteHalfOfAnswers = MutableLiveData(false)
     var isHelpByFriends = MutableLiveData(false)
 
-    private val _questionsLiveData = MutableLiveData<State<TriviaResponse>>()
-    val questions: LiveData<State<TriviaResponse>>
-        get() = _questionsLiveData
+    private val _gameState = MutableLiveData<GameState>()
+    val state: LiveData<GameState>
+        get() = _gameState
 
-    fun getTriviaQuestions() {
-        _questionsLiveData.postValue(State.Loading)
+    private val _question = MutableLiveData<GameQuestion>()
+    val question: LiveData<GameQuestion>
+        get() = _question
 
-        repository.getQuestion(5, QuestionLevel.EASY).subscribe(
-            {
-                _questionsLiveData.postValue(it)
-                Log.v("testApi", it.toString())
-            }, {
-                Log.v("testApi", it.message.toString())
+    private val _questionTime = MutableLiveData(QUESTION_TIME)
+    val questionTime: LiveData<Int>
+        get() = _questionTime
+
+    private val _prize = MutableLiveData(0)
+    val prize: LiveData<Int>
+        get() = _prize
+
+    private val questionTimeOver = MutableLiveData(false)
+
+
+    init {
+        _gameState.postValue(GameState.Loading)
+        repository.getAllQuestions()
+            .subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion).addTo(disposable)
+    }
+
+    private fun onSuccessUpdateQuestion(state: State<TriviaResponse>) {
+        _gameState.postValue(GameState.Success)
+        timer()
+        state.toData()?.let {
+            questionLogic.setQuestions(it.questions)
+            updateView()
+        }
+    }
+
+    private fun onErrorUpdateQuestion(throwable: Throwable) {
+        _gameState.postValue(GameState.Failure)
+    }
+
+    fun onClickToUpdateView() {
+        when (_gameState.value) {
+            GameState.ANSWER_SELECTED -> {
+                showAnswer()
             }
-        )
+            GameState.QUESTION_SUBMITTED -> {
+                updateView()
+            }
+            GameState.WRONG_ANSWER_SUBMITTED -> {
+                _gameState.postValue(GameState.GameOver)
+            }
+            else -> {
+                // Toast please select answer or exit.
+            }
+        }
     }
 
-    fun changeQuestion(){
-        isChangeQuestion.value = true
+    private fun calculatePrize() {
+        _prize.postValue(questionLogic.getPrize())
     }
 
-    fun deleteHalfOfAnswers(){
-        isDeleteHalfOfAnswers.value = true
+    private fun showAnswer() {
+        setGameState()
+        calculatePrize()
+        _question.postValue(questionLogic.getCurrentQuestion())
+        timerDisposable.dispose()
     }
 
-    fun helpByFriends(){
-        isHelpByFriends.value = true
+    private fun setGameState() {
+        if (questionLogic.isGameOver())
+            _gameState.postValue(GameState.WRONG_ANSWER_SUBMITTED)
+        else
+            _gameState.postValue(GameState.QUESTION_SUBMITTED)
+    }
+
+
+    private fun updateView() {
+        if (!questionLogic.isGameOver()) {
+            _gameState.postValue(GameState.QUESTION_START)
+            _question.postValue(questionLogic.updateQuestion())
+            restartTimer()
+        } else {
+            timerDisposable.dispose()
+            _gameState.postValue(GameState.GameOver)
+        }
+    }
+
+    fun updateGameState(state: GameState) {
+        _gameState.postValue(state)
+    }
+
+    fun replaceQuestion() {
+        if (_gameState.value != GameState.QUESTION_SUBMITTED) {
+            _gameState.postValue(GameState.QUESTION_START)
+            isChangeQuestion.postValue(true)
+            _question.postValue(questionLogic.replaceQuestion())
+            restartTimer()
+        }
+    }
+
+    private fun restartTimer() {
+        timerDisposable.dispose()
+        timer()
+    }
+
+    fun deleteHalfOfAnswers() {
+        if (_gameState.value != GameState.QUESTION_SUBMITTED) {
+            _gameState.postValue(GameState.QUESTION_START)
+            isDeleteHalfOfAnswers.postValue(true)
+            _question.postValue(questionLogic.deleteTwoWrongAnswersRandomly())
+        }
+    }
+
+    fun helpByFriends() {
+        isHelpByFriends.postValue(true)
+    }
+
+    private fun timer() {
+        _questionTime.postValue(QUESTION_TIME)
+        val timeInSecond: Long = QUESTION_TIME.toLong()
+        timerDisposable = Observable.interval(1, TimeUnit.SECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .take(timeInSecond).map {
+                ((timeInSecond - 1) - it)
+            }.subscribe {
+                _questionTime.postValue(it.toInt())
+                if (it.toInt() == 0) {
+                    endTheCountDown()
+                }
+            }
+    }
+
+    private fun endTheCountDown() {
+        timerDisposable.dispose()
+        _gameState.postValue(GameState.GameOver)
+        questionTimeOver.postValue(true)
     }
 
 }

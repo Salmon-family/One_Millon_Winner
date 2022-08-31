@@ -2,22 +2,37 @@ package com.example.onemillonwinner.network
 
 import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
-import com.example.onemillonwinner.data.enum.QuestionLevel
-import io.reactivex.rxjava3.core.Single
+import com.example.onemillonwinner.util.NetworkConstants.NUMBER_OF_QUESTIONS_PER_REQUEST
+import com.example.onemillonwinner.util.enum.QuestionLevel
+import io.reactivex.rxjava3.core.Maybe
+import io.reactivex.rxjava3.core.Observable
 import retrofit2.Response
 
 class Repository {
 
-    fun getQuestion(numberOfQuestions: Int, level: QuestionLevel): Single<State<TriviaResponse>> {
+    fun getAllQuestions(): Observable<State<TriviaResponse>> {
         return wrapperWithState {
-            Api.triviaService.getQuestions(
-                questionNumbers = numberOfQuestions,
-                QuestionDifficulty = level.value
-            )
+            Observable.fromIterable(QuestionLevel.values().asList())
+                .flatMapSingle {
+                    Api.triviaService.getQuestions(NUMBER_OF_QUESTIONS_PER_REQUEST, it.value)
+                }
+                .reduce { x, y ->
+                    combineResult(x, y)
+                }.toObservable()
         }
     }
 
-    private fun <T> wrapperWithState(function: () -> Single<Response<T>>): Single<State<T>> {
+    private fun combineResult(
+        firstResponse: Response<TriviaResponse>,
+        secondResponse: Response<TriviaResponse>
+    ): Response<TriviaResponse> {
+        firstResponse.body().apply {
+            secondResponse.body()?.questions?.let { this?.questions?.addAll(it) }
+        }
+        return firstResponse
+    }
+
+    private fun <T> wrapperWithState(function: () -> Observable<Response<T>>): Observable<State<T>> {
         return function().map {
             if (it.isSuccessful) {
                 State.Success(it.body())

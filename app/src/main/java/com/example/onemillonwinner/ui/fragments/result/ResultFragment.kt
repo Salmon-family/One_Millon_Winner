@@ -1,35 +1,33 @@
 package com.example.onemillonwinner.ui.fragments.result
 
-
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.databinding.FragmentResultBinding
 import com.example.onemillonwinner.ui.base.BaseFragment
-import com.example.onemillonwinner.util.Preference
-import com.example.onemillonwinner.util.Preference.score
 
 class ResultFragment : BaseFragment<FragmentResultBinding>() {
-    private val args: ResultFragmentArgs by navArgs()
-
-    override fun setup() {
-        setViews()
-        saveHighestScoreInSharedPref()
-    }
 
     override val layoutIdFragment = R.layout.fragment_result
+    private val arguments: ResultFragmentArgs by navArgs()
 
-    private fun saveHighestScoreInSharedPref() {
-        if (receiveScoreFromGameScreen() > score!!) {
-            score = receiveScoreFromGameScreen()
+    override fun setup() {
+        val prize = arguments.prize
+        binding.prize = prize
+
+        navigateToGameFragment()
+        navigateToHomeFragment()
+    }
+
+    private fun navigateToGameFragment() {
+        binding.buttonPlayAgain.setOnClickListener {
+            it.findNavController().navigate(R.id.gameFragment)
         }
     }
 
-    private fun setViews() {
-        binding.textLatestScore.text =
-            resources.getString(R.string.latest_score, receiveScoreFromGameScreen().toString())
-    }
-
-    private fun receiveScoreFromGameScreen(): Int {
-        return args.score
+    private fun navigateToHomeFragment() {
+        binding.textBackHome.setOnClickListener {
+            it.findNavController().popBackStack(R.id.homeFragment, false)
+        }
     }
 }
