@@ -13,6 +13,7 @@ object Preference {
         sharedPrefs = context.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
     }
 
+
     var score: Int?
         get() = sharedPrefs?.getInt(KEY_SCORE, -1)
         set(value) {
