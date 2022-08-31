@@ -15,7 +15,6 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
 
     private val gameViewModel: GameViewModel by viewModels()
 
-    private var mediaPlayer: MediaPlayer? = null
 
     override fun setup() {
         binding.gameViewModel = gameViewModel
@@ -30,22 +29,10 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
                     findNavController().navigate(
                         GameFragmentDirections.actionGameFragmentToResultFragment()
                     )
-                    music()
-                    stopMusic()
                 }
             }
         })
     }
-
-    private fun music() {
-        val mediaPlayer = MediaPlayer.create(context, R.raw.woodland_game_winner)
-         mediaPlayer.start()
-    }
-
-    private fun stopMusic(){
-        mediaPlayer?.stop()
-    }
-
 
     override val layoutIdFragment = R.layout.fragment_game
 }
