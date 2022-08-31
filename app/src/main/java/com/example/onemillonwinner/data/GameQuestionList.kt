@@ -11,6 +11,8 @@ class GameQuestionList {
     private val questions = ArrayList<Question>()
     private val currentQuestion = GameQuestion()
     private val replaceableQuestions: ArrayList<Question> = ArrayList()
+
+    //500 *{2 power (i-4 )}
     private val prizeList = mapOf(
         1 to 100,
         2 to 200,
@@ -27,7 +29,6 @@ class GameQuestionList {
         13 to 250000,
         14 to 500000,
         15 to 1000000
-
     )
 
 
@@ -74,9 +75,23 @@ class GameQuestionList {
 
     fun getCurrentQuestion() = currentQuestion
 
-    fun getPrize() = prizeList[currentQuestion.getQuestionNumber()]
+    fun getPrize(): Int {
+        val questionNumber = currentQuestion.getQuestionNumber()
+        return if (isSelectWrongAnswer()) {
+            val result = when (questionNumber) {
+                in 6..10 -> prizeList[5]
+                in 11..15 -> prizeList[10]
+                else -> {
+                    0
+                }
+            }
+            result!! //why I need (!!) ?
+        } else {
+            prizeList[questionNumber]!!
+        }
+    }
 
-   private fun isSelectWrongAnswer(): Boolean {
+    private fun isSelectWrongAnswer(): Boolean {
         return currentQuestion.getAnswers().indexOf(currentQuestion.correctAnswer) !=
                 currentQuestion.selectedAnswer
     }

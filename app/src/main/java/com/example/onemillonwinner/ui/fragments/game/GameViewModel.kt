@@ -85,6 +85,7 @@ class GameViewModel : ViewModel() {
 
     private fun showAnswer() {
         setGameState()
+        calculatePrize()
         _question.postValue(questionLogic.getCurrentQuestion())
         timerDisposable.dispose()
     }
@@ -102,7 +103,6 @@ class GameViewModel : ViewModel() {
             _gameState.postValue(GameState.QUESTION_START)
             _question.postValue(questionLogic.updateQuestion())
             restartTimer()
-            calculatePrize()
         } else {
             timerDisposable.dispose()
             _gameState.postValue(GameState.GameOver)
