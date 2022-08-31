@@ -119,6 +119,7 @@ fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameSta
     }
 }
 
+
 @BindingAdapter("app:formatTextFromHtml")
 fun formatTextFromHtml(view: TextView, text: String?) {
     text?.let {
@@ -127,8 +128,8 @@ fun formatTextFromHtml(view: TextView, text: String?) {
 }
 
 @BindingAdapter("app:prizeLottie")
-fun setPrizeLottie(view: LottieAnimationView, prize: String) {
-    if (prize == "$0") {
+fun setPrizeLottie(view: LottieAnimationView, prize: Int) {
+    if (prize == 0) {
         view.setAnimation(R.raw.you_loss)
     } else {
         view.setAnimation(R.raw.lottie_congratulation)

@@ -7,7 +7,7 @@
 
         <variable
             name="prize"
-            type="String" />
+            type="int" />
 
         <variable
             name="resultViewModel"
@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium"
-            android:text="@{prize}"
+            android:text="@{@string/prize(prize)}"
             android:textColor="#373B3F"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"

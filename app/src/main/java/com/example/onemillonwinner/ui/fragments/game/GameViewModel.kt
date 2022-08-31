@@ -38,8 +38,8 @@ class GameViewModel : BaseViewModel() {
     val questionTime: LiveData<Int>
         get() = _questionTime
 
-    private val _prize = MutableLiveData("$0")
-    val prize : LiveData<String>
+    private val _prize = MutableLiveData(0)
+    val prize: LiveData<Int>
         get() = _prize
 
     private val questionTimeOver = MutableLiveData(false)
@@ -64,23 +64,24 @@ class GameViewModel : BaseViewModel() {
     }
 
     fun onClickToUpdateView() {
-       when(_gameState.value){
-           GameState.ANSWER_SELECTED->{
-               showAnswer()
-           }
-           GameState.QUESTION_SUBMITTED->{
-               updateView()
-           }
-           GameState.WRONG_ANSWER_SUBMITTED -> _gameState.postValue(GameState.GameOver)
-
-           else -> {
-
-           }
-       }
+        when (_gameState.value) {
+            GameState.ANSWER_SELECTED -> {
+                showAnswer()
+            }
+            GameState.QUESTION_SUBMITTED -> {
+                updateView()
+            }
+            GameState.WRONG_ANSWER_SUBMITTED -> {
+                _gameState.postValue(GameState.GameOver)
+            }
+            else -> {
+                // Toast please select answer or exit.
+            }
+        }
     }
 
     private fun calculatePrize() {
-        _prize.postValue("$${questionLogic.getPrize()}")
+        _prize.postValue(questionLogic.getPrize())
     }
 
     private fun showAnswer() {
