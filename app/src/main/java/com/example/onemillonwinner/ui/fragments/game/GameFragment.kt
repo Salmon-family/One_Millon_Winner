@@ -22,9 +22,11 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
         gameViewModel.state.observe(viewLifecycleOwner, Observer {
             it?.let {
                 if (it == GameState.GameOver) {
-                    findNavController().navigate(
-                        GameFragmentDirections.actionGameFragmentToResultFragment()
-                    )
+                    gameViewModel.prize.value?.let { prize ->
+                        findNavController().navigate(
+                            GameFragmentDirections.actionGameFragmentToResultFragment(prize)
+                        )
+                    }
                 }
             }
         })

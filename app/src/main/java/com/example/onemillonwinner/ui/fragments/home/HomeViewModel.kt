@@ -1,9 +1,9 @@
 package com.example.onemillonwinner.ui.fragments.home
 
 
-import androidx.lifecycle.ViewModel
+import com.example.onemillonwinner.ui.base.BaseViewModel
 
-
-class HomeViewModel: ViewModel() {
+// where is the sharedPreference ?!
+class HomeViewModel: BaseViewModel() {
 
 }

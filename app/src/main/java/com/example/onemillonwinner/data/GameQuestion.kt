@@ -7,8 +7,8 @@ class GameQuestion {
     private var questionNumber: Int = 0
     private var difficulty: String = ""
     private val answers: MutableList<String> = mutableListOf()
-    var selectedAnswer = -1
-    var correctAnswer: String = ""
+    private var selectedAnswer = -1
+    private var correctAnswer: String = ""
 
     fun setQuestion(question: Question) {
         questionDescription = question.question ?: ""
@@ -32,8 +32,28 @@ class GameQuestion {
 
     fun getQuestionNumber() = questionNumber
 
-    fun getAnswers() = answers
+    fun getAnswers() = answers.toList()
+
+    fun removeWrongAnswer(index: Int): Boolean {
+        return if (index in answers.indices
+            && answers[index] != correctAnswer
+            && answers[index].isNotBlank()
+        ) {
+            answers[index] = ""
+            true
+        } else {
+            false
+        }
+    }
 
     fun getDifficulty() = difficulty
 
+    fun getCorrectAnswer() = correctAnswer
+
+    fun getSelectedAnswer() = selectedAnswer
+
+    fun setSelectedAnswer(index: Int) {
+        if (index in 0..3)
+            selectedAnswer = index
+    }
 }

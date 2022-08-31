@@ -2,21 +2,22 @@ package com.example.onemillonwinner.ui.fragments.game
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.onemillonwinner.data.GameQuestion
 import com.example.onemillonwinner.data.GameQuestionList
 import com.example.onemillonwinner.data.GameState
 import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.network.Repository
+import com.example.onemillonwinner.ui.base.BaseViewModel
 import com.example.onemillonwinner.util.Constants.QUESTION_TIME
+import com.example.onemillonwinner.util.extension.addTo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.Disposable
 import java.util.concurrent.TimeUnit
 
 
-class GameViewModel : ViewModel() {
+class GameViewModel : BaseViewModel() {
 
     private val questionLogic: GameQuestionList by lazy { GameQuestionList() }
     private val repository: Repository by lazy { Repository() }
@@ -38,8 +39,8 @@ class GameViewModel : ViewModel() {
     val questionTime: LiveData<Int>
         get() = _questionTime
 
-    private val _prize = MutableLiveData("$0")
-    val prize : LiveData<String>
+    private val _prize = MutableLiveData(0)
+    val prize: LiveData<Int>
         get() = _prize
 
     private val questionTimeOver = MutableLiveData(false)
@@ -47,7 +48,8 @@ class GameViewModel : ViewModel() {
 
     init {
         _gameState.postValue(GameState.Loading)
-        repository.getAllQuestions().subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion)
+        repository.getAllQuestions()
+            .subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion).addTo(disposable)
     }
 
     private fun onSuccessUpdateQuestion(state: State<TriviaResponse>) {
@@ -64,27 +66,29 @@ class GameViewModel : ViewModel() {
     }
 
     fun onClickToUpdateView() {
-       when(_gameState.value){
-           GameState.ANSWER_SELECTED->{
-               showAnswer()
-           }
-           GameState.QUESTION_SUBMITTED->{
-               updateView()
-           }
-           GameState.WRONG_ANSWER_SUBMITTED -> _gameState.postValue(GameState.GameOver)
-
-           else -> {
-
-           }
-       }
+        when (_gameState.value) {
+            GameState.ANSWER_SELECTED -> {
+                showAnswer()
+            }
+            GameState.QUESTION_SUBMITTED -> {
+                updateView()
+            }
+            GameState.WRONG_ANSWER_SUBMITTED -> {
+                _gameState.postValue(GameState.GameOver)
+            }
+            else -> {
+                // Toast please select answer or exit.
+            }
+        }
     }
 
     private fun calculatePrize() {
-        _prize.postValue("$${questionLogic.getPrize()}")
+        _prize.postValue(questionLogic.getPrize())
     }
 
     private fun showAnswer() {
         setGameState()
+        calculatePrize()
         _question.postValue(questionLogic.getCurrentQuestion())
         timerDisposable.dispose()
     }
@@ -102,7 +106,6 @@ class GameViewModel : ViewModel() {
             _gameState.postValue(GameState.QUESTION_START)
             _question.postValue(questionLogic.updateQuestion())
             restartTimer()
-            calculatePrize()
         } else {
             timerDisposable.dispose()
             _gameState.postValue(GameState.GameOver)
