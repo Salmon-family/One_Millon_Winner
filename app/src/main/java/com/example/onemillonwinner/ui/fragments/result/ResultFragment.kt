@@ -13,7 +13,6 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
 
     override val layoutIdFragment = R.layout.fragment_result
     private val arguments: ResultFragmentArgs by navArgs()
-    private val resultViewModel: ResultViewModel by viewModels()
 
     override fun setup() {
         val prize = arguments.prize

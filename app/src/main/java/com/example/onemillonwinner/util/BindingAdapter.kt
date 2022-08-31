@@ -7,13 +7,10 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.core.view.children
-import androidx.databinding.*
-import androidx.lifecycle.MutableLiveData
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.data.GameQuestion
 import com.example.onemillonwinner.data.GameState
 import com.example.onemillonwinner.data.State
-import com.example.onemillonwinner.util.enum.SelectAnswer
 import com.example.onemillonwinner.util.extension.htmlText
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -90,10 +87,10 @@ fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameSta
                 chipGroup.children.forEachIndexed { index, chip ->
                     chip as Chip
                     chip.isEnabled = false
-                    if (chip.text.toString() == question.correctAnswer.htmlText()) {
+                    if (chip.text.toString() == question.getCorrectAnswer().htmlText()) {
                         chip.setChipBackgroundColorResource(R.color.teal_200)
                     }
-                    if (selectedID == chip.id && chip.text.toString() != question.correctAnswer) {
+                    if (selectedID == chip.id && chip.text.toString() != question.getCorrectAnswer()) {
                         chip.setChipBackgroundColorResource(R.color.red_200)
                     }
                 }
@@ -110,7 +107,7 @@ fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameSta
             GameState.ANSWER_SELECTED -> {
                 chipGroup.children.forEachIndexed { index, chip ->
                     if (selectedID == chip.id) {
-                        question.selectedAnswer = index
+                        question.setSelectedAnswer(index)
                     }
                 }
             }

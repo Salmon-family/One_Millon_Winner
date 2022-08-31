@@ -36,11 +36,7 @@ class GameQuestionList {
         var deletedAnswers = 0
         while (deletedAnswers != 2) {
             val randomNumber = (0..3).random()
-            if (
-                currentQuestion.getAnswers()[randomNumber] != currentQuestion.correctAnswer &&
-                currentQuestion.getAnswers()[randomNumber] != ""
-            ) {
-                currentQuestion.getAnswers()[randomNumber] = ""
+            if (currentQuestion.removeWrongAnswer(randomNumber)) {
                 deletedAnswers += 1
             }
         }
@@ -92,8 +88,8 @@ class GameQuestionList {
     }
 
     private fun isSelectWrongAnswer(): Boolean {
-        return currentQuestion.getAnswers().indexOf(currentQuestion.correctAnswer) !=
-                currentQuestion.selectedAnswer
+        return currentQuestion.getAnswers().indexOf(currentQuestion.getCorrectAnswer()) !=
+                currentQuestion.getSelectedAnswer()
     }
 
     fun isGameOver(): Boolean {

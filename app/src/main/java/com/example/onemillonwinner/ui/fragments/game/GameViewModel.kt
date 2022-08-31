@@ -9,6 +9,7 @@ import com.example.onemillonwinner.data.GameState
 import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.network.Repository
+import com.example.onemillonwinner.ui.base.BaseViewModel
 import com.example.onemillonwinner.util.Constants.QUESTION_TIME
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -16,7 +17,7 @@ import io.reactivex.rxjava3.disposables.Disposable
 import java.util.concurrent.TimeUnit
 
 
-class GameViewModel : ViewModel() {
+class GameViewModel : BaseViewModel() {
 
     private val questionLogic: GameQuestionList by lazy { GameQuestionList() }
     private val repository: Repository by lazy { Repository() }
