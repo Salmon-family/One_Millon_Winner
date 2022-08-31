@@ -31,7 +31,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_rawRes="@raw/lottie_congratulation"
+            app:prizeLottie="@{prize}"
             tools:ignore="MissingClass" />
 
         <com.google.android.material.textview.MaterialTextView

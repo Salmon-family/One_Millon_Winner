@@ -7,6 +7,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.core.view.children
+import com.airbnb.lottie.LottieAnimationView
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.data.GameQuestion
 import com.example.onemillonwinner.data.GameState
@@ -122,5 +123,14 @@ fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameSta
 fun formatTextFromHtml(view: TextView, text: String?) {
     text?.let {
         view.text = it.htmlText()
+    }
+}
+
+@BindingAdapter("app:prizeLottie")
+fun setPrizeLottie(view: LottieAnimationView, prize: String) {
+    if (prize == "$0") {
+        view.setAnimation(R.raw.you_loss)
+    } else {
+        view.setAnimation(R.raw.lottie_congratulation)
     }
 }
