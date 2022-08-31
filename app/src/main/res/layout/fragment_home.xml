@@ -26,7 +26,6 @@
             app:layout_constraintHeight_percent="0.4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.45"
             app:lottie_autoPlay="true"
             app:lottie_rawRes="@raw/welcome" />
 
@@ -40,12 +39,11 @@
             android:layout_marginBottom="@dimen/margin_small"
             app:cardBackgroundColor="@color/blue_200"
             app:cardCornerRadius="@dimen/corner_radius_small"
-            app:layout_constraintBottom_toTopOf="@+id/start_game_button"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.25"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.62" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/account_name"
