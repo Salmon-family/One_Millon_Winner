@@ -72,21 +72,6 @@
             app:layout_constraintStart_toStartOf="@+id/card_view"
             app:layout_constraintTop_toBottomOf="@+id/account_name" />
 
-        <TextView
-            android:id="@+id/hint_start"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_medium"
-            android:layout_marginEnd="@dimen/margin_medium"
-            android:gravity="center"
-            android:textSize="14sp"
-            android:textColor="@color/gray_700"
-            android:text="@string/start_hint"
-            app:layout_constraintBottom_toTopOf="@+id/start_game_button"
-            app:layout_constraintEnd_toEndOf="@+id/card_view"
-            app:layout_constraintStart_toStartOf="@+id/card_view"
-            app:layout_constraintTop_toBottomOf="@+id/card_view" />
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/start_game_button"
             style="@style/ShapeAppearanceOverlay.Material3.Button"
@@ -94,15 +79,16 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_large_x"
             android:layout_marginEnd="@dimen/margin_large_x"
+            android:layout_marginBottom="32dp"
             android:backgroundTint="@color/blue_700"
+            android:textColor="@color/white"
             android:padding="14dp"
             android:text="@string/start_the_game"
+            android:textAllCaps="false"
             app:cornerRadius="@dimen/corner_radius_small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.87" />
+            app:layout_constraintStart_toStartOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
