@@ -46,7 +46,5 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
         })
     }
 
-
-
     override val layoutIdFragment = R.layout.fragment_game
 }

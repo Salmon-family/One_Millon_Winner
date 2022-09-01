@@ -27,10 +27,6 @@ class GameViewModel : BaseViewModel() {
     val isDeleteHalfOfAnswers = MutableLiveData(false)
     val isHelpByFriends = MutableLiveData(false)
 
-    private val _friendCall = MutableLiveData(false)
-    val friendCall: LiveData<Boolean>
-        get() = _friendCall
-
     private val _gameState = MutableLiveData<GameState>()
     val state: LiveData<GameState>
         get() = _gameState
@@ -148,13 +144,13 @@ class GameViewModel : BaseViewModel() {
     }
 
     fun helpByFriends() {
+        pauseTimer()
         isHelpByFriends.postValue(true)
-        _friendCall.postValue(true)
     }
 
-    private fun timer() {
-        _questionTime.postValue(QUESTION_TIME)
-        val timeInSecond: Long = QUESTION_TIME.toLong()
+    private fun timer(questionTimer: Int = QUESTION_TIME) {
+        _questionTime.postValue(questionTimer)
+        val timeInSecond: Long = questionTimer.toLong()
         timerDisposable = Observable.interval(1, TimeUnit.SECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .take(timeInSecond).map {
@@ -167,8 +163,19 @@ class GameViewModel : BaseViewModel() {
             }
     }
 
-     fun friendCallCloseDialog(){
-        _friendCall.postValue(false)
+    fun friendCallCloseDialog() {
+        playTimer()
+    }
+
+    private var time: Int = 0
+
+    private fun pauseTimer() {
+        timerDisposable.dispose()
+        time = questionTime.value ?: 0
+    }
+
+    private fun playTimer() {
+        timer(time)
     }
 
     private fun endTheCountDown() {
