@@ -43,8 +43,6 @@ class GameViewModel : BaseViewModel() {
     val prize: LiveData<Int>
         get() = _prize
 
-    private val questionTimeOver = MutableLiveData(false)
-
 
     init {
         _gameState.postValue(GameState.Loading)
@@ -54,7 +52,7 @@ class GameViewModel : BaseViewModel() {
 
     private fun onSuccessUpdateQuestion(state: State<TriviaResponse>) {
         _gameState.postValue(GameState.Success)
-        timer()
+        startTimer()
         state.toData()?.let {
             triviaQuestions.setQuestions(it.questions)
             updateView()
@@ -130,7 +128,7 @@ class GameViewModel : BaseViewModel() {
 
     private fun restartTimer() {
         timerDisposable.dispose()
-        timer()
+        startTimer()
     }
 
     fun deleteHalfOfAnswers() {
@@ -147,9 +145,9 @@ class GameViewModel : BaseViewModel() {
         isHelpByFriends.postValue(true)
     }
 
-    private fun timer(questionTimer: Int = QUESTION_TIME) {
-        _questionTime.postValue(questionTimer)
-        val timeInSecond: Long = questionTimer.toLong()
+    private fun startTimer() {
+        _questionTime.postValue(QUESTION_TIME)
+        val timeInSecond: Long = QUESTION_TIME.toLong()
         timerDisposable = Observable.interval(1, TimeUnit.SECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .take(timeInSecond).map {
@@ -164,8 +162,8 @@ class GameViewModel : BaseViewModel() {
 
     private fun endTheCountDown() {
         timerDisposable.dispose()
+        calculatePrize()
         _gameState.postValue(GameState.GameOver)
-        questionTimeOver.postValue(true)
     }
 
     fun getFriendHelp() = triviaQuestions.getFriendHelp()
