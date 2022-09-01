@@ -78,14 +78,10 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
             it?.let {
                 if (it == GameState.QUESTION_SUBMITTED) {
                     playMusic(R.raw.game_winner)
-                } else if (it == GameState.WRONG_ANSWER_SUBMITTED || isQuestionTimeOver()) {
-                    playMusic(R.raw.loss)
                 }
             }
         }
     }
-
-    private fun isQuestionTimeOver(): Boolean = gameViewModel.questionTimeOver.value == true
 
     private fun playMusic(resourcesId: Int) {
         val mediaPlayer = MediaPlayer.create(context, resourcesId)

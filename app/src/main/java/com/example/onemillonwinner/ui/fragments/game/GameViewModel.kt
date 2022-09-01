@@ -166,7 +166,6 @@ class GameViewModel : BaseViewModel() {
         timerDisposable.dispose()
         _gameState.postValue(GameState.GameOver)
         questionTimeOver.postValue(true)
-        questionTimeOver.value = true
     }
 
     fun getFriendHelp() = triviaQuestions.getFriendHelp()
