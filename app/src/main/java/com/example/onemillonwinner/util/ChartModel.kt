@@ -5,15 +5,15 @@ import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
 import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
 
-class PublicVoteChart() {
+class PublicVoteChart {
 
     fun getPublicVoteChart(answers: List<String>, correctAnswer: String): AAChartModel {
         val listOfAASeriesElement =
             getArrayOFAASeriesElementIfSuccessChance(getRightAnswerIndex(answers, correctAnswer))
         return AAChartModel()
             .chartType(AAChartType.Column)
-            .animationDuration(3000)
-            .backgroundColor("#D1E4FC")
+            .animationDuration(2000)
+            .backgroundColor("#007CC5")
             .dataLabelsEnabled(true)
             .yAxisGridLineWidth(0)
             .gradientColorEnable(false)
