@@ -9,6 +9,7 @@ import com.example.onemillonwinner.R
 import com.example.onemillonwinner.data.GameState
 import com.example.onemillonwinner.databinding.FragmentGameBinding
 import com.example.onemillonwinner.ui.base.BaseFragment
+import com.example.onemillonwinner.util.EventObserve
 import com.example.onemillonwinner.util.HelpFriendDialog
 
 class GameFragment : BaseFragment<FragmentGameBinding>() {
@@ -28,6 +29,7 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
                 HelpFriendDialog(requireContext()).show(gameViewModel.getFriendHelp())
             }
         })
+        helpFriendDialog()
     }
 
     private fun observeOnGameDone() {
@@ -42,6 +44,16 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
                 }
             }
         })
+    }
+
+    private fun helpFriendDialog(){
+        gameViewModel.isHelpByFriends.observe(this, EventObserve{
+            if(it){
+                HelpFriendDialog(requireContext()).show(gameViewModel.question.value?.getCorrectAnswer().toString())
+
+            }
+        })
+
     }
 
     override val layoutIdFragment = R.layout.fragment_game

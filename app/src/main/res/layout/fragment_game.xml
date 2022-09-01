@@ -53,7 +53,7 @@
             android:layout_marginEnd="@dimen/help_button_dimension"
             android:onClick="@{() -> gameViewModel.helpByFriends()}"
             app:cornerRadius="@dimen/corner_radius_medium"
-            app:disableButton="@{gameViewModel.isHelpByFriends()}"
+            app:disableButton="@{gameViewModel.isHelpByFriends().peekContent()}"
             app:icon="@drawable/ic_phone"
             app:layout_constraintEnd_toEndOf="@+id/card_view"
             app:layout_constraintTop_toBottomOf="@+id/timer_progress_bar" />
