@@ -5,6 +5,14 @@
 
     <data>
 
+        <variable
+            name="prize"
+            type="int" />
+
+        <variable
+            name="resultViewModel"
+            type="com.example.onemillonwinner.ui.fragments.result.ResultViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +31,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_rawRes="@raw/lottie_congratulation"
+            app:prizeLottie="@{prize}"
             tools:ignore="MissingClass" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -56,20 +64,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium"
-            android:text="@{@string/text_my_result_number(6)}"
+            android:text="@{@string/prize(prize)}"
             android:textColor="#373B3F"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_congratulation"
-            tools:text="6 / 10"/>
+            app:layout_constraintTop_toBottomOf="@+id/text_congratulation" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_play_again"
+            style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            style="@style/Widget.Material3.Button.TextButton"
             android:backgroundTint="@color/blue_700"
             android:text="@string/button_play_again"
             android:textColor="@color/white"
@@ -85,14 +92,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            android:background="@android:color/transparent"
             android:text="@string/text_back_to_home"
             android:textColor="#373B3F"
             android:textSize="16sp"
-            android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

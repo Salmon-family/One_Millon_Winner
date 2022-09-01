@@ -7,13 +7,11 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.core.view.children
-import androidx.databinding.*
-import androidx.lifecycle.MutableLiveData
+import com.airbnb.lottie.LottieAnimationView
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.data.GameQuestion
 import com.example.onemillonwinner.data.GameState
 import com.example.onemillonwinner.data.State
-import com.example.onemillonwinner.util.enum.SelectAnswer
 import com.example.onemillonwinner.util.extension.htmlText
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -33,7 +31,7 @@ fun showWhenLoading(view: View, state: GameState?) {
     if (state == GameState.Loading) {
         view.visibility = View.VISIBLE
     } else {
-        view.visibility = View.INVISIBLE
+        view.visibility = View.GONE
     }
 }
 
@@ -47,11 +45,11 @@ fun showWhenSuccess(view: View, state: GameState?) {
 }
 
 @BindingAdapter("app:isFail")
-fun showWhenFail(view: View, state: State<GameState>?) {
-    if (state is State.Failure) {
+fun showWhenFail(view: View, state: GameState?) {
+    if (state == GameState.Failure) {
         view.visibility = View.VISIBLE
     } else {
-        view.visibility = View.INVISIBLE
+        view.visibility = View.GONE
     }
 }
 
@@ -84,46 +82,42 @@ fun updateTextButton(submitButton: Button, state: GameState?) {
 fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameState?) {
     val selectedID = chipGroup.checkedChipId
     question?.let {
-        when (gameState) {
-            GameState.QUESTION_SUBMITTED,
-            GameState.WRONG_ANSWER_SUBMITTED -> {
-                chipGroup.children.forEachIndexed { index, chip ->
-                    chip as Chip
-                    chip.isEnabled = false
-                    if (chip.text.toString() == question.correctAnswer.htmlText()) {
-                        chip.setChipBackgroundColorResource(R.color.teal_200)
-                    }
-                    if (selectedID == chip.id && chip.text.toString() != question.correctAnswer) {
-                        chip.setChipBackgroundColorResource(R.color.red_200)
-                    }
+        if (gameState == GameState.QUESTION_SUBMITTED ||
+            gameState == GameState.WRONG_ANSWER_SUBMITTED
+        ) {
+            chipGroup.children.forEach { chip ->
+                chip as Chip
+                chip.isEnabled = false
+                if (chip.text.toString() == question.getCorrectAnswer()) {
+                    chip.setChipBackgroundColorResource(R.color.teal_200)
+                }
+                if (selectedID == chip.id && chip.text.toString() != question.getCorrectAnswer()) {
+                    chip.setChipBackgroundColorResource(R.color.red_200)
                 }
             }
-            GameState.QUESTION_START -> {
-                chipGroup.clearCheck()
-                chipGroup.children.forEachIndexed { index, chip ->
-                    chip as Chip
-                    chip.isEnabled = question.getAnswers()[index] != ""
-                    chip.chipBackgroundColor =
-                        AppCompatResources.getColorStateList(chip.context, R.color.selected_chip)
-                }
+        } else if (gameState == GameState.QUESTION_START) {
+            chipGroup.clearCheck()
+            chipGroup.children.forEachIndexed { index, chip ->
+                chip as Chip
+                chip.isEnabled = question.getAnswers()[index] != ""
+                chip.chipBackgroundColor =
+                    AppCompatResources.getColorStateList(chip.context, R.color.selected_chip)
             }
-            GameState.ANSWER_SELECTED -> {
-                chipGroup.children.forEachIndexed { index, chip ->
-                    if (selectedID == chip.id) {
-                        question.selectedAnswer = index
-                    }
+        } else if (gameState == GameState.ANSWER_SELECTED) {
+            chipGroup.children.forEachIndexed { index, chip ->
+                if (selectedID == chip.id) {
+                    question.setSelectedAnswer(index)
                 }
-            }
-            else -> {
-
             }
         }
     }
 }
 
-@BindingAdapter("app:formatTextFromHtml")
-fun formatTextFromHtml(view: TextView, text: String?) {
-    text?.let {
-        view.text = it.htmlText()
+@BindingAdapter("app:prizeLottie")
+fun setPrizeLottie(view: LottieAnimationView, prize: Int) {
+    if (prize == 0) {
+        view.setAnimation(R.raw.you_loss)
+    } else {
+        view.setAnimation(R.raw.lottie_congratulation)
     }
 }

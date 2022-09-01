@@ -11,6 +11,7 @@ class GameQuestionList {
     private val questions = ArrayList<Question>()
     private val currentQuestion = GameQuestion()
     private val replaceableQuestions: ArrayList<Question> = ArrayList()
+
     private val prizeList = mapOf(
         1 to 100,
         2 to 200,
@@ -27,7 +28,6 @@ class GameQuestionList {
         13 to 250000,
         14 to 500000,
         15 to 1000000
-
     )
 
 
@@ -35,11 +35,7 @@ class GameQuestionList {
         var deletedAnswers = 0
         while (deletedAnswers != 2) {
             val randomNumber = (0..3).random()
-            if (
-                currentQuestion.getAnswers()[randomNumber] != currentQuestion.correctAnswer &&
-                currentQuestion.getAnswers()[randomNumber] != ""
-            ) {
-                currentQuestion.getAnswers()[randomNumber] = ""
+            if (currentQuestion.removeWrongAnswer(randomNumber)) {
                 deletedAnswers += 1
             }
         }
@@ -74,15 +70,33 @@ class GameQuestionList {
 
     fun getCurrentQuestion() = currentQuestion
 
-    fun getPrize() = prizeList[currentQuestion.getQuestionNumber()]
+    fun getPrize(): Int? {
+        val questionNumber = currentQuestion.getQuestionNumber()
+        return if (isSelectWrongAnswer()) {
+            val result = when (questionNumber) {
+                in 6..10 -> prizeList[5]
+                in 11..15 -> prizeList[10]
+                else -> {
+                    0
+                }
+            }
+            result
+        } else {
+            prizeList[questionNumber]
+        }
+    }
 
-   private fun isSelectWrongAnswer(): Boolean {
-        return currentQuestion.getAnswers().indexOf(currentQuestion.correctAnswer) !=
-                currentQuestion.selectedAnswer
+    private fun isSelectWrongAnswer(): Boolean {
+        return currentQuestion.getAnswers().indexOf(currentQuestion.getCorrectAnswer()) !=
+                currentQuestion.getSelectedAnswer()
     }
 
     fun isGameOver(): Boolean {
         return questions.isEmpty() || isSelectWrongAnswer()
+    }
+
+    fun getFriendHelp(): String {
+        return currentQuestion.getCorrectAnswer()
     }
 
 }
