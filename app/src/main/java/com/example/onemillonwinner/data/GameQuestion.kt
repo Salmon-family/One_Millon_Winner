@@ -1,6 +1,7 @@
 package com.example.onemillonwinner.data
 
 import com.example.onemillonwinner.data.questionResponse.Question
+import com.example.onemillonwinner.util.extension.htmlText
 
 class GameQuestion {
     private var questionDescription: String = ""
@@ -11,15 +12,15 @@ class GameQuestion {
     private var correctAnswer: String = ""
 
     fun setQuestion(question: Question) {
-        questionDescription = question.question ?: ""
+        questionDescription = question.question?.htmlText() ?: ""
         difficulty = question.difficulty ?: ""
         answers.clear()
-        question.incorrectAnswers?.let { incorrectAnswers ->
-            answers.addAll(incorrectAnswers)
+        question.incorrectAnswers?.forEach { incorrectAnswer ->
+            answers.add(incorrectAnswer.htmlText())
         }
         question.correctAnswer?.let { correct ->
-            answers.add(correct)
-            correctAnswer = correct
+            correctAnswer = correct.htmlText()
+            answers.add(correctAnswer)
         }
         answers.shuffle()
     }

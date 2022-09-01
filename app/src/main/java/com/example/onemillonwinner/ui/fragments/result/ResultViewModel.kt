@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.onemillonwinner.ui.base.BaseViewModel
 
-//Do we really need this ?!!
 class ResultViewModel : BaseViewModel() {
 
     private val _prize = MutableLiveData<String>()

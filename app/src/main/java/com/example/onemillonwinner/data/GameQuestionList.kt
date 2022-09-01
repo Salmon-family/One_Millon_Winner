@@ -95,4 +95,8 @@ class GameQuestionList {
         return questions.isEmpty() || isSelectWrongAnswer()
     }
 
+    fun getFriendHelp(): String {
+        return currentQuestion.getCorrectAnswer()
+    }
+
 }

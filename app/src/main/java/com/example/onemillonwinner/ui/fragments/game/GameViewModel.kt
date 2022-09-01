@@ -10,7 +10,6 @@ import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.network.Repository
 import com.example.onemillonwinner.ui.base.BaseViewModel
 import com.example.onemillonwinner.util.Constants.QUESTION_TIME
-import com.example.onemillonwinner.util.Event
 import com.example.onemillonwinner.util.extension.addTo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -20,13 +19,13 @@ import java.util.concurrent.TimeUnit
 
 class GameViewModel : BaseViewModel() {
 
-    private val questionLogic: GameQuestionList by lazy { GameQuestionList() }
+    private val triviaQuestions: GameQuestionList by lazy { GameQuestionList() }
     private val repository: Repository by lazy { Repository() }
     private lateinit var timerDisposable: Disposable
 
-    var isChangeQuestion = MutableLiveData(false)
-    var isDeleteHalfOfAnswers = MutableLiveData(false)
-    var isHelpByFriends = MutableLiveData(Event(false))
+    val isChangeQuestion = MutableLiveData(false)
+    val isDeleteHalfOfAnswers = MutableLiveData(false)
+    val isHelpByFriends = MutableLiveData(false)
 
     private val _gameState = MutableLiveData<GameState>()
     val state: LiveData<GameState>
@@ -57,7 +56,7 @@ class GameViewModel : BaseViewModel() {
         _gameState.postValue(GameState.Success)
         timer()
         state.toData()?.let {
-            questionLogic.setQuestions(it.questions)
+            triviaQuestions.setQuestions(it.questions)
             updateView()
         }
     }
@@ -84,18 +83,18 @@ class GameViewModel : BaseViewModel() {
     }
 
     private fun calculatePrize() {
-        _prize.postValue(questionLogic.getPrize())
+        _prize.postValue(triviaQuestions.getPrize())
     }
 
     private fun showAnswer() {
         setGameState()
         calculatePrize()
-        _question.postValue(questionLogic.getCurrentQuestion())
+        _question.postValue(triviaQuestions.getCurrentQuestion())
         timerDisposable.dispose()
     }
 
     private fun setGameState() {
-        if (questionLogic.isGameOver())
+        if (triviaQuestions.isGameOver())
             _gameState.postValue(GameState.WRONG_ANSWER_SUBMITTED)
         else
             _gameState.postValue(GameState.QUESTION_SUBMITTED)
@@ -103,9 +102,9 @@ class GameViewModel : BaseViewModel() {
 
 
     private fun updateView() {
-        if (!questionLogic.isGameOver()) {
+        if (!triviaQuestions.isGameOver()) {
             _gameState.postValue(GameState.QUESTION_START)
-            _question.postValue(questionLogic.updateQuestion())
+            _question.postValue(triviaQuestions.updateQuestion())
             restartTimer()
         } else {
             timerDisposable.dispose()
@@ -118,13 +117,16 @@ class GameViewModel : BaseViewModel() {
     }
 
     fun replaceQuestion() {
-        if (_gameState.value != GameState.QUESTION_SUBMITTED) {
+        if (_gameState.value != GameState.QUESTION_SUBMITTED
+            && _gameState.value != GameState.WRONG_ANSWER_SUBMITTED
+        ) {
             _gameState.postValue(GameState.QUESTION_START)
             isChangeQuestion.postValue(true)
-            _question.postValue(questionLogic.replaceQuestion())
+            _question.postValue(triviaQuestions.replaceQuestion())
             restartTimer()
         }
     }
+
 
     private fun restartTimer() {
         timerDisposable.dispose()
@@ -132,20 +134,22 @@ class GameViewModel : BaseViewModel() {
     }
 
     fun deleteHalfOfAnswers() {
-        if (_gameState.value != GameState.QUESTION_SUBMITTED) {
+        if (_gameState.value != GameState.QUESTION_SUBMITTED
+            && _gameState.value != GameState.WRONG_ANSWER_SUBMITTED
+        ) {
             _gameState.postValue(GameState.QUESTION_START)
             isDeleteHalfOfAnswers.postValue(true)
-            _question.postValue(questionLogic.deleteTwoWrongAnswersRandomly())
+            _question.postValue(triviaQuestions.deleteTwoWrongAnswersRandomly())
         }
     }
 
     fun helpByFriends() {
-        isHelpByFriends.postValue(Event(true))
+        isHelpByFriends.postValue(true)
     }
 
-    private fun timer() {
-        _questionTime.postValue(QUESTION_TIME)
-        val timeInSecond: Long = QUESTION_TIME.toLong()
+    private fun timer(questionTimer: Int = QUESTION_TIME) {
+        _questionTime.postValue(questionTimer)
+        val timeInSecond: Long = questionTimer.toLong()
         timerDisposable = Observable.interval(1, TimeUnit.SECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .take(timeInSecond).map {
@@ -158,12 +162,13 @@ class GameViewModel : BaseViewModel() {
             }
     }
 
-
     private fun endTheCountDown() {
         timerDisposable.dispose()
         _gameState.postValue(GameState.GameOver)
         questionTimeOver.postValue(true)
     }
+
+    fun getFriendHelp() = triviaQuestions.getFriendHelp()
 
 }
 

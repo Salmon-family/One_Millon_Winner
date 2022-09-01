@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">من سيربح المليون</string>
+    <string name="call_friend_title">اتصال بصديق</string>
+    <string name="friend_help">انا متاكد من ان "\ %s "\ هي الاجابه الصحيحه</string>
+    <string name="thank_you">شكرا لك</string>
     <string name="question_number">سؤال %s من 15</string>
     <string name="submit">إرسال</string>
     <string name="game_over">انتهت اللعبة</string>
