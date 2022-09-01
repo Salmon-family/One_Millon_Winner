@@ -26,6 +26,7 @@ class GameViewModel : BaseViewModel() {
     val isChangeQuestion = MutableLiveData(false)
     val isDeleteHalfOfAnswers = MutableLiveData(false)
     val isHelpByFriends = MutableLiveData(false)
+    var isAudienceVote = MutableLiveData(false)
 
     private val _gameState = MutableLiveData<GameState>()
     val state: LiveData<GameState>
@@ -45,6 +46,7 @@ class GameViewModel : BaseViewModel() {
 
     private val questionTimeOver = MutableLiveData(false)
 
+    val onEventClick = MutableLiveData<OnEventClick>()
 
     init {
         _gameState.postValue(GameState.Loading)
@@ -75,6 +77,7 @@ class GameViewModel : BaseViewModel() {
             }
             GameState.WRONG_ANSWER_SUBMITTED -> {
                 _gameState.postValue(GameState.GameOver)
+                onEventClick.postValue(OnEventClick.WhenTheGameEnd)
             }
             else -> {
                 // Toast please select answer or exit.
@@ -109,6 +112,7 @@ class GameViewModel : BaseViewModel() {
         } else {
             timerDisposable.dispose()
             _gameState.postValue(GameState.GameOver)
+            onEventClick.postValue(OnEventClick.WhenTheGameEnd)
         }
     }
 
@@ -144,7 +148,13 @@ class GameViewModel : BaseViewModel() {
     }
 
     fun helpByFriends() {
+        onEventClick.postValue(OnEventClick.OnClickFriendCall)
         isHelpByFriends.postValue(true)
+    }
+
+    fun audienceVoteClick(){
+        isAudienceVote.postValue(true)
+        onEventClick.postValue(OnEventClick.OnAudienceVoteHelpToolClick)
     }
 
     private fun timer(questionTimer: Int = QUESTION_TIME) {
@@ -165,10 +175,17 @@ class GameViewModel : BaseViewModel() {
     private fun endTheCountDown() {
         timerDisposable.dispose()
         _gameState.postValue(GameState.GameOver)
+        onEventClick.postValue(OnEventClick.WhenTheGameEnd)
         questionTimeOver.postValue(true)
     }
 
     fun getFriendHelp() = triviaQuestions.getFriendHelp()
 
+    // Also you can send data to fragment by add data class
+    sealed class OnEventClick {
+        object OnClickFriendCall: OnEventClick()
+        object OnAudienceVoteHelpToolClick : OnEventClick()
+        object WhenTheGameEnd: OnEventClick()
+    }
 }
 

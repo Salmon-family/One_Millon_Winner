@@ -45,17 +45,32 @@
             app:layout_constraintTop_toTopOf="@+id/timer_progress_bar" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/audience_button"
+            style="@style/Widget.Material3.Button.Icon"
+            android:layout_width="@dimen/help_button_dimension"
+            android:layout_height="@dimen/help_button_dimension"
+            android:layout_marginTop="@dimen/margin_large_x"
+            android:layout_marginEnd="@dimen/margin_button"
+            android:onClick="@{() -> gameViewModel.audienceVoteClick()}"
+            app:cornerRadius="@dimen/corner_radius_medium"
+            app:disableButton="@{gameViewModel.isAudienceVote()}"
+            app:icon="@drawable/ic_audience"
+            app:layout_constraintEnd_toEndOf="@+id/card_view"
+            app:layout_constraintStart_toEndOf="@+id/phone_button"
+            app:layout_constraintTop_toBottomOf="@+id/timer_progress_bar" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/phone_button"
             style="@style/Widget.Material3.Button.Icon"
             android:layout_width="@dimen/help_button_dimension"
             android:layout_height="@dimen/help_button_dimension"
             android:layout_marginTop="@dimen/margin_large_x"
-            android:layout_marginEnd="@dimen/help_button_dimension"
             android:onClick="@{() -> gameViewModel.helpByFriends()}"
             app:cornerRadius="@dimen/corner_radius_medium"
             app:disableButton="@{gameViewModel.isHelpByFriends()}"
             app:icon="@drawable/ic_phone"
-            app:layout_constraintEnd_toEndOf="@+id/card_view"
+            app:layout_constraintEnd_toStartOf="@+id/audience_button"
+            app:layout_constraintStart_toEndOf="@+id/delete_half_answer_button"
             app:layout_constraintTop_toBottomOf="@+id/timer_progress_bar" />
 
         <com.google.android.material.button.MaterialButton
@@ -89,11 +104,12 @@
             style="@style/Widget.Material3.Button.Icon"
             android:layout_width="@dimen/help_button_dimension"
             android:layout_height="@dimen/help_button_dimension"
-            android:layout_marginStart="@dimen/help_button_dimension"
+            android:layout_marginStart="@dimen/margin_button"
             android:onClick="@{() -> gameViewModel.replaceQuestion()}"
             app:cornerRadius="@dimen/corner_radius_medium"
             app:disableButton="@{gameViewModel.isChangeQuestion()}"
             app:icon="@drawable/ic_repeat"
+            app:layout_constraintEnd_toStartOf="@+id/delete_half_answer_button"
             app:layout_constraintStart_toStartOf="@+id/card_view"
             app:layout_constraintTop_toTopOf="@+id/delete_half_answer_button" />
 
@@ -251,7 +267,7 @@
         <androidx.constraintlayout.widget.Group
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:constraint_referenced_ids="card_view,
                  timer_progress_bar,
                  text_timer,
@@ -261,7 +277,8 @@
                  phone_button,
                  answersChipGroup,
                  text_calculate_prize,
-                 submit_button "
+                 submit_button,
+                 audience_button "
             app:isSuccess="@{gameViewModel.state}" />
 
 

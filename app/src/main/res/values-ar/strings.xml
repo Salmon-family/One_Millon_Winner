@@ -19,4 +19,6 @@
     <string name="_4">4</string>
     <string name="_50_50">50:50</string>
     <string name="_01_30">01:30</string>
+    <string name="public_vote">تصويت الجمهور</string>
+    <string name="close">إغلاق</string>
 </resources>

@@ -65,4 +65,9 @@ dependencies {
 
     //lottie
     implementation 'com.airbnb.android:lottie:5.2.0'
+
+    // Balloon
+    implementation "com.github.skydoves:balloon:1.4.7"
+
+    implementation 'com.github.AAChartModel:AAChartCore-Kotlin:-SNAPSHOT'
 }
