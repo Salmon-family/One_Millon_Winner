@@ -11,10 +11,17 @@ import com.airbnb.lottie.LottieAnimationView
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.data.GameQuestion
 import com.example.onemillonwinner.data.GameState
-import com.example.onemillonwinner.data.State
-import com.example.onemillonwinner.util.extension.htmlText
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+
+@BindingAdapter(value = ["app:hide"])
+fun hideScoreOfFirstLogin(view: View, value: Int?) {
+    if (value != -1) {
+        view.visibility = View.VISIBLE
+    } else {
+        view.visibility = View.INVISIBLE
+    }
+}
 
 @BindingAdapter(value = ["app:disableButton"])
 fun disableButton(view: View, value: Boolean?) {
@@ -116,8 +123,17 @@ fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameSta
 @BindingAdapter("app:prizeLottie")
 fun setPrizeLottie(view: LottieAnimationView, prize: Int) {
     if (prize == 0) {
-        view.setAnimation(R.raw.you_loss)
+        view.setAnimation(R.raw.lottie_loss)
     } else {
         view.setAnimation(R.raw.lottie_congratulation)
+    }
+}
+
+@BindingAdapter("app:prizeText")
+fun setPrizeText(view: TextView, prize: Int) {
+    if (prize == 0) {
+        view.setText(R.string.text_Losser)
+    } else {
+        view.setText(R.string.text_congratulation)
     }
 }
