@@ -34,17 +34,6 @@
             app:prizeLottie="@{prize}"
             tools:ignore="MissingClass" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_result"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_huge"
-            android:text="@string/text_result"
-            android:textColor="@color/black_700"
-            android:textSize="@dimen/font_size_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lottie_congratulation" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_congratulation"
@@ -53,10 +42,10 @@
             android:layout_marginTop="@dimen/spacing_medium"
             app:prizeText="@{prize}"
             android:textColor="@color/black_700"
-            android:textSize="@dimen/font_size_secondary"
+            android:textSize="@dimen/font_size_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_result" />
+            app:layout_constraintTop_toBottomOf="@id/lottie_congratulation" />
 
 
         <com.google.android.material.textview.MaterialTextView
@@ -77,6 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/spacing_medium"
+            android:layout_marginBottom="@dimen/spacing_medium"
             android:backgroundTint="@color/primary_color"
             android:text="@string/button_play_again"
             android:textColor="@color/white"
@@ -84,8 +74,7 @@
             app:cornerRadius="@dimen/radius_small"
             app:layout_constraintBottom_toTopOf="@+id/text_back_home"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_result_number" />
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/text_back_home"
