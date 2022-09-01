@@ -10,6 +10,7 @@
     <string name="next_question">Next Question</string>
     <string name="text_result">Result</string>
     <string name="text_congratulation">congratulation !</string>
+    <string name="text_Losser">Unfortunately, you lost this game !</string>
     <string name="button_play_again">Play Again</string>
     <string name="text_my_result_number">%1$s / 10</string>
     <string name="text_back_to_home">Back to Home</string>
@@ -24,4 +25,5 @@
     <string name="dialog_message">Are you sure you want Exit?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="your_score">Your score is : %s$</string>
 </resources>
