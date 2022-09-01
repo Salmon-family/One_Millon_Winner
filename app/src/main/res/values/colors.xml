@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#CB08A36A</color>
-    <color name="teal_700">#FF018786</color>
-<!--    <color name="black">#FF000000</color>-->
+
     <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="black_700">#FF434343</color>
+    <color name="black_500">#FF7b7b7b</color>
+    <color name="black_400">#FF9d9d9d</color>
+    <color name="black_200">#FFd9d9d9</color>
 
     <color name="primary_color">#FF007CC5</color>
     <color name="secondary_color">#FFD1E4FC</color>
@@ -16,18 +16,6 @@
     <color name="state_wrong_answer">#EB7C73</color>
     <color name="state_success_answer">#CB08A36A</color>
 
-    <color name="black">#FF000000</color>
-    <color name="black_700">#FF434343</color>
-    <color name="black_500">#FF7b7b7b</color>
-    <color name="black_200">#FFd9d9d9</color>
+    <color name="state_disable_button">#DDD72222</color>
 
-
-
-    <color name="gray_700">#FF72777F</color>
-    <color name="blue_700">#FF007CC5</color>
-    <color name="blue_200">#FFD1E4FC</color>
-    <color name="red_200">#EB7C73</color>
-    <color name="green_200">#FFC9FDCE</color>
-    <color name="gold">#f2e87a</color>
-    <color name="splash_screen_color">#FF0077CC</color>
 </resources>
