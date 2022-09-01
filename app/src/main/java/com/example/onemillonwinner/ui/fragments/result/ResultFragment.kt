@@ -49,10 +49,10 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
     }
 
 
-    private fun effectWhenDisplayTheResult(){
-        if(arguments.prize == 0){
+    private fun effectWhenDisplayTheResult() {
+        if (arguments.prize == 0) {
             playMusic(R.raw.loss)
-        }else {
+        } else {
             playMusic(R.raw.result_game_winner)
         }
     }
