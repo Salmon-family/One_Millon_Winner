@@ -88,7 +88,7 @@ fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameSta
             chipGroup.children.forEach { chip ->
                 chip as Chip
                 chip.isEnabled = false
-                if (chip.text.toString() == question.getCorrectAnswer()/*.htmlText()*/) {
+                if (chip.text.toString() == question.getCorrectAnswer()) {
                     chip.setChipBackgroundColorResource(R.color.teal_200)
                 }
                 if (selectedID == chip.id && chip.text.toString() != question.getCorrectAnswer()) {
@@ -112,14 +112,6 @@ fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameSta
         }
     }
 }
-
-
-/*@BindingAdapter("app:formatTextFromHtml")
-fun formatTextFromHtml(view: TextView, text: String?) {
-    text?.let {
-        view.text = it.htmlText()
-    }
-}*/
 
 @BindingAdapter("app:prizeLottie")
 fun setPrizeLottie(view: LottieAnimationView, prize: Int) {
