@@ -15,12 +15,12 @@ class GameQuestion {
         questionDescription = question.question?.htmlText() ?: ""
         difficulty = question.difficulty ?: ""
         answers.clear()
-        question.incorrectAnswers?.let { incorrectAnswers ->
-            answers.addAll(incorrectAnswers)
+        question.incorrectAnswers?.forEach { incorrectAnswer ->
+            answers.add(incorrectAnswer.htmlText())
         }
         question.correctAnswer?.let { correct ->
-            answers.add(correct.htmlText())
             correctAnswer = correct.htmlText()
+            answers.add(correctAnswer)
         }
         answers.shuffle()
     }

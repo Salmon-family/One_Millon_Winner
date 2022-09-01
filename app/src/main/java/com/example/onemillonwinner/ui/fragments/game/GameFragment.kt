@@ -25,13 +25,11 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
     private fun observeOnCallFriend() {
         gameViewModel.isHelpByFriends.observe(viewLifecycleOwner, Observer { callAFriend ->
             if (callAFriend) {
-                AlertDialog.Builder(requireContext())
-                    .setMessage(getString(R.string.friend_help, gameViewModel.getFriendHelp()))
-                    .setPositiveButton(getString(R.string.thank_you)) { _, _ -> }
-                    .create().show()
+                HelpFriendDialog(requireContext()).show(gameViewModel.getFriendHelp()) {
+                    gameViewModel.friendCallCloseDialog()
+                }
             }
         })
-        getAnswer()
     }
 
     private fun observeOnGameDone() {
@@ -48,21 +46,7 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
         })
     }
 
-    private fun helpFriendDialog(correctAnswer:String){
-        gameViewModel.friendCall.observe(this){
-            if(it){
-                HelpFriendDialog(requireContext()).show(correctAnswer){
-                    gameViewModel.friendCallCloseDialog()
-                }
-            }
-        }
-    }
 
-    private fun getAnswer(){
-        gameViewModel.question.observe(this){
-            helpFriendDialog(it.getCorrectAnswer())
-        }
-    }
 
     override val layoutIdFragment = R.layout.fragment_game
 }

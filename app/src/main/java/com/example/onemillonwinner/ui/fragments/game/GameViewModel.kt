@@ -179,6 +179,5 @@ class GameViewModel : BaseViewModel() {
 
     fun getFriendHelp() = triviaQuestions.getFriendHelp()
 
-
 }
 
