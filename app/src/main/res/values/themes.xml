@@ -1,19 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+
     <style name="Theme.OneMillonWinner" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
+
         <item name="colorPrimary">@color/primary_color</item>
         <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/black</item>
-        <!-- Secondary brand color. -->
+
         <item name="colorSecondary">@color/secondary_color</item>
-<!--        <item name="colorSecondaryVariant">@color/teal_700</item>-->
         <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
+
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
 
-        <!-- Customize your theme here. -->
     </style>
 
     <style name="splashScreenTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -29,7 +27,7 @@
         <item name="chipStrokeColor">@color/black_400</item>
         <item name="chipSurfaceColor">@color/white</item>
         <item name="chipBackgroundColor">@color/selected_chip</item>
-        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipStrokeWidth">@dimen/chip_stroke_Width</item>
     </style>
 
 </resources>
