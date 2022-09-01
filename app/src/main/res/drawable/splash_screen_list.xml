@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@color/splash_screen_color"/>
+    <item android:drawable="@color/primary_color"/>
     <item android:drawable="@drawable/m_letter_image" android:gravity="center"/>
 </layer-list>

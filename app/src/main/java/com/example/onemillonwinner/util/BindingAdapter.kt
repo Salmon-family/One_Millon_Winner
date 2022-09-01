@@ -19,10 +19,10 @@ import com.google.android.material.chip.ChipGroup
 @BindingAdapter(value = ["app:disableButton"])
 fun disableButton(view: View, value: Boolean?) {
     if (value == true) {
-        view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.red_200))
+        view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.state_disable_button))
         view.isClickable = false
     } else {
-        view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.blue_200))
+        view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.secondary_color))
     }
 }
 

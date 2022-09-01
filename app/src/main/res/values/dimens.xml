@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="margin_small">8dp</dimen>
-    <dimen name="margin_medium">16dp</dimen>
-    <dimen name="margin_large">24dp</dimen>
-    <dimen name="corner_radius_small">8dp</dimen>
-    <dimen name="corner_radius_medium">16dp</dimen>
+    <dimen name="zero">0dp</dimen>
+
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_medium">16dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
+    <dimen name="spacing_extra_large">32dp</dimen>
+    <dimen name="spacing_huge">48dp</dimen>
+
+    <dimen name="font_size_primary">16sp</dimen>
+    <dimen name="font_size_secondary">18sp</dimen>
+    <dimen name="font_size_caption">12sp</dimen>
+    <dimen name="font_size_title">24sp</dimen>
+    <dimen name="font_size_titleExtra">32sp</dimen>
+
     <dimen name="help_button_dimension">48dp</dimen>
-    <dimen name="margin_large_x">32dp</dimen>
+    <dimen name="height_chip">50dp</dimen>
+    <dimen name="elevation">8dp</dimen>
+    <dimen name="radius_small">8dp</dimen>
+    <dimen name="chip_stroke_Width">1dp</dimen>
+
+
 </resources>
