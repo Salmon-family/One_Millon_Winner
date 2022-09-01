@@ -1,9 +1,9 @@
 package com.example.onemillonwinner.ui.fragments.game
 
 import android.app.AlertDialog
-import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.data.GameState
