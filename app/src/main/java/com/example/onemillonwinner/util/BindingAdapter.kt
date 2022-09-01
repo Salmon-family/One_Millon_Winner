@@ -89,10 +89,10 @@ fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameSta
                 chip as Chip
                 chip.isEnabled = false
                 if (chip.text.toString() == question.getCorrectAnswer()) {
-                    chip.setChipBackgroundColorResource(R.color.teal_200)
+                    chip.setChipBackgroundColorResource(R.color.state_success_answer)
                 }
                 if (selectedID == chip.id && chip.text.toString() != question.getCorrectAnswer()) {
-                    chip.setChipBackgroundColorResource(R.color.red_200)
+                    chip.setChipBackgroundColorResource(R.color.state_wrong_answer)
                 }
             }
         } else if (gameState == GameState.QUESTION_START) {
