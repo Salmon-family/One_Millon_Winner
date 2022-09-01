@@ -12,63 +12,53 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background">
+        android:background="@color/white"
+        >
+
+<!--        <ImageView-->
+<!--            android:id="@+id/imageView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_marginTop="24dp"-->
+<!--            android:scaleType="fitXY"-->
+<!--            android:src="@drawable/background"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHeight_percent="0.7"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie_home"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/margin_medium"
-            android:layout_marginEnd="@dimen/margin_medium"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
             android:elevation="@dimen/margin_small"
-            app:layout_constraintBottom_toBottomOf="@+id/card_view"
+            app:layout_constraintBottom_toTopOf="@+id/start_game_button"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.4"
+            app:layout_constraintHeight_percent="0.35"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.45"
             app:lottie_autoPlay="true"
-            app:lottie_rawRes="@raw/welcome" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_view"
-            style="@style/Widget.Material3.CardView.Filled"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/margin_medium"
-            android:layout_marginEnd="@dimen/margin_medium"
-            android:layout_marginBottom="@dimen/margin_small"
-            app:cardBackgroundColor="@color/blue_200"
-            app:cardCornerRadius="@dimen/corner_radius_small"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.25"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/account_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_medium"
-            android:layout_marginEnd="@dimen/margin_medium"
-            android:text="Hello Amnah"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/card_view"
-            app:layout_constraintStart_toStartOf="@+id/card_view"
-            app:layout_constraintTop_toBottomOf="@+id/lottie_home" />
+            app:lottie_rawRes="@raw/lottie_welcome" />
 
         <TextView
             android:id="@+id/account_balance"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_medium"
-            android:layout_marginEnd="@dimen/margin_medium"
-            android:text="Your balance of score is : 2000"
+            android:gravity="center"
+            android:text="Your score is : 2000"
+            android:textColor="@color/blue_700"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/card_view"
-            app:layout_constraintEnd_toEndOf="@+id/card_view"
-            app:layout_constraintStart_toStartOf="@+id/card_view"
-            app:layout_constraintTop_toBottomOf="@+id/account_name" />
+            app:layout_constraintBottom_toTopOf="@+id/start_game_button"
+            app:layout_constraintEnd_toEndOf="@+id/lottie_home"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/lottie_home"
+            app:layout_constraintTop_toBottomOf="@+id/lottie_home"
+            app:layout_constraintVertical_bias="0.69" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/start_game_button"
