@@ -10,6 +10,7 @@ import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.network.Repository
 import com.example.onemillonwinner.ui.base.BaseViewModel
 import com.example.onemillonwinner.util.Constants.QUESTION_TIME
+import com.example.onemillonwinner.util.Event
 import com.example.onemillonwinner.util.extension.addTo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -25,11 +26,7 @@ class GameViewModel : BaseViewModel() {
 
     var isChangeQuestion = MutableLiveData(false)
     var isDeleteHalfOfAnswers = MutableLiveData(false)
-    var isHelpByFriends = MutableLiveData(false)
-
-    private val _friendCall = MutableLiveData(false)
-    val friendCall: LiveData<Boolean>
-        get() = _friendCall
+    var isHelpByFriends = MutableLiveData(Event(false))
 
     private val _gameState = MutableLiveData<GameState>()
     val state: LiveData<GameState>
@@ -143,8 +140,7 @@ class GameViewModel : BaseViewModel() {
     }
 
     fun helpByFriends() {
-        isHelpByFriends.postValue(true)
-        _friendCall.postValue(true)
+        isHelpByFriends.postValue(Event(true))
     }
 
     private fun timer() {
@@ -162,9 +158,6 @@ class GameViewModel : BaseViewModel() {
             }
     }
 
-     fun friendCallCloseDialog(){
-        _friendCall.postValue(false)
-    }
 
     private fun endTheCountDown() {
         timerDisposable.dispose()

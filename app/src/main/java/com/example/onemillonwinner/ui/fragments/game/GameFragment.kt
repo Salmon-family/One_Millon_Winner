@@ -1,6 +1,5 @@
 package com.example.onemillonwinner.ui.fragments.game
 
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -8,6 +7,7 @@ import com.example.onemillonwinner.R
 import com.example.onemillonwinner.data.GameState
 import com.example.onemillonwinner.databinding.FragmentGameBinding
 import com.example.onemillonwinner.ui.base.BaseFragment
+import com.example.onemillonwinner.util.EventObserve
 import com.example.onemillonwinner.util.HelpFriendDialog
 
 class GameFragment : BaseFragment<FragmentGameBinding>() {
@@ -18,7 +18,7 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
         binding.gameViewModel = gameViewModel
 
         observeOnGameDone()
-        getAnswer()
+        helpFriendDialog()
     }
 
     private fun observeOnGameDone() {
@@ -35,20 +35,14 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
         })
     }
 
-    private fun helpFriendDialog(correctAnswer:String){
-        gameViewModel.friendCall.observe(this){
+    private fun helpFriendDialog(){
+        gameViewModel.isHelpByFriends.observe(this, EventObserve{
             if(it){
-                HelpFriendDialog(requireContext()).show(correctAnswer){
-                    gameViewModel.friendCallCloseDialog()
-                }
-            }
-        }
-    }
+                HelpFriendDialog(requireContext()).show(gameViewModel.question.value?.getCorrectAnswer().toString())
 
-    private fun getAnswer(){
-        gameViewModel.question.observe(this){
-            helpFriendDialog(it.getCorrectAnswer())
-        }
+            }
+        })
+
     }
 
     override val layoutIdFragment = R.layout.fragment_game
