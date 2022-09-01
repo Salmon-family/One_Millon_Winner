@@ -15,8 +15,6 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
 
     private val gameViewModel: GameViewModel by viewModels()
 
-    private var mediaPlayer: MediaPlayer? = null
-
     override val layoutIdFragment = R.layout.fragment_game
 
     override fun setup() {
@@ -86,11 +84,7 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
     private fun playMusic(resourcesId: Int) {
         val mediaPlayer = MediaPlayer.create(context, resourcesId)
         mediaPlayer.start()
-        stopMusic()
-    }
-
-    private fun stopMusic() {
-        mediaPlayer?.stop()
+        mediaPlayer.stop()
     }
 
 }

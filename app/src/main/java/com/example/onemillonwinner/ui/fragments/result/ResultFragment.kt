@@ -14,7 +14,6 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
 
     override val layoutIdFragment = R.layout.fragment_result
     private val arguments: ResultFragmentArgs by navArgs()
-    private var mediaPlayer: MediaPlayer? = null
 
     override fun setup() {
         val prize = arguments.prize
@@ -60,10 +59,6 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
     private fun playMusic(resourcesId: Int) {
         val mediaPlayer = MediaPlayer.create(context, resourcesId)
         mediaPlayer.start()
-        stopMusic()
-    }
-
-    private fun stopMusic() {
-        mediaPlayer?.stop()
+        mediaPlayer.stop()
     }
 }
