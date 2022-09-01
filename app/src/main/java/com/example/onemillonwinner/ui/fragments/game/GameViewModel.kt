@@ -127,6 +127,8 @@ class GameViewModel : BaseViewModel() {
         }
     }
 
+
+
     private fun restartTimer() {
         timerDisposable.dispose()
         timer()

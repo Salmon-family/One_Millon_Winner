@@ -19,7 +19,7 @@ class GameQuestion {
             answers.addAll(incorrectAnswers)
         }
         question.correctAnswer?.let { correct ->
-            answers.add(correct)
+            answers.add(correct.htmlText())
             correctAnswer = correct.htmlText()
         }
         answers.shuffle()

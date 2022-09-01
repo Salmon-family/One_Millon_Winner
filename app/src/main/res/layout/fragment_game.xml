@@ -131,8 +131,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_medium"
+            android:text="@{gameViewModel.question.question}"
             android:textColor="@color/white"
-            app:formatTextFromHtml="@{gameViewModel.question.question}"
             app:layout_constraintBottom_toBottomOf="@+id/card_view"
             app:layout_constraintEnd_toEndOf="@+id/card_view"
             app:layout_constraintStart_toStartOf="@+id/text_question_number"
@@ -162,9 +162,9 @@
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:onClick="@{() -> gameViewModel.updateGameState(GameState.ANSWER_SELECTED)}"
+                android:text="@{gameViewModel.question.answers[0]}"
                 app:chipMinHeight="50dp"
                 app:chipMinTouchTargetSize="0dp"
-                app:formatTextFromHtml="@{gameViewModel.question.answers[0]}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -175,9 +175,9 @@
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:onClick="@{() -> gameViewModel.updateGameState(GameState.ANSWER_SELECTED)}"
+                android:text="@{gameViewModel.question.answers[1]}"
                 app:chipMinHeight="50dp"
                 app:chipMinTouchTargetSize="0dp"
-                app:formatTextFromHtml="@{gameViewModel.question.answers[1]}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -188,9 +188,9 @@
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:onClick="@{() -> gameViewModel.updateGameState(GameState.ANSWER_SELECTED)}"
+                android:text="@{gameViewModel.question.answers[2]}"
                 app:chipMinHeight="50dp"
                 app:chipMinTouchTargetSize="0dp"
-                app:formatTextFromHtml="@{gameViewModel.question.answers[2]}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -201,9 +201,9 @@
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:onClick="@{() -> gameViewModel.updateGameState(GameState.ANSWER_SELECTED)}"
+                android:text="@{gameViewModel.question.answers[3]}"
                 app:chipMinHeight="50dp"
                 app:chipMinTouchTargetSize="0dp"
-                app:formatTextFromHtml="@{gameViewModel.question.answers[3]}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -242,8 +242,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_medium"
-            android:textSize="24sp"
             android:text="@{@string/prize(gameViewModel.prize)}"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@+id/submit_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/submit_button" />

@@ -114,12 +114,12 @@ fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameSta
 }
 
 
-@BindingAdapter("app:formatTextFromHtml")
+/*@BindingAdapter("app:formatTextFromHtml")
 fun formatTextFromHtml(view: TextView, text: String?) {
     text?.let {
         view.text = it.htmlText()
     }
-}
+}*/
 
 @BindingAdapter("app:prizeLottie")
 fun setPrizeLottie(view: LottieAnimationView, prize: Int) {
