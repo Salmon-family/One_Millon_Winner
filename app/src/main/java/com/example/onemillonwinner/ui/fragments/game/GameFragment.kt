@@ -14,9 +14,13 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
 
     private val gameViewModel: GameViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun setup() {
+        binding.gameViewModel = gameViewModel
+        callBacks()
+        observeOnGameDone()
+    }
 
+    private fun callBacks() {
         requireActivity().onBackPressedDispatcher
             .addCallback(this, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
@@ -41,12 +45,6 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
         }.create().show()
     }
 
-
-    override fun setup() {
-        binding.gameViewModel = gameViewModel
-
-        observeOnGameDone()
-    }
 
     private fun observeOnGameDone() {
         gameViewModel.state.observe(viewLifecycleOwner) {

@@ -31,7 +31,7 @@ fun showWhenLoading(view: View, state: GameState?) {
     if (state == GameState.Loading) {
         view.visibility = View.VISIBLE
     } else {
-        view.visibility = View.INVISIBLE
+        view.visibility = View.GONE
     }
 }
 
@@ -49,7 +49,7 @@ fun showWhenFail(view: View, state: GameState?) {
     if (state == GameState.Failure) {
         view.visibility = View.VISIBLE
     } else {
-        view.visibility = View.INVISIBLE
+        view.visibility = View.GONE
     }
 }
 
