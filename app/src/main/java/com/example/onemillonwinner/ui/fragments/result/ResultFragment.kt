@@ -1,7 +1,7 @@
 package com.example.onemillonwinner.ui.fragments.result
 
-
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.databinding.FragmentResultBinding
 import com.example.onemillonwinner.ui.base.BaseFragment
@@ -9,8 +9,12 @@ import com.example.onemillonwinner.ui.base.BaseFragment
 class ResultFragment : BaseFragment<FragmentResultBinding>() {
 
     override val layoutIdFragment = R.layout.fragment_result
+    private val arguments: ResultFragmentArgs by navArgs()
 
     override fun setup() {
+        val prize = arguments.prize
+        binding.prize = prize
+
         navigateToGameFragment()
         navigateToHomeFragment()
     }

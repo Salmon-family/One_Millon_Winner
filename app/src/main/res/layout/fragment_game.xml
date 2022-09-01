@@ -266,7 +266,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_medium"
             android:textSize="24sp"
-            android:text="@{gameViewModel.prize}"
+            android:text="@{@string/prize(gameViewModel.prize)}"
             app:layout_constraintBottom_toBottomOf="@+id/submit_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/submit_button" />
