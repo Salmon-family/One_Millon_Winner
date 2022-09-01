@@ -11,6 +11,7 @@ object Api {
         .baseUrl(BASE_URL)
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
+
         .build()
 
     val triviaService: TriviaService = retrofit.create(TriviaService::class.java)

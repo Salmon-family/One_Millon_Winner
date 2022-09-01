@@ -46,8 +46,10 @@ class GameViewModel : BaseViewModel() {
 
     init {
         _gameState.postValue(GameState.Loading)
-        repository.getAllQuestions()
-            .subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion).addTo(disposable)
+        repository.getAllQuestions()?.subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion)
+            ?.addTo(disposable)
+            ?: onThrowExpectation()
+
     }
 
     private fun onSuccessUpdateQuestion(state: State<TriviaResponse>) {
@@ -60,6 +62,10 @@ class GameViewModel : BaseViewModel() {
     }
 
     private fun onErrorUpdateQuestion(throwable: Throwable) {
+        _gameState.postValue(GameState.Failure)
+    }
+
+    private fun onThrowExpectation() {
         _gameState.postValue(GameState.Failure)
     }
 

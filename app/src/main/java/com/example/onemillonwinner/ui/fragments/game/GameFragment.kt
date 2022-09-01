@@ -63,6 +63,8 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
                         GameFragmentDirections.actionGameFragmentToResultFragment(prize)
                     )
                 }
+            } else if (it == GameState.Failure) {
+                GameFragmentDirections.actionGameFragmentToHomeFragment()
             }
         }
     }
