@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="homeViewModel"
             type="com.example.onemillonwinner.ui.fragments.home.HomeViewModel" />
@@ -29,6 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:text="@{homeViewModel.bestPrize.toString()}"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

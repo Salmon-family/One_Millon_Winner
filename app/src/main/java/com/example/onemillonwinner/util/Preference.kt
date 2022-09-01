@@ -2,21 +2,33 @@ package com.example.onemillonwinner.util
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Build.VERSION_CODES.M
 
 object Preference {
     private var sharedPrefs: SharedPreferences? = null
-    private const val SHARED_PREFS_NAME = "prefs"
-    private const val KEY_SCORE = "score"
+    private const val TABLE_NAME = "OneMillionWinner"
 
     fun initPrefs(context: Context) {
-        sharedPrefs = context.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+        sharedPrefs = context.getSharedPreferences(TABLE_NAME, Context.MODE_PRIVATE)
     }
 
+    fun getInt(key: String) = sharedPrefs?.getInt(key, -1)
 
-    var score: Int?
-        get() = sharedPrefs?.getInt(KEY_SCORE, -1)
-        set(value) {
-            value?.let { sharedPrefs?.edit()?.putInt(KEY_SCORE, it)?.apply() }
-        }
+    fun setInt(value: Int, key: String) {
+        sharedPrefs?.edit()?.putInt(key, value)?.apply()
+    }
 }
+
+
+/*fun Context.getBestPrizeSharedPreferences(): Int {
+    val sharedPreferences =
+        this.getSharedPreferences(Constants.TABLE_NAME, Context.MODE_PRIVATE)
+    return sharedPreferences.getInt(Constants.BEST_PRIZE, -1)
+}
+
+fun Context.saveBestPrizeSharedPreferences(prize: Int) {
+    val sharedPreferences =
+        this.getSharedPreferences(Constants.TABLE_NAME, Context.MODE_PRIVATE)
+    val editor = sharedPreferences.edit()
+    editor.putInt(Constants.BEST_PRIZE, prize)
+    editor.apply()
+}*/
