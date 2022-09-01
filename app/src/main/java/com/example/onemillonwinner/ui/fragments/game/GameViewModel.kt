@@ -22,6 +22,7 @@ class GameViewModel : BaseViewModel() {
     private val triviaQuestions: GameQuestionList by lazy { GameQuestionList() }
     private val repository: Repository by lazy { Repository() }
     private lateinit var timerDisposable: Disposable
+    private var timeLeft: Int = 0
 
     val isChangeQuestion = MutableLiveData(false)
     val isDeleteHalfOfAnswers = MutableLiveData(false)
@@ -167,15 +168,14 @@ class GameViewModel : BaseViewModel() {
         playTimer()
     }
 
-    private var time: Int = 0
 
     private fun pauseTimer() {
         timerDisposable.dispose()
-        time = questionTime.value ?: 0
+        timeLeft = questionTime.value ?: 0
     }
 
     private fun playTimer() {
-        timer(time)
+        timer(timeLeft)
     }
 
     private fun endTheCountDown() {
