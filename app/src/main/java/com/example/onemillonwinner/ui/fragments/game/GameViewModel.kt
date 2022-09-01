@@ -117,7 +117,9 @@ class GameViewModel : BaseViewModel() {
     }
 
     fun replaceQuestion() {
-        if (_gameState.value != GameState.QUESTION_SUBMITTED) {
+        if (_gameState.value != GameState.QUESTION_SUBMITTED
+            && _gameState.value != GameState.WRONG_ANSWER_SUBMITTED
+        ) {
             _gameState.postValue(GameState.QUESTION_START)
             isChangeQuestion.postValue(true)
             _question.postValue(questionLogic.replaceQuestion())
@@ -131,7 +133,9 @@ class GameViewModel : BaseViewModel() {
     }
 
     fun deleteHalfOfAnswers() {
-        if (_gameState.value != GameState.QUESTION_SUBMITTED) {
+        if (_gameState.value != GameState.QUESTION_SUBMITTED
+            && _gameState.value != GameState.WRONG_ANSWER_SUBMITTED
+        ) {
             _gameState.postValue(GameState.QUESTION_START)
             isDeleteHalfOfAnswers.postValue(true)
             _question.postValue(questionLogic.deleteTwoWrongAnswersRandomly())

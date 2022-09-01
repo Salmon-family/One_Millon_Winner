@@ -82,38 +82,32 @@ fun updateTextButton(submitButton: Button, state: GameState?) {
 fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameState?) {
     val selectedID = chipGroup.checkedChipId
     question?.let {
-        when (gameState) {
-            GameState.QUESTION_SUBMITTED,
-            GameState.WRONG_ANSWER_SUBMITTED -> {
-                chipGroup.children.forEachIndexed { index, chip ->
-                    chip as Chip
-                    chip.isEnabled = false
-                    if (chip.text.toString() == question.getCorrectAnswer().htmlText()) {
-                        chip.setChipBackgroundColorResource(R.color.teal_200)
-                    }
-                    if (selectedID == chip.id && chip.text.toString() != question.getCorrectAnswer()) {
-                        chip.setChipBackgroundColorResource(R.color.red_200)
-                    }
+        if (gameState == GameState.QUESTION_SUBMITTED ||
+            gameState == GameState.WRONG_ANSWER_SUBMITTED
+        ) {
+            chipGroup.children.forEach { chip ->
+                chip as Chip
+                chip.isEnabled = false
+                if (chip.text.toString() == question.getCorrectAnswer()/*.htmlText()*/) {
+                    chip.setChipBackgroundColorResource(R.color.teal_200)
+                }
+                if (selectedID == chip.id && chip.text.toString() != question.getCorrectAnswer()) {
+                    chip.setChipBackgroundColorResource(R.color.red_200)
                 }
             }
-            GameState.QUESTION_START -> {
-                chipGroup.clearCheck()
-                chipGroup.children.forEachIndexed { index, chip ->
-                    chip as Chip
-                    chip.isEnabled = question.getAnswers()[index] != ""
-                    chip.chipBackgroundColor =
-                        AppCompatResources.getColorStateList(chip.context, R.color.selected_chip)
-                }
+        } else if (gameState == GameState.QUESTION_START) {
+            chipGroup.clearCheck()
+            chipGroup.children.forEachIndexed { index, chip ->
+                chip as Chip
+                chip.isEnabled = question.getAnswers()[index] != ""
+                chip.chipBackgroundColor =
+                    AppCompatResources.getColorStateList(chip.context, R.color.selected_chip)
             }
-            GameState.ANSWER_SELECTED -> {
-                chipGroup.children.forEachIndexed { index, chip ->
-                    if (selectedID == chip.id) {
-                        question.setSelectedAnswer(index)
-                    }
+        } else if (gameState == GameState.ANSWER_SELECTED) {
+            chipGroup.children.forEachIndexed { index, chip ->
+                if (selectedID == chip.id) {
+                    question.setSelectedAnswer(index)
                 }
-            }
-            else -> {
-
             }
         }
     }
