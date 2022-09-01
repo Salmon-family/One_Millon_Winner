@@ -278,6 +278,7 @@
             app:constraint_referenced_ids="card_view,
                  timer_progress_bar,
                  text_timer,
+                 text_question_number,
                  change_question_button,
                  image_fifty_fifty,
                  delete_half_answer_button,
