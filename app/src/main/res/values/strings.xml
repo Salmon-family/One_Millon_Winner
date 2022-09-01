@@ -24,4 +24,5 @@
     <string name="dialog_message">Are you sure you want Exit?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="your_score">Your score is : %s </string>
 </resources>

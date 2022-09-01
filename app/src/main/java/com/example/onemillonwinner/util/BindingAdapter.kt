@@ -16,6 +16,15 @@ import com.example.onemillonwinner.util.extension.htmlText
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
+@BindingAdapter(value = ["app:hide"])
+fun hideScoreOfFirstLogin(view: View, value: Int?) {
+    if (value != -1) {
+        view.visibility = View.VISIBLE
+    } else {
+        view.visibility = View.INVISIBLE
+    }
+}
+
 @BindingAdapter(value = ["app:disableButton"])
 fun disableButton(view: View, value: Boolean?) {
     if (value == true) {

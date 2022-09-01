@@ -24,4 +24,5 @@
     <string name="dialog_message">هل انت متاكد من رغبتك بلخروج؟</string>
     <string name="yes">نعم</string>
     <string name="no">لا</string>
+    <string name="your_score">درجاتك هي : %s</string>
 </resources>
