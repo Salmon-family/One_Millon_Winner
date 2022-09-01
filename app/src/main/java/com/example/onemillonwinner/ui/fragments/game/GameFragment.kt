@@ -58,13 +58,11 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
 
     private fun observeOnGameDone() {
         gameViewModel.state.observe(viewLifecycleOwner) {
-            it?.let {
-                if (it == GameState.GameOver) {
-                    gameViewModel.prize.value?.let { prize ->
-                        findNavController().navigate(
-                            GameFragmentDirections.actionGameFragmentToResultFragment(prize)
-                        )
-                    }
+            if (it == GameState.GameOver) {
+                gameViewModel.prize.value?.let { prize ->
+                    findNavController().navigate(
+                        GameFragmentDirections.actionGameFragmentToResultFragment(prize)
+                    )
                 }
             }
         }
