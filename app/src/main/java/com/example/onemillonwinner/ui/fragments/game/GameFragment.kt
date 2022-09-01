@@ -25,9 +25,7 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
     private fun observeOnCallFriend() {
         gameViewModel.isHelpByFriends.observe(viewLifecycleOwner, Observer { callAFriend ->
             if (callAFriend) {
-                HelpFriendDialog(requireContext()).show(gameViewModel.getFriendHelp()) {
-                    gameViewModel.friendCallCloseDialog()
-                }
+                HelpFriendDialog(requireContext()).show(gameViewModel.getFriendHelp())
             }
         })
     }

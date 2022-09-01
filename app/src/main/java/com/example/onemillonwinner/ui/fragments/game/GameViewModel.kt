@@ -22,7 +22,6 @@ class GameViewModel : BaseViewModel() {
     private val triviaQuestions: GameQuestionList by lazy { GameQuestionList() }
     private val repository: Repository by lazy { Repository() }
     private lateinit var timerDisposable: Disposable
-    private var timeLeft: Int = 0
 
     val isChangeQuestion = MutableLiveData(false)
     val isDeleteHalfOfAnswers = MutableLiveData(false)
@@ -145,7 +144,6 @@ class GameViewModel : BaseViewModel() {
     }
 
     fun helpByFriends() {
-        pauseTimer()
         isHelpByFriends.postValue(true)
     }
 
@@ -162,20 +160,6 @@ class GameViewModel : BaseViewModel() {
                     endTheCountDown()
                 }
             }
-    }
-
-    fun friendCallCloseDialog() {
-        playTimer()
-    }
-
-
-    private fun pauseTimer() {
-        timerDisposable.dispose()
-        timeLeft = questionTime.value ?: 0
-    }
-
-    private fun playTimer() {
-        timer(timeLeft)
     }
 
     private fun endTheCountDown() {

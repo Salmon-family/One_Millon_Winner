@@ -5,20 +5,15 @@ import android.content.Context
 import com.example.onemillonwinner.R
 
 class HelpFriendDialog(context: Context) : AlertDialog.Builder(context){
-    lateinit var onResponse: (r : Boolean) -> Unit
 
-    fun show(correctAnswer: String, listener: (Boolean) -> Unit) {
+    fun show(correctAnswer: String) {
         val builder = AlertDialog.Builder(context)
         builder.setTitle(context.getString(R.string.call_friend_title))
         builder.setMessage(context.getString(R.string.friend_help,correctAnswer ))
         builder.setIcon(R.drawable.ic_person_icon)
-        onResponse = listener
-        builder.setPositiveButton(context.getString(R.string.thank_you)) { _, _ ->
-            onResponse(true)
-        }
-
         val alertDialog: AlertDialog = builder.create()
         alertDialog.setCancelable(false)
+
         alertDialog.show()
     }
 
