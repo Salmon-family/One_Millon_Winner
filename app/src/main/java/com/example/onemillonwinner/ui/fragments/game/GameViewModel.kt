@@ -42,7 +42,7 @@ class GameViewModel : ViewModel() {
     val prize : LiveData<String>
         get() = _prize
 
-    private val questionTimeOver = MutableLiveData(false)
+    val questionTimeOver = MutableLiveData(false)
 
 
     init {
@@ -158,6 +158,7 @@ class GameViewModel : ViewModel() {
         timerDisposable.dispose()
         _gameState.postValue(GameState.GameOver)
         questionTimeOver.postValue(true)
+        questionTimeOver.value = true
     }
 
 }
