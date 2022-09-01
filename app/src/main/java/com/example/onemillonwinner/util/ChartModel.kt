@@ -1,20 +1,25 @@
 package com.example.onemillonwinner.util
 
-import android.util.Log
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartAnimationType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
 import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
 
 class PublicVoteChart() {
 
-    fun getPublicVoteChart(answers:List<String>,correctAnswer:String): AAChartModel {
+    fun getPublicVoteChart(answers: List<String>, correctAnswer: String): AAChartModel {
         val listOfAASeriesElement =
-            getArrayOFAASeriesElementIfSuccessChance(getRightAnswerIndex(answers,correctAnswer))
+            getArrayOFAASeriesElementIfSuccessChance(getRightAnswerIndex(answers, correctAnswer))
         return AAChartModel()
             .chartType(AAChartType.Column)
             .animationDuration(3000)
-            .backgroundColor("#0077CC")
+            .backgroundColor("#D1E4FC")
             .dataLabelsEnabled(true)
+            .yAxisGridLineWidth(0)
+            .gradientColorEnable(false)
+            .xAxisGridLineWidth(0)
+            .yAxisVisible(false)
+            .animationType(AAChartAnimationType.EaseFromTo)
             .series(
                 arrayOf(
                     listOfAASeriesElement[0],
@@ -31,6 +36,7 @@ class PublicVoteChart() {
         for (i in 0..2) {
             seriesElement.add(
                 AASeriesElement()
+                    .name("")
                     .data(arrayOf(gettingRandomSequence[i]))
                     .allowPointSelect(false)
                     .colorByPoint(false)
@@ -39,6 +45,7 @@ class PublicVoteChart() {
         seriesElement.add(
             indexRightAnswer,
             AASeriesElement()
+                .name("")
                 .data(arrayOf(gettingRandomSequence[3]))
                 .allowPointSelect(false)
                 .colorByPoint(false)
@@ -67,10 +74,10 @@ class PublicVoteChart() {
         return listOf(fourthValue, thirdValue, secondValue, firstValue)
     }
 
-    private fun getRightAnswerIndex(answers:List<String>, correctAnswer:String):Int {
+    private fun getRightAnswerIndex(answers: List<String>, correctAnswer: String): Int {
         var correctAnswerIndex = 0
         answers.forEachIndexed { _correctAnswerIndex, answer ->
-            if(answer == correctAnswer) correctAnswerIndex = _correctAnswerIndex
+            if (answer == correctAnswer) correctAnswerIndex = _correctAnswerIndex
         }
         return correctAnswerIndex
     }

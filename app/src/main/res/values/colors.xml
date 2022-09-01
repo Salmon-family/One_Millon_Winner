@@ -16,5 +16,6 @@
     <color name="green_200">#FFC9FDCE</color>
     <color name="gold">#FFEF00</color>
     <color name="splash_screen_color">#FF0077CC</color>
-    <color name="transparent_blue_700">#80007CC5</color>
+    <color name="transparent_color">#00000000</color>
+    <color name="transparent_green_200">#80C9FDCE</color>
 </resources>
