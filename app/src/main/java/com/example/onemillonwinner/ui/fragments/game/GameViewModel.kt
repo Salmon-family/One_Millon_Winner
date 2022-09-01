@@ -27,6 +27,10 @@ class GameViewModel : BaseViewModel() {
     var isDeleteHalfOfAnswers = MutableLiveData(false)
     var isHelpByFriends = MutableLiveData(false)
 
+    private val _friendCall = MutableLiveData(false)
+    val friendCall: LiveData<Boolean>
+        get() = _friendCall
+
     private val _gameState = MutableLiveData<GameState>()
     val state: LiveData<GameState>
         get() = _gameState
@@ -140,6 +144,7 @@ class GameViewModel : BaseViewModel() {
 
     fun helpByFriends() {
         isHelpByFriends.postValue(true)
+        _friendCall.postValue(true)
     }
 
     private fun timer() {
@@ -155,6 +160,10 @@ class GameViewModel : BaseViewModel() {
                     endTheCountDown()
                 }
             }
+    }
+
+     fun friendCallCloseDialog(){
+        _friendCall.postValue(false)
     }
 
     private fun endTheCountDown() {
