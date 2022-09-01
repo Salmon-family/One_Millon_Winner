@@ -4,7 +4,6 @@ import android.media.MediaPlayer
 import android.app.AlertDialog
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.data.GameState
@@ -29,11 +28,11 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
     }
 
     private fun observeOnCallFriend() {
-        gameViewModel.isHelpByFriends.observe(viewLifecycleOwner, Observer { callAFriend ->
+        gameViewModel.isHelpByFriends.observe(viewLifecycleOwner) { callAFriend ->
             if (callAFriend) {
                 HelpFriendDialog(requireContext()).show(gameViewModel.getFriendHelp())
             }
-        })
+        }
     }
 
     private fun callBacks() {
@@ -64,13 +63,11 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
 
     private fun observeOnGameDone() {
         gameViewModel.state.observe(viewLifecycleOwner) {
-            it?.let {
-                if (it == GameState.GameOver) {
-                    gameViewModel.prize.value?.let { prize ->
-                        findNavController().navigate(
-                            GameFragmentDirections.actionGameFragmentToResultFragment(prize)
-                        )
-                    }
+            if (it == GameState.GameOver) {
+                gameViewModel.prize.value?.let { prize ->
+                    findNavController().navigate(
+                        GameFragmentDirections.actionGameFragmentToResultFragment(prize)
+                    )
                 }
             }
         }
