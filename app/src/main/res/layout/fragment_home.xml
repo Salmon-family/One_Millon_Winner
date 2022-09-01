@@ -13,17 +13,68 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background">
+        android:background="@color/white"
+        >
 
-        <Button
-            android:id="@+id/start_game_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Home Fragment"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_home_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_home"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:elevation="@dimen/margin_small"
+            app:layout_constraintBottom_toTopOf="@+id/start_game_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.35"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.45"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/lottie_welcome" />
+
+        <TextView
+            android:id="@+id/account_balance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Your score is : 2000"
+            android:textColor="@color/blue_700"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/start_game_button"
+            app:layout_constraintEnd_toEndOf="@+id/lottie_home"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/lottie_home"
+            app:layout_constraintTop_toBottomOf="@+id/lottie_home"
+            app:layout_constraintVertical_bias="0.69" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/start_game_button"
+            style="@style/ShapeAppearanceOverlay.Material3.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_large_x"
+            android:layout_marginEnd="@dimen/margin_large_x"
+            android:layout_marginBottom="32dp"
+            android:backgroundTint="@color/blue_700"
+            android:textColor="@color/white"
+            android:padding="14dp"
+            android:text="@string/start_the_game"
+            android:textAllCaps="false"
+            app:cornerRadius="@dimen/corner_radius_small"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/text_highest_score"

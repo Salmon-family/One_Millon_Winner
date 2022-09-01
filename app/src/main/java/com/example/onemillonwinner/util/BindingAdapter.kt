@@ -31,7 +31,7 @@ fun showWhenLoading(view: View, state: GameState?) {
     if (state == GameState.Loading) {
         view.visibility = View.VISIBLE
     } else {
-        view.visibility = View.INVISIBLE
+        view.visibility = View.GONE
     }
 }
 
@@ -45,11 +45,11 @@ fun showWhenSuccess(view: View, state: GameState?) {
 }
 
 @BindingAdapter("app:isFail")
-fun showWhenFail(view: View, state: State<GameState>?) {
-    if (state is State.Failure) {
+fun showWhenFail(view: View, state: GameState?) {
+    if (state == GameState.Failure) {
         view.visibility = View.VISIBLE
     } else {
-        view.visibility = View.INVISIBLE
+        view.visibility = View.GONE
     }
 }
 
