@@ -17,18 +17,3 @@ object Preference {
         sharedPrefs?.edit()?.putInt(key, value)?.apply()
     }
 }
-
-
-/*fun Context.getBestPrizeSharedPreferences(): Int {
-    val sharedPreferences =
-        this.getSharedPreferences(Constants.TABLE_NAME, Context.MODE_PRIVATE)
-    return sharedPreferences.getInt(Constants.BEST_PRIZE, -1)
-}
-
-fun Context.saveBestPrizeSharedPreferences(prize: Int) {
-    val sharedPreferences =
-        this.getSharedPreferences(Constants.TABLE_NAME, Context.MODE_PRIVATE)
-    val editor = sharedPreferences.edit()
-    editor.putInt(Constants.BEST_PRIZE, prize)
-    editor.apply()
-}*/
