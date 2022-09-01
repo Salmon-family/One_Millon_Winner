@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">One Million Winner</string>
+    <string name="friend_help">I am certain that \" %s \" is the correct answer.</string>
+    <string name="thank_you">Thank you</string>
     <string name="question_number">Question %s of 15</string>
     <string name="prize" translatable="false">$ %s</string>
     <string name="submit">Submit</string>

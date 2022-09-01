@@ -1,5 +1,6 @@
 package com.example.onemillonwinner.ui.fragments.game
 
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -16,6 +17,18 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
         binding.gameViewModel = gameViewModel
 
         observeOnGameDone()
+        observeOnCallFriend()
+    }
+
+    private fun observeOnCallFriend() {
+        gameViewModel.isHelpByFriends.observe(viewLifecycleOwner, Observer { callAFriend ->
+            if (callAFriend) {
+                AlertDialog.Builder(requireContext())
+                    .setMessage(getString(R.string.friend_help, gameViewModel.getFriendHelp()))
+                    .setPositiveButton(getString(R.string.thank_you)) { _, _ -> }
+                    .create().show()
+            }
+        })
     }
 
     private fun observeOnGameDone() {

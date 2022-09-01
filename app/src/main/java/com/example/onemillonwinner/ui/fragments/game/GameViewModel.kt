@@ -19,13 +19,13 @@ import java.util.concurrent.TimeUnit
 
 class GameViewModel : BaseViewModel() {
 
-    private val questionLogic: GameQuestionList by lazy { GameQuestionList() }
+    private val triviaQuestions: GameQuestionList by lazy { GameQuestionList() }
     private val repository: Repository by lazy { Repository() }
     private lateinit var timerDisposable: Disposable
 
-    var isChangeQuestion = MutableLiveData(false)
-    var isDeleteHalfOfAnswers = MutableLiveData(false)
-    var isHelpByFriends = MutableLiveData(false)
+    val isChangeQuestion = MutableLiveData(false)
+    val isDeleteHalfOfAnswers = MutableLiveData(false)
+    val isHelpByFriends = MutableLiveData(false)
 
     private val _gameState = MutableLiveData<GameState>()
     val state: LiveData<GameState>
@@ -56,7 +56,7 @@ class GameViewModel : BaseViewModel() {
         _gameState.postValue(GameState.Success)
         timer()
         state.toData()?.let {
-            questionLogic.setQuestions(it.questions)
+            triviaQuestions.setQuestions(it.questions)
             updateView()
         }
     }
@@ -83,18 +83,18 @@ class GameViewModel : BaseViewModel() {
     }
 
     private fun calculatePrize() {
-        _prize.postValue(questionLogic.getPrize())
+        _prize.postValue(triviaQuestions.getPrize())
     }
 
     private fun showAnswer() {
         setGameState()
         calculatePrize()
-        _question.postValue(questionLogic.getCurrentQuestion())
+        _question.postValue(triviaQuestions.getCurrentQuestion())
         timerDisposable.dispose()
     }
 
     private fun setGameState() {
-        if (questionLogic.isGameOver())
+        if (triviaQuestions.isGameOver())
             _gameState.postValue(GameState.WRONG_ANSWER_SUBMITTED)
         else
             _gameState.postValue(GameState.QUESTION_SUBMITTED)
@@ -102,9 +102,9 @@ class GameViewModel : BaseViewModel() {
 
 
     private fun updateView() {
-        if (!questionLogic.isGameOver()) {
+        if (!triviaQuestions.isGameOver()) {
             _gameState.postValue(GameState.QUESTION_START)
-            _question.postValue(questionLogic.updateQuestion())
+            _question.postValue(triviaQuestions.updateQuestion())
             restartTimer()
         } else {
             timerDisposable.dispose()
@@ -122,11 +122,10 @@ class GameViewModel : BaseViewModel() {
         ) {
             _gameState.postValue(GameState.QUESTION_START)
             isChangeQuestion.postValue(true)
-            _question.postValue(questionLogic.replaceQuestion())
+            _question.postValue(triviaQuestions.replaceQuestion())
             restartTimer()
         }
     }
-
 
 
     private fun restartTimer() {
@@ -140,7 +139,7 @@ class GameViewModel : BaseViewModel() {
         ) {
             _gameState.postValue(GameState.QUESTION_START)
             isDeleteHalfOfAnswers.postValue(true)
-            _question.postValue(questionLogic.deleteTwoWrongAnswersRandomly())
+            _question.postValue(triviaQuestions.deleteTwoWrongAnswersRandomly())
         }
     }
 
@@ -168,6 +167,9 @@ class GameViewModel : BaseViewModel() {
         _gameState.postValue(GameState.GameOver)
         questionTimeOver.postValue(true)
     }
+
+    fun getFriendHelp() = triviaQuestions.getFriendHelp()
+
 
 }
 
