@@ -59,6 +59,5 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
     private fun playMusic(resourcesId: Int) {
         val mediaPlayer = MediaPlayer.create(context, resourcesId)
         mediaPlayer.start()
-        mediaPlayer.stop()
     }
 }
