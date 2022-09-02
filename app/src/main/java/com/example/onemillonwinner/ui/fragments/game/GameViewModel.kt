@@ -46,11 +46,10 @@ class GameViewModel : BaseViewModel() {
 
     init {
         _gameState.postValue(GameState.Loading)
-        repository.getAllQuestions()?.subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion)
-            ?.addTo(disposable)
-
-            ?: onThrowExpectation()
-
+        repository.getAllQuestions()?.let {
+            it.subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion)
+                .addTo(disposable)
+        }
     }
 
     private fun onSuccessUpdateQuestion(state: State<TriviaResponse>) {
