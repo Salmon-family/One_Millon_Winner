@@ -46,7 +46,7 @@ class GameViewModel : BaseViewModel() {
 
     init {
         _gameState.postValue(GameState.Loading)
-        repository.getAllQuestions()
+        repository.getAllQuestions2()
             .subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion).addTo(disposable)
     }
 
