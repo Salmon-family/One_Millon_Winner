@@ -162,7 +162,8 @@ class GameViewModel : BaseViewModel() {
 
     private fun endTheCountDown() {
         timerDisposable.dispose()
-        calculatePrize()
+        triviaQuestions.getCurrentQuestion().setSelectedAnswer(-1)
+        _prize.postValue(triviaQuestions.getPrize())
         _gameState.postValue(GameState.GameOver)
     }
 

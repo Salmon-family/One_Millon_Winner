@@ -124,7 +124,6 @@ fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameSta
 @BindingAdapter("app:prizeLottie")
 fun setPrizeLottie(view: LottieAnimationView, prize: Int) {
     if (prize == 0) {
-        //you_loss
         view.setAnimation(R.raw.lottie_loss)
     } else {
         view.setAnimation(R.raw.lottie_congratulation)

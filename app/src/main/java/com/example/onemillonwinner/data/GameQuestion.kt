@@ -54,7 +54,6 @@ class GameQuestion {
     fun getSelectedAnswer() = selectedAnswer
 
     fun setSelectedAnswer(index: Int) {
-        if (index in 0..3)
-            selectedAnswer = index
+        selectedAnswer = index
     }
 }
