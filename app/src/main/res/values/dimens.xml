@@ -20,5 +20,4 @@
     <dimen name="radius_small">8dp</dimen>
     <dimen name="chip_stroke_Width">1dp</dimen>
 
-
 </resources>

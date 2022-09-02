@@ -133,7 +133,7 @@ fun setPrizeLottie(view: LottieAnimationView, prize: Int) {
 @BindingAdapter("app:prizeText")
 fun setPrizeText(view: TextView, prize: Int) {
     if (prize == 0) {
-        view.setText(R.string.text_Losser)
+        view.setText(R.string.better_luck_next_time)
     } else {
         view.setText(R.string.text_congratulation)
     }
@@ -141,9 +141,13 @@ fun setPrizeText(view: TextView, prize: Int) {
 
 @BindingAdapter("app:setAnimationLottie")
 fun setAnimation(view: LottieAnimationView,id: Int?) {
-    when (nightModeFlags(view)) {
+    when (getThemeMode(view)) {
         Configuration.UI_MODE_NIGHT_YES -> view.setAnimation(R.raw.lottie_dark_loading)
         Configuration.UI_MODE_NIGHT_NO -> view.setAnimation(R.raw.lottie_light_loading)
         Configuration.UI_MODE_NIGHT_UNDEFINED -> view.setAnimation(R.raw.lottie_light_loading)
     }
+}
+
+private fun getThemeMode(view: View): Int {
+    return view.context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
 }

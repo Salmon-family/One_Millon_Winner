@@ -6,7 +6,6 @@ import com.example.onemillonwinner.util.Constants.NUMBER_OF_QUESTIONS_PER_LEVEL
 import com.example.onemillonwinner.util.enum.QuestionLevel
 import kotlin.collections.ArrayList
 
-
 class TriviaQuestion {
     private val questions = ArrayList<Question>()
     private val currentQuestion = GameQuestion()
@@ -29,7 +28,6 @@ class TriviaQuestion {
         14 to 500000,
         15 to 1000000
     )
-
 
     fun deleteTwoWrongAnswersRandomly(): GameQuestion {
         var deletedAnswers = 0
