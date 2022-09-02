@@ -1,4 +1,4 @@
-# One_Millon_Winner
+# One Millon Winner
 
 ## :rocket: Tech stack
 
