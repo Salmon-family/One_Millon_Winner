@@ -10,6 +10,8 @@
 - [Data Binding](https://developer.android.com/codelabs/android-databinding#0)
 - [Live Data](https://developer.android.com/topic/libraries/architecture/livedata)
 - [MVVM](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel)
+- [Navigation](https://developer.android.com/jetpack/androidx/releases/navigation)
+- [SharedPreferences](https://developer.android.com/reference/android/content/SharedPreferences)
 
 
 ## :notebook: Resources 
