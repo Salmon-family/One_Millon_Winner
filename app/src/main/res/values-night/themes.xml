@@ -4,13 +4,28 @@
         <item name="colorPrimaryVariant">@color/secondary_color</item>
         <item name="colorOnPrimary">@color/black</item>
 
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSecondary">@color/white</item>
 
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
     </style>
 
     <style name="splashScreenTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen_list</item>
         <item name="android:statusBarColor">@color/primary_color</item>
+    </style>
+
+    <style name="chip" parent="Widget.Material3.Chip.Suggestion">
+        <item name="chipStrokeColor">@color/secondary_color</item>
+        <item name="chipSurfaceColor">@color/secondary_color</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="chipBackgroundColor">@color/selected_chip</item>
+        <item name="chipStrokeWidth">@dimen/chip_stroke_Width</item>
+    </style>
+
+    <style name="Theme.Button.Icon" parent="Widget.Material3.Button.Icon">
+        <item name="cornerRadius">@dimen/spacing_medium</item>
+        <item name="iconTint">@color/white</item>
     </style>
 
 </resources>

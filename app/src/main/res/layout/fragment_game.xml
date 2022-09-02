@@ -46,7 +46,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/phone_button"
-            style="@style/Widget.Material3.Button.Icon"
+            style="@style/Theme.Button.Icon"
             android:layout_width="@dimen/help_button_dimension"
             android:layout_height="@dimen/help_button_dimension"
             android:layout_marginTop="@dimen/spacing_extra_large"
@@ -60,7 +60,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/delete_half_answer_button"
-            style="@style/Widget.Material3.Button.Icon"
+            style="@style/Theme.Button.Icon"
             android:layout_width="@dimen/help_button_dimension"
             android:layout_height="@dimen/help_button_dimension"
             android:onClick="@{() -> gameViewModel.deleteHalfOfAnswers()}"
@@ -86,7 +86,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/change_question_button"
-            style="@style/Widget.Material3.Button.Icon"
+            style="@style/Theme.Button.Icon"
             android:layout_width="@dimen/help_button_dimension"
             android:layout_height="@dimen/help_button_dimension"
             android:layout_marginStart="@dimen/help_button_dimension"
@@ -243,7 +243,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/lottie_loading" />
+            app:setAnimationLottie="@{null}"
+ />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie_error"

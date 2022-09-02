@@ -1,5 +1,6 @@
 package com.example.onemillonwinner.util
 
+import android.content.res.Configuration
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -123,6 +124,7 @@ fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameSta
 @BindingAdapter("app:prizeLottie")
 fun setPrizeLottie(view: LottieAnimationView, prize: Int) {
     if (prize == 0) {
+        //you_loss
         view.setAnimation(R.raw.lottie_loss)
     } else {
         view.setAnimation(R.raw.lottie_congratulation)
@@ -135,5 +137,14 @@ fun setPrizeText(view: TextView, prize: Int) {
         view.setText(R.string.text_Losser)
     } else {
         view.setText(R.string.text_congratulation)
+    }
+}
+
+@BindingAdapter("app:setAnimationLottie")
+fun setAnimation(view: LottieAnimationView,id: Int?) {
+    when (nightModeFlags(view)) {
+        Configuration.UI_MODE_NIGHT_YES -> view.setAnimation(R.raw.lottie_dark_loading)
+        Configuration.UI_MODE_NIGHT_NO -> view.setAnimation(R.raw.lottie_light_loading)
+        Configuration.UI_MODE_NIGHT_UNDEFINED -> view.setAnimation(R.raw.lottie_light_loading)
     }
 }
