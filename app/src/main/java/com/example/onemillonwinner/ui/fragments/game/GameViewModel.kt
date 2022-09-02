@@ -1,5 +1,6 @@
 package com.example.onemillonwinner.ui.fragments.game
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.onemillonwinner.data.GameQuestion
@@ -14,6 +15,7 @@ import com.example.onemillonwinner.util.extension.addTo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 
@@ -46,7 +48,7 @@ class GameViewModel : BaseViewModel() {
 
     init {
         _gameState.postValue(GameState.Loading)
-        repository.getAllQuestions()
+        repository.getAllQuestions().observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
             .subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion).addTo(disposable)
     }
 
@@ -60,6 +62,7 @@ class GameViewModel : BaseViewModel() {
     }
 
     private fun onErrorUpdateQuestion(throwable: Throwable) {
+        Log.v("onFail", throwable.message.toString())
         _gameState.postValue(GameState.Failure)
     }
 
