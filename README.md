@@ -1,4 +1,4 @@
-# One Millon Winner
+# :moneybag:	One Millon Winner
 
 ## :rocket: Tech stack
 
@@ -10,6 +10,6 @@
 - [Data Binding Library](https://developer.android.com/codelabs/android-databinding#0)
 
 
-## :rocket: Resources 
+## :notebook: Resources 
 - [Android course](https://www.youtube.com/playlist?list=PLEPx7DrqAqKBl8IqD6mOCIXuyQqV-8mku)
 - [Git course](https://www.youtube.com/playlist?list=PLEPx7DrqAqKASKaTskYW3vbreozaltD99)
