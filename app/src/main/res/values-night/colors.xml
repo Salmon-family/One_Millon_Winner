@@ -15,6 +15,7 @@
     <color name="state_select_answer">#FFf9c22a</color>
     <color name="state_wrong_answer">#EB7C73</color>
     <color name="state_success_answer">#FF0ba19e</color>
+    <color name="state_answer_default">#746B5AB9</color>
 
     <color name="state_disable_button">#FFFF8B8B</color>
 
