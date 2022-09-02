@@ -8,7 +8,6 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.core.view.children
-import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.data.GameQuestion
@@ -125,7 +124,8 @@ fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameSta
 @BindingAdapter("app:prizeLottie")
 fun setPrizeLottie(view: LottieAnimationView, prize: Int) {
     if (prize == 0) {
-        view.setAnimation(R.raw.you_loss)
+        //you_loss
+        view.setAnimation(R.raw.lottie_loss)
     } else {
         view.setAnimation(R.raw.lottie_congratulation)
     }
