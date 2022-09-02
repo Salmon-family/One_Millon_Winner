@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="white">#FFFFFFFF</color>
-    <color name="black">#FF000000</color>
-    <color name="black_700">#878484</color>
-    <color name="black_500">#FF7b7b7b</color>
-    <color name="black_400">#FF9d9d9d</color>
-    <color name="black_200">#FFd9d9d9</color>
+    <color name="black_700">#E0D7D7</color>
 
     <color name="primary_color">#6848fd</color>
     <color name="secondary_color">#746B5AB9</color>

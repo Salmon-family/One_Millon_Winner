@@ -2,7 +2,6 @@ package com.example.onemillonwinner.util
 
 import androidx.lifecycle.Observer
 
-
 open class Event<out T>(private val content: T) {
 
     var hasBeenHandled = false

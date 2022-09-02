@@ -19,10 +19,6 @@
         <item name="android:statusBarColor">@color/primary_color</item>
     </style>
 
-    <style name="HelpButtonShapeable">
-        <item name="cornerSize">40%</item>
-    </style>
-
     <style name="chip" parent="Widget.Material3.Chip.Suggestion">
         <item name="chipStrokeColor">@color/black_400</item>
         <item name="chipSurfaceColor">@color/white</item>
@@ -35,6 +31,5 @@
         <item name="cornerRadius">@dimen/spacing_medium</item>
         <item name="iconTint">@color/black</item>
     </style>
-
 
 </resources>

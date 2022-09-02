@@ -8,6 +8,7 @@
         <variable
             name="homeViewModel"
             type="com.example.onemillonwinner.ui.fragments.home.HomeViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,19 +20,19 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/zero"
             android:src="@drawable/ic_home_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie_home"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
+            android:layout_width="@dimen/zero"
+            android:layout_height="@dimen/zero"
+            android:layout_marginStart="@dimen/spacing_extra_large"
+            android:layout_marginEnd="@dimen/spacing_extra_large"
             android:elevation="@dimen/spacing_small"
             app:layout_constraintBottom_toTopOf="@+id/start_game_button"
             app:layout_constraintEnd_toEndOf="parent"
@@ -45,12 +46,12 @@
 
         <TextView
             android:id="@+id/account_balance"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@{@string/your_score(homeViewModel.bestPrize.toString())}"
             android:textColor="@color/primary_color"
-            android:textSize="16sp"
+            android:textSize="@dimen/font_size_primary"
             app:hide="@{homeViewModel.bestPrize}"
             app:layout_constraintBottom_toTopOf="@+id/start_game_button"
             app:layout_constraintEnd_toEndOf="@+id/lottie_home"
@@ -59,7 +60,6 @@
             app:layout_constraintTop_toBottomOf="@+id/lottie_home"
             app:layout_constraintVertical_bias="0.69" />
 
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/start_game_button"
             style="@style/ShapeAppearanceOverlay.Material3.Button"
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_extra_large"
             android:layout_marginEnd="@dimen/spacing_extra_large"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="@dimen/spacing_extra_large"
             android:backgroundTint="@color/primary_color"
             android:textColor="@color/white"
             android:padding="14dp"
@@ -78,6 +78,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

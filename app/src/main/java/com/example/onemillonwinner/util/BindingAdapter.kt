@@ -134,7 +134,7 @@ fun setPrizeLottie(view: LottieAnimationView, prize: Int) {
 @BindingAdapter("app:prizeText")
 fun setPrizeText(view: TextView, prize: Int) {
     if (prize == 0) {
-        view.setText(R.string.text_Losser)
+        view.setText(R.string.better_luck_next_time)
     } else {
         view.setText(R.string.text_congratulation)
     }

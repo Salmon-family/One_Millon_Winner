@@ -10,6 +10,7 @@
         <variable
             name="gameViewModel"
             type="com.example.onemillonwinner.ui.fragments.game.GameViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -139,7 +140,6 @@
             app:layout_constraintTop_toBottomOf="@+id/text_question_number"
             app:layout_constraintVertical_bias="0.25" />
 
-
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/answersChipGroup"
             style="@style/Widget.Material3.ChipGroup"
@@ -153,7 +153,6 @@
             app:layout_constraintTop_toBottomOf="@+id/card_view"
             app:selectionRequired="true"
             app:singleSelection="true">
-
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/first_answer"
@@ -209,7 +208,6 @@
 
         </com.google.android.material.chip.ChipGroup>
 
-
         <Button
             android:id="@+id/submit_button"
             style="@style/Widget.Material3.Button.TextButton"
@@ -243,8 +241,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:setAnimationLottie="@{null}"
- />
+            app:setAnimationLottie="@{null}" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie_error"
@@ -289,7 +286,6 @@
                  text_calculate_prize,
                  submit_button "
             app:isSuccess="@{gameViewModel.state}" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
