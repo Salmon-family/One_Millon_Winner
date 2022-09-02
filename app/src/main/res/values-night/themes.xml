@@ -23,4 +23,9 @@
         <item name="chipStrokeWidth">@dimen/chip_stroke_Width</item>
     </style>
 
+    <style name="Theme.Button.Icon" parent="Widget.Material3.Button.Icon">
+        <item name="cornerRadius">@dimen/spacing_medium</item>
+        <item name="iconTint">@color/white</item>
+    </style>
+
 </resources>

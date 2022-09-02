@@ -46,13 +46,12 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/phone_button"
-            style="@style/Widget.Material3.Button.Icon"
+            style="@style/Theme.Button.Icon"
             android:layout_width="@dimen/help_button_dimension"
             android:layout_height="@dimen/help_button_dimension"
             android:layout_marginTop="@dimen/spacing_extra_large"
             android:layout_marginEnd="@dimen/help_button_dimension"
             android:onClick="@{() -> gameViewModel.helpByFriends()}"
-            app:cornerRadius="@dimen/spacing_medium"
             app:disableButton="@{gameViewModel.isHelpByFriends()}"
             app:icon="@drawable/ic_phone"
             app:layout_constraintEnd_toEndOf="@+id/card_view"
@@ -60,11 +59,10 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/delete_half_answer_button"
-            style="@style/Widget.Material3.Button.Icon"
+            style="@style/Theme.Button.Icon"
             android:layout_width="@dimen/help_button_dimension"
             android:layout_height="@dimen/help_button_dimension"
             android:onClick="@{() -> gameViewModel.deleteHalfOfAnswers()}"
-            app:cornerRadius="@dimen/spacing_medium"
             app:disableButton="@{gameViewModel.isDeleteHalfOfAnswers()}"
             app:layout_constraintBottom_toBottomOf="@+id/phone_button"
             app:layout_constraintEnd_toStartOf="@+id/phone_button"
@@ -86,12 +84,11 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/change_question_button"
-            style="@style/Widget.Material3.Button.Icon"
+            style="@style/Theme.Button.Icon"
             android:layout_width="@dimen/help_button_dimension"
             android:layout_height="@dimen/help_button_dimension"
             android:layout_marginStart="@dimen/help_button_dimension"
             android:onClick="@{() -> gameViewModel.replaceQuestion()}"
-            app:cornerRadius="@dimen/spacing_medium"
             app:disableButton="@{gameViewModel.isChangeQuestion()}"
             app:icon="@drawable/ic_repeat"
             app:layout_constraintStart_toStartOf="@+id/card_view"
