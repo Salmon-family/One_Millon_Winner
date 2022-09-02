@@ -25,7 +25,6 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
         effectWhenDisplayTheResult()
     }
 
-    //move to view model by using Factory View Model.
     private fun setBestPrize(currentPrize: Int) {
         val lastPrize = Preference.getInt(KEY_SCORE)
         if (lastPrize != null) {
