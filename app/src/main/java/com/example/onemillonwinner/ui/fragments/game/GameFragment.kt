@@ -1,5 +1,6 @@
 package com.example.onemillonwinner.ui.fragments.game
 
+import android.media.MediaPlayer
 import android.app.AlertDialog
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
@@ -14,11 +15,14 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
 
     private val gameViewModel: GameViewModel by viewModels()
 
+    override val layoutIdFragment = R.layout.fragment_game
+
     override fun setup() {
         binding.gameViewModel = gameViewModel
         callBacks()
         observeOnGameDone()
         observeOnCallFriend()
+        observeOnAnswersToGiveThemEffect()
     }
 
     private fun observeOnCallFriend() {
@@ -67,5 +71,19 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
         }
     }
 
-    override val layoutIdFragment = R.layout.fragment_game
+    private fun observeOnAnswersToGiveThemEffect() {
+        gameViewModel.state.observe(viewLifecycleOwner) {
+            it?.let {
+                if (it == GameState.QUESTION_SUBMITTED) {
+                    playMusic(R.raw.game_winner)
+                }
+            }
+        }
+    }
+
+    private fun playMusic(resourcesId: Int) {
+        val mediaPlayer = MediaPlayer.create(context, resourcesId)
+        mediaPlayer.start()
+    }
+
 }

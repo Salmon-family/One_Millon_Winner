@@ -7,7 +7,7 @@ import com.example.onemillonwinner.util.enum.QuestionLevel
 import kotlin.collections.ArrayList
 
 
-class GameQuestionList {
+class TriviaQuestion {
     private val questions = ArrayList<Question>()
     private val currentQuestion = GameQuestion()
     private val replaceableQuestions: ArrayList<Question> = ArrayList()

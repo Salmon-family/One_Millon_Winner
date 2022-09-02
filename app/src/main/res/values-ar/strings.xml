@@ -9,7 +9,8 @@
     <string name="game_over">انتهت اللعبة</string>
     <string name="next_question">سؤال التالي</string>
     <string name="text_result">النتيجة</string>
-    <string name="text_congratulation">تهانينا !</string>
+    <string name="text_congratulation">تهانينا لقد ربحت</string>
+    <string name="text_Losser">حظا اوفر في المرة القادمة</string>
     <string name="button_play_again">العب مرة أخرى</string>
     <string name="text_my_result_number">%1$s / 10</string>
     <string name="text_back_to_home">العودة إلى الصفحة الرئسية</string>
@@ -24,4 +25,6 @@
     <string name="dialog_message">هل انت متاكد من رغبتك بلخروج؟</string>
     <string name="yes">نعم</string>
     <string name="no">لا</string>
+    <string name="your_score">اعلى جائزة حصلت عليها هي : %s$</string>
+
 </resources>

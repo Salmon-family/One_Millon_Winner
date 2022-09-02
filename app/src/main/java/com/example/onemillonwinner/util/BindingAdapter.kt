@@ -3,8 +3,10 @@ package com.example.onemillonwinner.util
 import android.content.res.Configuration
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
+import androidx.databinding.BindingAdapter
 import androidx.core.view.children
 import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
@@ -13,6 +15,15 @@ import com.example.onemillonwinner.data.GameQuestion
 import com.example.onemillonwinner.data.GameState
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+
+@BindingAdapter(value = ["app:hide"])
+fun hideScoreOfFirstLogin(view: View, value: Int?) {
+    if (value != -1) {
+        view.visibility = View.VISIBLE
+    } else {
+        view.visibility = View.INVISIBLE
+    }
+}
 
 @BindingAdapter(value = ["app:disableButton"])
 fun disableButton(view: View, value: Boolean?) {
@@ -117,6 +128,15 @@ fun setPrizeLottie(view: LottieAnimationView, prize: Int) {
         view.setAnimation(R.raw.you_loss)
     } else {
         view.setAnimation(R.raw.lottie_congratulation)
+    }
+}
+
+@BindingAdapter("app:prizeText")
+fun setPrizeText(view: TextView, prize: Int) {
+    if (prize == 0) {
+        view.setText(R.string.text_Losser)
+    } else {
+        view.setText(R.string.text_congratulation)
     }
 }
 

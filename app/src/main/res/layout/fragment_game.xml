@@ -52,6 +52,7 @@
             android:layout_marginTop="@dimen/spacing_extra_large"
             android:layout_marginEnd="@dimen/help_button_dimension"
             android:onClick="@{() -> gameViewModel.helpByFriends()}"
+            app:cornerRadius="@dimen/spacing_medium"
             app:disableButton="@{gameViewModel.isHelpByFriends()}"
             app:icon="@drawable/ic_phone"
             app:layout_constraintEnd_toEndOf="@+id/card_view"
@@ -63,6 +64,7 @@
             android:layout_width="@dimen/help_button_dimension"
             android:layout_height="@dimen/help_button_dimension"
             android:onClick="@{() -> gameViewModel.deleteHalfOfAnswers()}"
+            app:cornerRadius="@dimen/spacing_medium"
             app:disableButton="@{gameViewModel.isDeleteHalfOfAnswers()}"
             app:layout_constraintBottom_toBottomOf="@+id/phone_button"
             app:layout_constraintEnd_toStartOf="@+id/phone_button"
@@ -89,6 +91,7 @@
             android:layout_height="@dimen/help_button_dimension"
             android:layout_marginStart="@dimen/help_button_dimension"
             android:onClick="@{() -> gameViewModel.replaceQuestion()}"
+            app:cornerRadius="@dimen/spacing_medium"
             app:disableButton="@{gameViewModel.isChangeQuestion()}"
             app:icon="@drawable/ic_repeat"
             app:layout_constraintStart_toStartOf="@+id/card_view"
@@ -247,11 +250,10 @@
             android:id="@+id/lottie_error"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
+            android:scaleType="fitXY"
             app:isFail="@{gameViewModel.state}"
-            app:layout_constraintWidth_percent="0.8"
-            app:layout_constraintHeight_percent="0.5"
+            app:layout_constraintWidth_percent="0.95"
+            app:layout_constraintHeight_percent="0.4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -278,6 +280,7 @@
             app:constraint_referenced_ids="card_view,
                  timer_progress_bar,
                  text_timer,
+                 text_question_number,
                  change_question_button,
                  image_fifty_fifty,
                  delete_half_answer_button,

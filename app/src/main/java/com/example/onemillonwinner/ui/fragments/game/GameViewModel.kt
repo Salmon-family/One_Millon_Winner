@@ -3,7 +3,7 @@ package com.example.onemillonwinner.ui.fragments.game
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.onemillonwinner.data.GameQuestion
-import com.example.onemillonwinner.data.GameQuestionList
+import com.example.onemillonwinner.data.TriviaQuestion
 import com.example.onemillonwinner.data.GameState
 import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit
 
 class GameViewModel : BaseViewModel() {
 
-    private val triviaQuestions: GameQuestionList by lazy { GameQuestionList() }
+    private val triviaQuestions: TriviaQuestion by lazy { TriviaQuestion() }
     private val repository: Repository by lazy { Repository() }
     private lateinit var timerDisposable: Disposable
 
@@ -75,7 +75,7 @@ class GameViewModel : BaseViewModel() {
                 _gameState.postValue(GameState.GameOver)
             }
             else -> {
-                // Toast please select answer or exit.
+
             }
         }
     }

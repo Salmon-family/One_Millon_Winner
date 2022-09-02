@@ -1,5 +1,7 @@
 package com.example.onemillonwinner.ui.fragments.result
 
+
+import android.media.MediaPlayer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.onemillonwinner.R
@@ -20,6 +22,7 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
 
         navigateToGameFragment()
         navigateToHomeFragment()
+        effectWhenDisplayTheResult()
     }
 
     //move to view model by using Factory View Model.
@@ -42,5 +45,19 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
         binding.textBackHome.setOnClickListener {
             it.findNavController().popBackStack(R.id.homeFragment, false)
         }
+    }
+
+
+    private fun effectWhenDisplayTheResult() {
+        if (arguments.prize == 0) {
+            playMusic(R.raw.loss)
+        } else {
+            playMusic(R.raw.result_game_winner)
+        }
+    }
+
+    private fun playMusic(resourcesId: Int) {
+        val mediaPlayer = MediaPlayer.create(context, resourcesId)
+        mediaPlayer.start()
     }
 }
