@@ -15,15 +15,16 @@ import retrofit2.Response
 class Repository {
 
     fun getAllQuestions(): Observable<State<TriviaResponse>> {
+
         return wrapperWithState {
             Observable.fromIterable(QuestionLevel.values().asList())
                 .flatMapSingle {
+
                     Api.triviaService.getQuestions(NUMBER_OF_QUESTIONS_PER_REQUEST, it.value)
-                        .onErrorReturn {
+                        .onErrorResumeNext {
                             null
                         }
-                }
-                .onErrorReturn {
+                }.onErrorReturn {
                     null
                 }
                 .reduce { x, y ->
@@ -34,6 +35,8 @@ class Repository {
                 .toObservable()
         }
     }
+
+
 
     private fun combineResult(
         firstResponse: Response<TriviaResponse>,
