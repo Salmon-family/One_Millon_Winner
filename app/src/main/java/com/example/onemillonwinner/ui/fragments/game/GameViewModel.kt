@@ -48,7 +48,7 @@ class GameViewModel : BaseViewModel() {
 
     init {
         _gameState.postValue(GameState.Loading)
-        repository.getAllQuestions().observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
+        repository.getAllQuestions2().getAllQuestions().observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
             .subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion).addTo(disposable)
     }
 
@@ -62,7 +62,6 @@ class GameViewModel : BaseViewModel() {
     }
 
     private fun onErrorUpdateQuestion(throwable: Throwable) {
-        Log.v("onFail", throwable.message.toString())
         _gameState.postValue(GameState.Failure)
     }
 
