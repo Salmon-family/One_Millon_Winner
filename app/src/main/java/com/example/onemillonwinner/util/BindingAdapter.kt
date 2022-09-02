@@ -1,18 +1,16 @@
 package com.example.onemillonwinner.util
 
+import android.content.res.Configuration
 import android.view.View
 import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
-import androidx.databinding.BindingAdapter
 import androidx.core.view.children
+import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.data.GameQuestion
 import com.example.onemillonwinner.data.GameState
-import com.example.onemillonwinner.data.State
-import com.example.onemillonwinner.util.extension.htmlText
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
@@ -119,5 +117,14 @@ fun setPrizeLottie(view: LottieAnimationView, prize: Int) {
         view.setAnimation(R.raw.you_loss)
     } else {
         view.setAnimation(R.raw.lottie_congratulation)
+    }
+}
+
+@BindingAdapter("app:setAnimationLottie")
+fun setAnimation(view: LottieAnimationView,id: Int?) {
+    when (nightModeFlags(view)) {
+        Configuration.UI_MODE_NIGHT_YES -> view.setAnimation(R.raw.lottie_dark_loading)
+        Configuration.UI_MODE_NIGHT_NO -> view.setAnimation(R.raw.lottie_light_loading)
+        Configuration.UI_MODE_NIGHT_UNDEFINED -> view.setAnimation(R.raw.lottie_light_loading)
     }
 }
