@@ -1,6 +1,5 @@
 package com.example.onemillonwinner.ui.fragments.game
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.onemillonwinner.data.GameQuestion
@@ -48,7 +47,7 @@ class GameViewModel : BaseViewModel() {
 
     init {
         _gameState.postValue(GameState.Loading)
-        repository.getAllQuestions2().getAllQuestions().observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
+        repository.getAllQuestions().observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
             .subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion).addTo(disposable)
     }
 
