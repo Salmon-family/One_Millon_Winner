@@ -10,5 +10,4 @@ class ResultViewModel : BaseViewModel() {
     val prize: LiveData<String>
         get() = _prize
 
-
 }

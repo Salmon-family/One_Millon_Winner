@@ -7,7 +7,7 @@
     <color name="secondary_color">#746B5AB9</color>
     <color name="background">#1F1147</color>
 
-    <color name="state_select_answer">#FFf9c22a</color>
+    <color name="state_select_answer">#E6F9C22A</color>
     <color name="state_wrong_answer">#EB7C73</color>
     <color name="state_success_answer">#FF0ba19e</color>
     <color name="state_answer_default">#746B5AB9</color>
