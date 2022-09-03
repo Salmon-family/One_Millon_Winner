@@ -10,7 +10,7 @@
             type="int" />
 
         <variable
-            name="resultViewModel"
+            name="viewModel"
             type="com.example.onemillonwinner.ui.fragments.result.ResultViewModel" />
 
     </data>

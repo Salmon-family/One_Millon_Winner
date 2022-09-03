@@ -11,14 +11,14 @@ import com.example.onemillonwinner.databinding.FragmentGameBinding
 import com.example.onemillonwinner.ui.base.BaseFragment
 import com.example.onemillonwinner.util.HelpFriendDialog
 
-class GameFragment : BaseFragment<FragmentGameBinding>() {
+class GameFragment : BaseFragment<FragmentGameBinding>(viewModel = GameViewModel()) {
 
     private val gameViewModel: GameViewModel by viewModels()
 
     override val layoutIdFragment = R.layout.fragment_game
 
     override fun setup() {
-        binding.gameViewModel = gameViewModel
+        binding.viewModel = gameViewModel
         callBacks()
         observeOnGameDone()
         observeOnCallFriend()

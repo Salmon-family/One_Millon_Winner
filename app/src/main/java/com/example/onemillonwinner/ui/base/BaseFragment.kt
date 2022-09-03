@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import com.example.onemillonwinner.BR
 
 
-abstract class BaseFragment<VDB : ViewDataBinding> : Fragment() {
+abstract class BaseFragment<VDB : ViewDataBinding>(val viewModel : ViewModel) : Fragment() {
 
     abstract val layoutIdFragment: Int
     abstract fun setup()
@@ -26,6 +28,7 @@ abstract class BaseFragment<VDB : ViewDataBinding> : Fragment() {
         _binding = DataBindingUtil.inflate<VDB>(inflater, layoutIdFragment, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
+        _binding.setVariable(BR.viewModel, viewModel)
 
         return _binding.root
     }

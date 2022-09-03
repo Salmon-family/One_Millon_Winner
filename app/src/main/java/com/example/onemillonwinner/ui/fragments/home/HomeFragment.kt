@@ -6,12 +6,12 @@ import com.example.onemillonwinner.R
 import com.example.onemillonwinner.databinding.FragmentHomeBinding
 import com.example.onemillonwinner.ui.base.BaseFragment
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(viewModel = HomeViewModel()) {
 
     private val homeViewModel: HomeViewModel by viewModels()
 
     override fun setup() {
-        binding.homeViewModel = homeViewModel
+        binding.viewModel = homeViewModel
         binding.startGameButton.setOnClickListener {
             startTheGame()
         }
