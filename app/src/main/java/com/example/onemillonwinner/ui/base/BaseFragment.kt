@@ -7,13 +7,15 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.onemillonwinner.BR
 
 
-abstract class BaseFragment<VDB : ViewDataBinding>(val viewModel : ViewModel) : Fragment() {
+abstract class BaseFragment<VDB : ViewDataBinding, VM: BaseViewModel> : Fragment() {
 
     abstract val layoutIdFragment: Int
+    lateinit var viewModel: VM
+    abstract val viewModelClass: Class<VM>
     abstract fun setup()
     private lateinit var _binding: VDB
     protected val binding: VDB
@@ -24,13 +26,13 @@ abstract class BaseFragment<VDB : ViewDataBinding>(val viewModel : ViewModel) : 
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        _binding = DataBindingUtil.inflate<VDB>(inflater, layoutIdFragment, container, false).apply {
+        viewModel = ViewModelProvider(this)[viewModelClass]
+        _binding = DataBindingUtil.inflate<VDB>(inflater, layoutIdFragment, container, false)
+        _binding.apply {
             lifecycleOwner = viewLifecycleOwner
+            setVariable(BR.viewModel, viewModel)
+            return root
         }
-        _binding.setVariable(BR.viewModel, viewModel)
-
-        return _binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
