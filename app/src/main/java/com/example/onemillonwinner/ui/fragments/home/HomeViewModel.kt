@@ -10,9 +10,9 @@ import com.example.onemillonwinner.util.Preference
 
 class HomeViewModel : BaseViewModel() {
 
-    val navigateToGameFragment = MutableLiveData(Event(false))
-
-
+    private val _navigateToGameFragment = MutableLiveData(Event(false))
+    val navigateToGameFragment: LiveData<Event<Boolean>>
+        get() = _navigateToGameFragment
 
     private val _bestPrize = MutableLiveData<Int>()
     val bestPrize: LiveData<Int>
@@ -23,6 +23,6 @@ class HomeViewModel : BaseViewModel() {
     }
 
     fun navigateToGameFragment(){
-        navigateToGameFragment.postValue(Event(true))
+        _navigateToGameFragment.postValue(Event(true))
     }
 }

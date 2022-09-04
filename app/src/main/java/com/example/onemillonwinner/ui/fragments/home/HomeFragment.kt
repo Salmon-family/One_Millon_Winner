@@ -16,7 +16,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun setup() {
         binding.homeViewModel = homeViewModel
         startTheGame()
-
     }
 
     private fun startTheGame() {
