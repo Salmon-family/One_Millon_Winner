@@ -2,11 +2,9 @@ package com.example.onemillonwinner.network
 
 import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
-import com.example.onemillonwinner.util.NetworkConstants.NUMBER_OF_QUESTIONS_PER_REQUEST
+import com.example.onemillonwinner.util.ApiConstants.NUMBER_OF_QUESTIONS_PER_REQUEST
 import com.example.onemillonwinner.util.enum.QuestionLevel
-import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.functions.BiFunction
 import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.Response
