@@ -1,6 +1,5 @@
 package com.example.onemillonwinner.ui.fragments.home
 
-
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.onemillonwinner.ui.base.BaseViewModel
@@ -14,6 +13,6 @@ class HomeViewModel : BaseViewModel() {
         get() = _bestPrize
 
     init {
-        _bestPrize.postValue(Preference.getInt(Constants.KEY_SCORE))
+        _bestPrize.postValue(Preference().getInt(Constants.KEY_SCORE))
     }
 }

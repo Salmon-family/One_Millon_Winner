@@ -11,6 +11,6 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.Theme_OneMillonWinner)
         setContentView(R.layout.activity_main)
 
-        Preference.initPrefs(applicationContext)
+        Preference().initPrefs(applicationContext)
     }
 }

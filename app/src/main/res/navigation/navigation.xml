@@ -33,6 +33,9 @@
         <argument
             android:name="prize"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_resultFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
 
     </fragment>
 </navigation>

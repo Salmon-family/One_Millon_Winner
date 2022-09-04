@@ -8,15 +8,31 @@ import com.example.onemillonwinner.ui.base.BaseViewModel
 class ResultViewModel : BaseViewModel() {
 
     private val repository: Repository by lazy { Repository() }
-    val prize = MutableLiveData<Int>()
+
+    private val _prize = MutableLiveData(0)
+    val prize: LiveData<Int>
+        get() = _prize
+
+    private val _game = MutableLiveData<Boolean>()
+    val game: LiveData<Boolean>
+        get() = _game
+
+    private val _home = MutableLiveData<Boolean>()
+    val home: LiveData<Boolean>
+        get() = _home
 
 
-    init {
-
-        setPrize()
+    fun setPrize(prize: Int) {
+        _prize.postValue(prize)
+        repository.setBestPrize(prize)
     }
 
-    fun setPrize(){
-        prize.value?.let { repository.setBestPrize(it) }
+    fun playAgain() {
+        _game.postValue(true)
     }
+
+    fun backToTheHome() {
+        _home.postValue(true)
+    }
+
 }
