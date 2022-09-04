@@ -5,6 +5,7 @@ import androidx.navigation.Navigation
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.databinding.FragmentHomeBinding
 import com.example.onemillonwinner.ui.base.BaseFragment
+import com.example.onemillonwinner.util.EventObserve
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
@@ -16,7 +17,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     private fun startTheGame() {
-        homeViewModel.navigateToGameFragment.observe(this,EventObserve{
+        viewModel.navigateToGameFragment.observe(this, EventObserve{
             if(it){
                 Navigation.findNavController(binding.root)
                     .navigate(HomeFragmentDirections.actionHomeFragmentToGameFragment())}
