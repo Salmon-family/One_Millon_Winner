@@ -3,29 +3,22 @@ package com.example.onemillonwinner.data
 import com.example.onemillonwinner.data.questionResponse.Question
 import com.example.onemillonwinner.util.extension.htmlText
 
-class GameQuestion {
-    private var questionDescription: String = ""
+class GameQuestion(private val question: Question) {
+
     private var questionNumber: Int = 0
-    private var difficulty: String = ""
-    private val answers: MutableList<String> = mutableListOf()
     private var selectedAnswer = -1
-    private var correctAnswer: String = ""
 
-    fun setQuestion(question: Question) {
-        questionDescription = question.question?.htmlText() ?: ""
-        difficulty = question.difficulty ?: ""
-        answers.clear()
-        question.incorrectAnswers?.forEach { incorrectAnswer ->
-            answers.add(incorrectAnswer.htmlText())
+    fun getAnswersList(): List<String> {
+        return mutableListOf<String>().apply {
+            question.incorrectAnswers?.forEach { incorrectAnswer ->
+                this.add(incorrectAnswer.htmlText())
+            }
+            question.correctAnswer?.let { correct ->
+                this.add(correct.htmlText())
+            }
+            this.shuffle()
         }
-        question.correctAnswer?.let { correct ->
-            correctAnswer = correct.htmlText()
-            answers.add(correctAnswer)
-        }
-        answers.shuffle()
     }
-
-    fun getQuestion() = questionDescription
 
     fun setQuestionNumber(number: Int) {
         questionNumber = number
@@ -33,23 +26,25 @@ class GameQuestion {
 
     fun getQuestionNumber() = questionNumber
 
-    fun getAnswers() = answers.toList()
-
-    fun removeWrongAnswer(index: Int): Boolean {
-        return if (index in answers.indices
-            && answers[index] != correctAnswer
-            && answers[index].isNotBlank()
-        ) {
-            answers[index] = ""
-            true
-        } else {
-            false
+    fun removeTwoWrongAnswersRandomly(): List<String> {
+        val answersList = getAnswersList().toMutableList()
+        var deletedAnswers = 0
+        while (deletedAnswers != 2) {
+            val randomNumber = (0..3).random()
+            if (answersList[randomNumber] != question.correctAnswer
+                && answersList[randomNumber].isNotBlank()) {
+                answersList[randomNumber] = ""
+                deletedAnswers += 1
+            }
         }
+        return answersList
     }
 
-    fun getDifficulty() = difficulty
+    fun getQuestion() = question.question
 
-    fun getCorrectAnswer() = correctAnswer
+    fun getDifficulty() = question.difficulty
+
+    fun getCorrectAnswer() = question.correctAnswer
 
     fun getSelectedAnswer() = selectedAnswer
 

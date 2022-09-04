@@ -1,5 +1,6 @@
 package com.example.onemillonwinner.network
 
+import android.util.Log
 import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.util.ApiConstants.NUMBER_OF_QUESTIONS_PER_REQUEST
@@ -45,7 +46,9 @@ class Repository {
     private fun <T> wrapperWithState(function: () -> Observable<Response<T>>): Observable<State<T>> {
         return function().map {
             if (it.isSuccessful) {
-                State.Success(it.body())
+                val body = it.body()
+                Log.v("gameState", "response: $body")
+                State.Success(body)
             } else {
                 State.Failure(it.message())
             }

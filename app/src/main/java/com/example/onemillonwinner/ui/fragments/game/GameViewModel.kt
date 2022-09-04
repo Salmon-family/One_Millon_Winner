@@ -1,5 +1,6 @@
 package com.example.onemillonwinner.ui.fragments.game
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.onemillonwinner.data.GameQuestion
@@ -20,13 +21,15 @@ import java.util.concurrent.TimeUnit
 
 class GameViewModel : BaseViewModel() {
 
-    private val triviaQuestions: TriviaQuestion by lazy { TriviaQuestion() }
-    private val repository: Repository by lazy { Repository() }
+    private val triviaQuestions = TriviaQuestion()
+    private val repository = Repository()
     private lateinit var timerDisposable: Disposable
 
     val isChangeQuestion = MutableLiveData(false)
     val isDeleteHalfOfAnswers = MutableLiveData(false)
     val isHelpByFriends = MutableLiveData(false)
+
+    val triviaResponse = MutableLiveData<State<TriviaResponse>>()
 
     private val _gameState = MutableLiveData<GameState>()
     val state: LiveData<GameState>
@@ -35,6 +38,10 @@ class GameViewModel : BaseViewModel() {
     private val _question = MutableLiveData<GameQuestion>()
     val question: LiveData<GameQuestion>
         get() = _question
+
+    private val _answers = MutableLiveData<List<String>>()
+    val answers: LiveData<List<String>>
+        get() = _answers
 
     private val _questionTime = MutableLiveData(QUESTION_TIME)
     val questionTime: LiveData<Int>
@@ -46,13 +53,17 @@ class GameViewModel : BaseViewModel() {
 
 
     init {
+        triviaResponse.postValue(State.Loading)
         _gameState.postValue(GameState.Loading)
+        Log.v("gameState", "init: ${_gameState.value}")
         repository.getAllQuestions().observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
             .subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion).addTo(disposable)
     }
 
     private fun onSuccessUpdateQuestion(state: State<TriviaResponse>) {
+        triviaResponse.postValue(state)
         _gameState.postValue(GameState.Success)
+        Log.v("gameState", "onSuccess: ${_gameState.value}")
         startTimer()
         state.toData()?.let {
             triviaQuestions.setQuestions(it.questions)
@@ -61,7 +72,22 @@ class GameViewModel : BaseViewModel() {
     }
 
     private fun onErrorUpdateQuestion(throwable: Throwable) {
+        triviaResponse.postValue(State.Failure(throwable.message.toString()))
         _gameState.postValue(GameState.Failure)
+        Log.v("gameState", "onError: ${_gameState.value}")
+    }
+
+    private fun updateView() {
+        if (!triviaQuestions.isGameOver()) {
+            _gameState.postValue(GameState.QUESTION_START)
+            val question = triviaQuestions.updateQuestion()
+            _question.postValue(question)
+            _answers.postValue(question.getAnswersList())
+            restartTimer()
+        } else {
+            timerDisposable.dispose()
+            _gameState.postValue(GameState.GameOver)
+        }
     }
 
     fun onClickToUpdateView() {
@@ -99,18 +125,6 @@ class GameViewModel : BaseViewModel() {
             _gameState.postValue(GameState.QUESTION_SUBMITTED)
     }
 
-
-    private fun updateView() {
-        if (!triviaQuestions.isGameOver()) {
-            _gameState.postValue(GameState.QUESTION_START)
-            _question.postValue(triviaQuestions.updateQuestion())
-            restartTimer()
-        } else {
-            timerDisposable.dispose()
-            _gameState.postValue(GameState.GameOver)
-        }
-    }
-
     fun updateGameState(state: GameState) {
         _gameState.postValue(state)
     }
@@ -138,7 +152,7 @@ class GameViewModel : BaseViewModel() {
         ) {
             _gameState.postValue(GameState.QUESTION_START)
             isDeleteHalfOfAnswers.postValue(true)
-            _question.postValue(triviaQuestions.deleteTwoWrongAnswersRandomly())
+            _answers.postValue(triviaQuestions.getCurrentQuestion().removeTwoWrongAnswersRandomly())
         }
     }
 

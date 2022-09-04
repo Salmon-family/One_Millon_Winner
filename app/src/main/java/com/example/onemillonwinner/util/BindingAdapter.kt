@@ -12,6 +12,8 @@ import com.airbnb.lottie.LottieAnimationView
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.data.GameQuestion
 import com.example.onemillonwinner.data.GameState
+import com.example.onemillonwinner.data.State
+import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
@@ -35,8 +37,8 @@ fun disableButton(view: View, value: Boolean?) {
 }
 
 @BindingAdapter("app:isLoading")
-fun showWhenLoading(view: View, state: GameState?) {
-    if (state == GameState.Loading) {
+fun showWhenLoading(view: View, state: State<TriviaResponse>?) {
+    if (state is State.Loading) {
         view.visibility = View.VISIBLE
     } else {
         view.visibility = View.GONE
@@ -44,8 +46,8 @@ fun showWhenLoading(view: View, state: GameState?) {
 }
 
 @BindingAdapter("app:isSuccess")
-fun showWhenSuccess(view: View, state: GameState?) {
-    if (state != GameState.Loading && state != GameState.Failure) {
+fun showWhenSuccess(view: View, state: State<TriviaResponse>?) {
+    if (state is State.Success) {
         view.visibility = View.VISIBLE
     } else {
         view.visibility = View.INVISIBLE
@@ -53,8 +55,8 @@ fun showWhenSuccess(view: View, state: GameState?) {
 }
 
 @BindingAdapter("app:isFail")
-fun showWhenFail(view: View, state: GameState?) {
-    if (state == GameState.Failure) {
+fun showWhenFail(view: View, state: State<TriviaResponse>?) {
+    if (state is State.Failure) {
         view.visibility = View.VISIBLE
     } else {
         view.visibility = View.GONE
@@ -107,7 +109,7 @@ fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameSta
             chipGroup.clearCheck()
             chipGroup.children.forEachIndexed { index, chip ->
                 chip as Chip
-                chip.isEnabled = question.getAnswers()[index] != ""
+                chip.isEnabled = question.getAnswersList()[index] != ""
                 chip.chipBackgroundColor =
                     AppCompatResources.getColorStateList(chip.context, R.color.selected_chip)
             }

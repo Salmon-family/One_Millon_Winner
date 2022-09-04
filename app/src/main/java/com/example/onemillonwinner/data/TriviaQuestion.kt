@@ -8,7 +8,7 @@ import kotlin.collections.ArrayList
 
 class TriviaQuestion {
     private val questions = ArrayList<Question>()
-    private val currentQuestion = GameQuestion()
+    private lateinit var currentQuestion : GameQuestion
     private val replaceableQuestions: ArrayList<Question> = ArrayList()
 
     private val prizeList = mapOf(
@@ -29,17 +29,6 @@ class TriviaQuestion {
         15 to 1000000
     )
 
-    fun deleteTwoWrongAnswersRandomly(): GameQuestion {
-        var deletedAnswers = 0
-        while (deletedAnswers != 2) {
-            val randomNumber = (0..3).random()
-            if (currentQuestion.removeWrongAnswer(randomNumber)) {
-                deletedAnswers += 1
-            }
-        }
-        return currentQuestion
-    }
-
     fun setQuestions(newQuestions: List<Question>) {
         QuestionLevel.values().forEach { level ->
             questions.addAll(newQuestions.filter { it.difficulty == level.value }
@@ -53,14 +42,14 @@ class TriviaQuestion {
         val replaceableQuestion = replaceableQuestions.first {
             it.difficulty == currentQuestion.getDifficulty()
         }
-        currentQuestion.setQuestion(replaceableQuestion)
+        currentQuestion = GameQuestion(replaceableQuestion)
         return currentQuestion
     }
 
     private fun getQuestionNumber() = MAX_NUMBER_OF_QUESTIONS - questions.indices.last
 
     fun updateQuestion(): GameQuestion {
-        currentQuestion.setQuestion(questions.first())
+        currentQuestion = GameQuestion(questions.first())
         currentQuestion.setQuestionNumber(getQuestionNumber())
         questions.removeFirst()
         return currentQuestion
@@ -85,7 +74,7 @@ class TriviaQuestion {
     }
 
     private fun isSelectWrongAnswer(): Boolean {
-        return currentQuestion.getAnswers().indexOf(currentQuestion.getCorrectAnswer()) !=
+        return currentQuestion.getAnswersList().indexOf(currentQuestion.getCorrectAnswer()) !=
                 currentQuestion.getSelectedAnswer()
     }
 
@@ -94,7 +83,7 @@ class TriviaQuestion {
     }
 
     fun getFriendHelp(): String {
-        return currentQuestion.getCorrectAnswer()
+        return currentQuestion.getCorrectAnswer().toString()
     }
 
 }
