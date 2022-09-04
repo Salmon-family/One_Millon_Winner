@@ -67,6 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/spacing_extra_large"
             android:layout_marginBottom="@dimen/spacing_extra_large"
+            android:onClick="@{ () -> homeViewModel.navigateToGameFragment()}"
             android:backgroundTint="@color/primary_color"
             android:textColor="@color/white"
             android:padding="@dimen/spacing_medium"

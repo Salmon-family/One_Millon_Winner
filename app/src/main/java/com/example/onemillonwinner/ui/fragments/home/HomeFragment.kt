@@ -12,15 +12,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override val viewModelClass = HomeViewModel::class.java
 
     override fun setup() {
-        binding.startGameButton.setOnClickListener {
-            startTheGame()
-        }
+        startTheGame()
     }
 
     private fun startTheGame() {
-        Navigation.findNavController(binding.root)
-            .navigate(HomeFragmentDirections.actionHomeFragmentToGameFragment())
-    }
-
-
+        homeViewModel.navigateToGameFragment.observe(this,EventObserve{
+            if(it){
+                Navigation.findNavController(binding.root)
+                    .navigate(HomeFragmentDirections.actionHomeFragmentToGameFragment())}
+        })
+        }
 }
