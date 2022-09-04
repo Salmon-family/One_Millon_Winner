@@ -6,8 +6,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
-import androidx.databinding.BindingAdapter
 import androidx.core.view.children
+import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.data.GameQuestion
@@ -122,25 +122,25 @@ fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameSta
 }
 
 @BindingAdapter("app:prizeLottie")
-fun setPrizeLottie(view: LottieAnimationView, prize: Int) {
-    if (prize == 0) {
-        view.setAnimation(R.raw.lottie_loss)
-    } else {
+fun setPrizeLottie(view: LottieAnimationView, isPrize: Boolean?) {
+    if (isPrize == true) {
         view.setAnimation(R.raw.lottie_congratulation)
+    } else {
+        view.setAnimation(R.raw.lottie_loss)
     }
 }
 
 @BindingAdapter("app:prizeText")
-fun setPrizeText(view: TextView, prize: Int) {
-    if (prize == 0) {
-        view.setText(R.string.better_luck_next_time)
-    } else {
+fun setPrizeText(view: TextView, isPrize: Boolean?) {
+    if (isPrize == true) {
         view.setText(R.string.text_congratulation)
+    } else {
+        view.setText(R.string.better_luck_next_time)
     }
 }
 
 @BindingAdapter("app:setAnimationLottie")
-fun setAnimation(view: LottieAnimationView,id: Int?) {
+fun setAnimation(view: LottieAnimationView, id: Int?) {
     when (getThemeMode(view)) {
         Configuration.UI_MODE_NIGHT_YES -> view.setAnimation(R.raw.lottie_dark_loading)
         Configuration.UI_MODE_NIGHT_NO -> view.setAnimation(R.raw.lottie_light_loading)

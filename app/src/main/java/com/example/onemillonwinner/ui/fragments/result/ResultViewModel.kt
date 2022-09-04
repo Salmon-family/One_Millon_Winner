@@ -13,6 +13,10 @@ class ResultViewModel : BaseViewModel() {
     val prize: LiveData<Int>
         get() = _prize
 
+    private val _isHasScore = MutableLiveData<Boolean>()
+    val isHasScore: LiveData<Boolean>
+     get() = _isHasScore
+
     private val _game = MutableLiveData<Boolean>()
     val game: LiveData<Boolean>
         get() = _game
@@ -21,6 +25,9 @@ class ResultViewModel : BaseViewModel() {
     val home: LiveData<Boolean>
         get() = _home
 
+    init {
+        checkIfYouWinOrLoss()
+    }
 
     fun setPrize(prize: Int) {
         _prize.postValue(prize)
@@ -33,6 +40,14 @@ class ResultViewModel : BaseViewModel() {
 
     fun backToTheHome() {
         _home.postValue(true)
+    }
+
+    fun checkIfYouWinOrLoss(){
+        if (prize.value != 0){
+            _isHasScore.postValue(true)
+        }else{
+            _isHasScore.postValue(false)
+        }
     }
 
 }
