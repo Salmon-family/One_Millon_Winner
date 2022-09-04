@@ -1,10 +1,13 @@
 package com.example.onemillonwinner.ui.fragments.home
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.Navigation
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.databinding.FragmentHomeBinding
 import com.example.onemillonwinner.ui.base.BaseFragment
+import com.example.onemillonwinner.util.Event
+import com.example.onemillonwinner.util.EventObserve
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
@@ -12,15 +15,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun setup() {
         binding.homeViewModel = homeViewModel
-        binding.startGameButton.setOnClickListener {
-            startTheGame()
-        }
+        startTheGame()
+
     }
 
     private fun startTheGame() {
-        Navigation.findNavController(binding.root)
-            .navigate(HomeFragmentDirections.actionHomeFragmentToGameFragment())
-    }
+        homeViewModel.navigateToGameFragment.observe(this,EventObserve{
+            if(it){
+                Navigation.findNavController(binding.root)
+                    .navigate(HomeFragmentDirections.actionHomeFragmentToGameFragment())}
+        })
+        }
+
 
     override val layoutIdFragment = R.layout.fragment_home
 }
+
