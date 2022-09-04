@@ -5,9 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import com.example.onemillonwinner.network.Repository
 import com.example.onemillonwinner.ui.base.BaseViewModel
 
-class ResultViewModel : BaseViewModel() {
+class ResultViewModel(
+    private val repository: Repository
+    ) : BaseViewModel() {
 
-    private val repository: Repository by lazy { Repository() }
+//    private val repository: Repository by lazy { Repository() }
 
     private val _prize = MutableLiveData(0)
     val prize: LiveData<Int>
