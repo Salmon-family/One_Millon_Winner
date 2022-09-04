@@ -122,8 +122,8 @@ fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameSta
 }
 
 @BindingAdapter("app:prizeLottie")
-fun setPrizeLottie(view: LottieAnimationView, isPrize: Boolean?) {
-    if (isPrize == true) {
+fun setPrizeLottie(view: LottieAnimationView, isPrize: Boolean) {
+    if (isPrize) {
         view.setAnimation(R.raw.lottie_congratulation)
     } else {
         view.setAnimation(R.raw.lottie_loss)
@@ -131,8 +131,8 @@ fun setPrizeLottie(view: LottieAnimationView, isPrize: Boolean?) {
 }
 
 @BindingAdapter("app:prizeText")
-fun setPrizeText(view: TextView, isPrize: Boolean?) {
-    if (isPrize == true) {
+fun setPrizeText(view: TextView, isPrize: Boolean) {
+    if (isPrize) {
         view.setText(R.string.text_congratulation)
     } else {
         view.setText(R.string.better_luck_next_time)

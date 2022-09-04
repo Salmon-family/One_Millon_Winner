@@ -43,11 +43,7 @@ class ResultViewModel : BaseViewModel() {
     }
 
     fun checkIfYouWonOrLoss(){
-        if (prize.value != 0){
-            _isHasPrize.postValue(true)
-        }else{
-            _isHasPrize.postValue(false)
-        }
+        _isHasPrize.value = prize.value != 0
     }
 
 }
