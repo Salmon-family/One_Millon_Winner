@@ -17,10 +17,10 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
     private var mediaPlayer = MediaPlayer()
 
     override fun setup() {
+        observeOnAnswersToGiveThemMusic()
         callBacks()
         observeOnGameDone()
         observeOnCallFriend()
-        observeOnAnswersToGiveThemEffect()
     }
 
     private fun observeOnCallFriend() {
@@ -69,7 +69,7 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
         }
     }
 
-    private fun observeOnAnswersToGiveThemEffect() {
+    private fun observeOnAnswersToGiveThemMusic() {
         viewModel.state.observe(viewLifecycleOwner) {
             it?.let {
                 if (it == GameState.QUESTION_SUBMITTED) {
