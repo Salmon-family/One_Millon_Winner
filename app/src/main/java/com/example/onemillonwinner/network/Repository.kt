@@ -14,10 +14,10 @@ import retrofit2.Response
 class Repository {
 
     fun setBestPrize(currentPrize: Int) {
-        val lastPrize = Preference.getInt(KEY_SCORE)
+        val lastPrize = Preference().getInt(KEY_SCORE)
         if (lastPrize != null) {
             if (lastPrize < currentPrize) {
-                Preference.setInt(currentPrize, KEY_SCORE)
+                Preference().setInt(currentPrize, KEY_SCORE)
             }
         }
     }

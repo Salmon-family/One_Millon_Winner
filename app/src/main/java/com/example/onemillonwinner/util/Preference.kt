@@ -2,10 +2,10 @@ package com.example.onemillonwinner.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.onemillonwinner.util.Constants.TABLE_NAME
 
-object Preference {
+class Preference {
     private var sharedPrefs: SharedPreferences? = null
-    private const val TABLE_NAME = "OneMillionWinner"
 
     fun initPrefs(context: Context) {
         sharedPrefs = context.getSharedPreferences(TABLE_NAME, Context.MODE_PRIVATE)
