@@ -10,9 +10,10 @@ import com.example.onemillonwinner.ui.base.BaseFragment
 import com.example.onemillonwinner.util.Constants.KEY_SCORE
 import com.example.onemillonwinner.util.Preference
 
-class ResultFragment : BaseFragment<FragmentResultBinding>() {
+class ResultFragment : BaseFragment<FragmentResultBinding, ResultViewModel>() {
 
     override val layoutIdFragment = R.layout.fragment_result
+    override val viewModelClass = ResultViewModel::class.java
     private val arguments: ResultFragmentArgs by navArgs()
 
     override fun setup() {

@@ -11,14 +11,12 @@ import com.example.onemillonwinner.databinding.FragmentGameBinding
 import com.example.onemillonwinner.ui.base.BaseFragment
 import com.example.onemillonwinner.util.HelpFriendDialog
 
-class GameFragment : BaseFragment<FragmentGameBinding>() {
-
-    private val gameViewModel: GameViewModel by viewModels()
+class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
 
     override val layoutIdFragment = R.layout.fragment_game
+    override val viewModelClass = GameViewModel::class.java
 
     override fun setup() {
-        binding.gameViewModel = gameViewModel
         callBacks()
         observeOnGameDone()
         observeOnCallFriend()
@@ -26,9 +24,9 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
     }
 
     private fun observeOnCallFriend() {
-        gameViewModel.isHelpByFriends.observe(viewLifecycleOwner) { callAFriend ->
+        viewModel.isHelpByFriends.observe(viewLifecycleOwner) { callAFriend ->
             if (callAFriend) {
-                HelpFriendDialog(requireContext()).show(gameViewModel.getFriendHelp())
+                HelpFriendDialog(requireContext()).show(viewModel.getFriendHelp())
             }
         }
     }
@@ -60,9 +58,9 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
 
 
     private fun observeOnGameDone() {
-        gameViewModel.state.observe(viewLifecycleOwner) {
+        viewModel.state.observe(viewLifecycleOwner) {
             if (it == GameState.GameOver) {
-                gameViewModel.prize.value?.let { prize ->
+                viewModel.prize.value?.let { prize ->
                     findNavController().navigate(
                         GameFragmentDirections.actionGameFragmentToResultFragment(prize)
                     )
@@ -72,7 +70,7 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
     }
 
     private fun observeOnAnswersToGiveThemEffect() {
-        gameViewModel.state.observe(viewLifecycleOwner) {
+        viewModel.state.observe(viewLifecycleOwner) {
             it?.let {
                 if (it == GameState.QUESTION_SUBMITTED) {
                     playMusic(R.raw.game_winner)
