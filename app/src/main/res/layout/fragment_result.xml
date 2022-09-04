@@ -27,7 +27,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:prizeLottie="@{viewModel.isHasScore}"
+            app:prizeLottie="@{viewModel.isHasPrize}"
             tools:ignore="MissingClass" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium"
-            app:prizeText="@{viewModel.isHasScore}"
+            app:prizeText="@{viewModel.isHasPrize}"
             android:textColor="@color/black_700"
             android:textSize="@dimen/font_size_title"
             app:layout_constraintEnd_toEndOf="parent"
