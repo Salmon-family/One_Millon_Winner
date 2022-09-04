@@ -1,20 +1,20 @@
 package com.example.onemillonwinner.ui.fragments.game
 
-import android.media.MediaPlayer
 import android.app.AlertDialog
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.data.GameState
 import com.example.onemillonwinner.databinding.FragmentGameBinding
 import com.example.onemillonwinner.ui.base.BaseFragment
 import com.example.onemillonwinner.util.HelpFriendDialog
+import com.example.onemillonwinner.util.MediaPlayer
 
 class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
 
     override val layoutIdFragment = R.layout.fragment_game
     override val viewModelClass = GameViewModel::class.java
+    private var mediaPlayer = MediaPlayer()
 
     override fun setup() {
         callBacks()
@@ -73,15 +73,9 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
         viewModel.state.observe(viewLifecycleOwner) {
             it?.let {
                 if (it == GameState.QUESTION_SUBMITTED) {
-                    playMusic(R.raw.game_winner)
+                    mediaPlayer.playMusic(context,R.raw.game_winner)
                 }
             }
         }
     }
-
-    private fun playMusic(resourcesId: Int) {
-        val mediaPlayer = MediaPlayer.create(context, resourcesId)
-        mediaPlayer.start()
-    }
-
 }
