@@ -28,6 +28,7 @@
     </style>
 
     <style name="Theme.Button.Icon" parent="Widget.Material3.Button.Icon">
+        <item name="android:backgroundTint">@drawable/background_material_icon_button</item>
         <item name="cornerRadius">@dimen/spacing_medium</item>
         <item name="iconTint">@color/black</item>
     </style>

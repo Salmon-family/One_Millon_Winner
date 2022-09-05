@@ -24,15 +24,6 @@ fun hideScoreOfFirstLogin(view: View, value: Int?) {
     }
 }
 
-@BindingAdapter(value = ["app:disableButton"])
-fun disableButton(view: View, value: Boolean?) {
-    if (value == true) {
-        view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.state_disable_button))
-        view.isClickable = false
-    } else {
-        view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.secondary_color))
-    }
-}
 
 @BindingAdapter("app:isLoading")
 fun showWhenLoading(view: View, state: GameState?) {
