@@ -9,8 +9,6 @@ class ResultViewModel(
     private val repository: Repository
     ) : BaseViewModel() {
 
-//    private val repository: Repository by lazy { Repository() }
-
     private val _prize = MutableLiveData(0)
     val prize: LiveData<Int>
         get() = _prize

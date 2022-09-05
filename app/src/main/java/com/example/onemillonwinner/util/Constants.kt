@@ -12,8 +12,4 @@ object Constants {
     const val QUESTION_TIME = 100
 
     const val KEY_SCORE = "score"
-
-    const val TABLE_NAME = "OneMillionWinner"
-
-
 }

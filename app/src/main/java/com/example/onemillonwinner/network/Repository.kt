@@ -2,9 +2,10 @@ package com.example.onemillonwinner.network
 
 import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
+import com.example.onemillonwinner.util.Constants
 import com.example.onemillonwinner.util.Constants.KEY_SCORE
 import com.example.onemillonwinner.util.NetworkConstants.NUMBER_OF_QUESTIONS_PER_REQUEST
-import com.example.onemillonwinner.util.Preference
+import com.example.onemillonwinner.util.PreferenceProvider
 import com.example.onemillonwinner.util.enum.QuestionLevel
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.functions.BiFunction
@@ -14,13 +15,15 @@ import retrofit2.Response
 class Repository {
 
     fun setBestPrize(currentPrize: Int) {
-        val lastPrize = Preference().getInt(KEY_SCORE)
+        val lastPrize = PreferenceProvider().getInt(KEY_SCORE)
         if (lastPrize != null) {
             if (lastPrize < currentPrize) {
-                Preference().setInt(currentPrize, KEY_SCORE)
+                PreferenceProvider().setInt(currentPrize, KEY_SCORE)
             }
         }
     }
+
+    fun getBestPrize() = PreferenceProvider().getInt(KEY_SCORE)
 
     fun getAllQuestions(): Observable<State<TriviaResponse>> {
         return wrapperWithState {
