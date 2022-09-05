@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import com.example.onemillonwinner.network.Repository
 import com.example.onemillonwinner.ui.base.BaseViewModel
 
-class HomeViewModel(private val repository: Repository) : BaseViewModel() {
-
+class HomeViewModel : BaseViewModel() {
+    private val repository = Repository()
     private val _bestPrize = MutableLiveData<Int>()
     val bestPrize: LiveData<Int>
         get() = _bestPrize

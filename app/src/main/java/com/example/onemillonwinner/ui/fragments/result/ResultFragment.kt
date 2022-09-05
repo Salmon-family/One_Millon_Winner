@@ -1,6 +1,7 @@
 package com.example.onemillonwinner.ui.fragments.result
 
 import android.media.MediaPlayer
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.onemillonwinner.R
@@ -10,9 +11,7 @@ import com.example.onemillonwinner.ui.base.BaseFragment
 
 class ResultFragment : BaseFragment<FragmentResultBinding>() {
 
-    private val resultViewModel: ResultViewModel by lazy {
-        ResultViewModel(Repository())
-    }
+    private val resultViewModel: ResultViewModel by viewModels()
     private val arguments: ResultFragmentArgs by navArgs()
 
     override val layoutIdFragment = R.layout.fragment_result

@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import com.example.onemillonwinner.network.Repository
 import com.example.onemillonwinner.ui.base.BaseViewModel
 
-class ResultViewModel(
-    private val repository: Repository
-    ) : BaseViewModel() {
+class ResultViewModel : BaseViewModel() {
+
+    private val repository = Repository()
 
     private val _prize = MutableLiveData(0)
     val prize: LiveData<Int>
@@ -15,7 +15,7 @@ class ResultViewModel(
 
     private val _isHasPrize = MutableLiveData<Boolean>()
     val isHasPrize: LiveData<Boolean>
-     get() = _isHasPrize
+        get() = _isHasPrize
 
     private val _navigateGame = MutableLiveData<Boolean>()
     val navigateGame: LiveData<Boolean>
@@ -42,7 +42,7 @@ class ResultViewModel(
         _navigateHome.postValue(true)
     }
 
-    fun isOwning(){
+    fun isOwning() {
         _isHasPrize.value = prize.value != 0
     }
 
