@@ -22,10 +22,12 @@ class ResultFragment : BaseFragment<FragmentResultBinding, ResultViewModel>() {
         setBestPrize(prize)
         binding.prize = prize
 
+        startMusic()
         navigateToGameFragment()
         navigateToHomeFragment()
-        effectWhenDisplayTheResult()
     }
+
+    private fun startMusic() = mediaPlayer.effectWhenDisplayTheResult(context, arguments.prize)
 
     private fun setBestPrize(currentPrize: Int) {
         val lastPrize = Preference.getInt(KEY_SCORE)
@@ -47,14 +49,4 @@ class ResultFragment : BaseFragment<FragmentResultBinding, ResultViewModel>() {
             it.findNavController().popBackStack(R.id.homeFragment, false)
         }
     }
-
-
-    private fun effectWhenDisplayTheResult() {
-        if (arguments.prize == 0) {
-            mediaPlayer.playMusic(context,R.raw.loss)
-        } else {
-            mediaPlayer.playMusic(context,R.raw.result_game_winner)
-        }
-    }
-
 }

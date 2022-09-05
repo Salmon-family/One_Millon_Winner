@@ -17,11 +17,13 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
     private var mediaPlayer = MediaPlayer()
 
     override fun setup() {
-        observeOnAnswersToGiveThemMusic()
+        observeOnMusic()
         callBacks()
         observeOnGameDone()
         observeOnCallFriend()
     }
+
+    private fun observeOnMusic() = mediaPlayer.observeOnAnswersToGiveThemMusic(context, viewLifecycleOwner)
 
     private fun observeOnCallFriend() {
         viewModel.isHelpByFriends.observe(viewLifecycleOwner) { callAFriend ->
@@ -64,16 +66,6 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
                     findNavController().navigate(
                         GameFragmentDirections.actionGameFragmentToResultFragment(prize)
                     )
-                }
-            }
-        }
-    }
-
-    private fun observeOnAnswersToGiveThemMusic() {
-        viewModel.state.observe(viewLifecycleOwner) {
-            it?.let {
-                if (it == GameState.QUESTION_SUBMITTED) {
-                    mediaPlayer.playMusic(context,R.raw.game_winner)
                 }
             }
         }
