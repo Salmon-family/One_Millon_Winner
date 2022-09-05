@@ -3,11 +3,20 @@ package com.example.onemillonwinner.data
 enum class GameState {
     Loading,
     Success,
-    Failure,
-    GameOver,
+    Failure
+}
 
+enum class QuestionState {
+    GAME_OVER,
     QUESTION_START,
-    ANSWER_SELECTED,
     QUESTION_SUBMITTED,
     WRONG_ANSWER_SUBMITTED
+}
+
+enum class ChoicesState {
+    CORRECT,
+    WRONG,
+    DISABLE_SELECTION,
+    SELECTED,
+    NOT_SELECTED
 }

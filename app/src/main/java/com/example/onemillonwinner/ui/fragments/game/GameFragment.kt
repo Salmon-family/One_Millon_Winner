@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.data.GameState
+import com.example.onemillonwinner.data.QuestionState
 import com.example.onemillonwinner.databinding.FragmentGameBinding
 import com.example.onemillonwinner.ui.base.BaseFragment
 import com.example.onemillonwinner.util.HelpFriendDialog
@@ -58,8 +59,8 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
 
 
     private fun observeOnGameDone() {
-        viewModel.state.observe(viewLifecycleOwner) {
-            if (it == GameState.GameOver) {
+        viewModel.questionState.observe(viewLifecycleOwner) {
+            if (it == QuestionState.GAME_OVER) {
                 viewModel.prize.value?.let { prize ->
                     findNavController().navigate(
                         GameFragmentDirections.actionGameFragmentToResultFragment(prize)
@@ -70,9 +71,9 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
     }
 
     private fun observeOnAnswersToGiveThemEffect() {
-        viewModel.state.observe(viewLifecycleOwner) {
+        viewModel.questionState.observe(viewLifecycleOwner) {
             it?.let {
-                if (it == GameState.QUESTION_SUBMITTED) {
+                if (it == QuestionState.QUESTION_SUBMITTED) {
                     playMusic(R.raw.game_winner)
                 }
             }

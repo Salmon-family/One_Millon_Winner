@@ -29,15 +29,15 @@ class TriviaQuestion {
         15 to 1000000
     )
 
-    fun deleteTwoWrongAnswersRandomly(): GameQuestion {
-        var deletedAnswers = 0
-        while (deletedAnswers != 2) {
+    fun deleteTwoWrongAnswersRandomly(): List<Int> {
+        val deletedAnswers = mutableListOf<Int>()
+        while (deletedAnswers.count() != 2) {
             val randomNumber = (0..3).random()
             if (currentQuestion.removeWrongAnswer(randomNumber)) {
-                deletedAnswers += 1
+                deletedAnswers.add(randomNumber)
             }
         }
-        return currentQuestion
+        return deletedAnswers
     }
 
     fun setQuestions(newQuestions: List<Question>) {
@@ -67,6 +67,9 @@ class TriviaQuestion {
     }
 
     fun getCurrentQuestion() = currentQuestion
+
+    fun getIndexCorrectAnswer() =
+        currentQuestion.getAnswers().indexOf(currentQuestion.getCorrectAnswer())
 
     fun getPrize(): Int? {
         val questionNumber = currentQuestion.getQuestionNumber()
