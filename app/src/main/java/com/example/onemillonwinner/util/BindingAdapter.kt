@@ -1,17 +1,16 @@
 package com.example.onemillonwinner.util
 
-import android.content.res.Configuration
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.core.view.children
 import com.airbnb.lottie.LottieAnimationView
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.data.GameQuestion
 import com.example.onemillonwinner.data.GameState
+import com.example.onemillonwinner.data.StateNetwork
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
@@ -26,17 +25,13 @@ fun hideScoreOfFirstLogin(view: View, value: Int?) {
 
 
 @BindingAdapter("app:isLoading")
-fun showWhenLoading(view: View, state: GameState?) {
-    if (state == GameState.Loading) {
-        view.visibility = View.VISIBLE
-    } else {
-        view.visibility = View.GONE
-    }
+fun showWhenLoading(view: View, state: StateNetwork?) {
+    stateVisibleView (view,state == StateNetwork.LOADING)
 }
 
 @BindingAdapter("app:isSuccess")
-fun showWhenSuccess(view: View, state: GameState?) {
-    if (state != GameState.Loading && state != GameState.Failure) {
+fun showWhenSuccess(view: View, state: StateNetwork?) {
+    if (state != StateNetwork.LOADING && state != StateNetwork.FAILURE) {
         view.visibility = View.VISIBLE
     } else {
         view.visibility = View.INVISIBLE
@@ -44,8 +39,12 @@ fun showWhenSuccess(view: View, state: GameState?) {
 }
 
 @BindingAdapter("app:isFail")
-fun showWhenFail(view: View, state: GameState?) {
-    if (state == GameState.Failure) {
+fun showWhenFail(view: View, state: StateNetwork?) {
+    stateVisibleView (view,state == StateNetwork.FAILURE)
+}
+
+private fun stateVisibleView(view: View, visibleView: Boolean){
+    if (visibleView) {
         view.visibility = View.VISIBLE
     } else {
         view.visibility = View.GONE
