@@ -28,14 +28,14 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
     }
 
     private fun navigateToGameFragment() {
-        resultViewModel.game.observe(viewLifecycleOwner) {
+        resultViewModel.navigateGame.observe(viewLifecycleOwner) {
             findNavController().navigate(R.id.gameFragment)
         }
     }
 
 
     private fun navigateToHomeFragment() {
-        resultViewModel.home.observe(viewLifecycleOwner) {
+        resultViewModel.navigateHome.observe(viewLifecycleOwner) {
             findNavController().popBackStack(R.id.homeFragment, false)
         }
     }

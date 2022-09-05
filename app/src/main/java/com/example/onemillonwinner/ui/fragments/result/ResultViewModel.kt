@@ -17,16 +17,16 @@ class ResultViewModel(
     val isHasPrize: LiveData<Boolean>
      get() = _isHasPrize
 
-    private val _game = MutableLiveData<Boolean>()
-    val game: LiveData<Boolean>
-        get() = _game
+    private val _navigateGame = MutableLiveData<Boolean>()
+    val navigateGame: LiveData<Boolean>
+        get() = _navigateGame
 
-    private val _home = MutableLiveData<Boolean>()
-    val home: LiveData<Boolean>
-        get() = _home
+    private val _navigateHome = MutableLiveData<Boolean>()
+    val navigateHome: LiveData<Boolean>
+        get() = _navigateHome
 
     init {
-        checkIfYouWonOrLoss()
+        isOwning()
     }
 
     fun setPrize(prize: Int) {
@@ -35,14 +35,14 @@ class ResultViewModel(
     }
 
     fun playAgain() {
-        _game.postValue(true)
+        _navigateGame.postValue(true)
     }
 
     fun backToTheHome() {
-        _home.postValue(true)
+        _navigateHome.postValue(true)
     }
 
-    fun checkIfYouWonOrLoss(){
+    fun isOwning(){
         _isHasPrize.value = prize.value != 0
     }
 
