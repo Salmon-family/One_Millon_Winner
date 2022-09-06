@@ -8,7 +8,7 @@ class PreferenceProvider {
 
     fun getInt(key: String) = sharedPrefs?.getInt(key, -1)
 
-    fun setInt(value: Int, key: String) {
+    fun setInt(key: String, value: Int) {
         sharedPrefs?.edit()?.putInt(key, value)?.apply()
     }
 
