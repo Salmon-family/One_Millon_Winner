@@ -160,10 +160,10 @@
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:onClick="@{() -> viewModel.updateChoice(0)}"
-                android:text="@{viewModel.question.answers[0]}"
+                android:text="@{viewModel.question.answers[0].answer}"
                 app:chipMinHeight="@dimen/height_chip"
                 app:chipMinTouchTargetSize="@dimen/zero"
-                app:choiceState="@{viewModel.first}"
+                app:choiceState="@{viewModel.choices[0]}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -174,10 +174,10 @@
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:onClick="@{() -> viewModel.updateChoice(1)}"
-                android:text="@{viewModel.question.answers[1]}"
+                android:text="@{viewModel.question.answers[1].answer}"
                 app:chipMinHeight="@dimen/height_chip"
                 app:chipMinTouchTargetSize="@dimen/zero"
-                app:choiceState="@{viewModel.second}"
+                app:choiceState="@{viewModel.choices[1]}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -188,10 +188,10 @@
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:onClick="@{() -> viewModel.updateChoice(2)}"
-                android:text="@{viewModel.question.answers[2]}"
+                android:text="@{viewModel.question.answers[2].answer}"
                 app:chipMinHeight="@dimen/height_chip"
                 app:chipMinTouchTargetSize="@dimen/zero"
-                app:choiceState="@{viewModel.third}"
+                app:choiceState="@{viewModel.choices[2]}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -202,10 +202,10 @@
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:onClick="@{() -> viewModel.updateChoice(3)}"
-                android:text="@{viewModel.question.answers[3]}"
+                android:text="@{viewModel.question.answers[3].answer}"
                 app:chipMinHeight="@dimen/height_chip"
                 app:chipMinTouchTargetSize="@dimen/zero"
-                app:choiceState="@{viewModel.forth}"
+                app:choiceState="@{viewModel.choices[3]}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 

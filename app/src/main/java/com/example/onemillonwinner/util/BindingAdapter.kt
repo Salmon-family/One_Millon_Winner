@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.example.onemillonwinner.R
+import com.example.onemillonwinner.data.Choice
 import com.example.onemillonwinner.data.ChoicesState
 import com.example.onemillonwinner.data.GameState
 import com.example.onemillonwinner.data.QuestionState
@@ -87,24 +88,26 @@ fun updateTextButton(submitButton: Button, state: QuestionState?) {
 
 
 @BindingAdapter("app:choiceState")
-fun updateChip(chip: Chip, state: ChoicesState) {
-    when (state) {
-        ChoicesState.WRONG, ChoicesState.CORRECT -> {
-            chip.isEnabled = false
-            chip.chipBackgroundColor =
-                AppCompatResources.getColorStateList(chip.context, R.color.answer_chip)
-        }
-        ChoicesState.DISABLE_SELECTION -> {
-            chip.isEnabled = false
-            chip.setChipBackgroundColorResource(R.color.state_answer_default)
-        }
-        ChoicesState.SELECTED -> {
-            chip.isEnabled = true
-            chip.setChipBackgroundColorResource(R.color.state_select_answer)
-        }
-        ChoicesState.NOT_SELECTED -> {
-            chip.isEnabled = true
-            chip.setChipBackgroundColorResource(R.color.state_answer_default)
+fun updateChip(chip: Chip, state: Choice?) {
+    state?.let {
+        when (it.state) {
+            ChoicesState.WRONG, ChoicesState.CORRECT -> {
+                chip.isEnabled = false
+                chip.chipBackgroundColor =
+                    AppCompatResources.getColorStateList(chip.context, R.color.answer_chip)
+            }
+            ChoicesState.DISABLE_SELECTION -> {
+                chip.isEnabled = false
+                chip.setChipBackgroundColorResource(R.color.state_answer_default)
+            }
+            ChoicesState.SELECTED -> {
+                chip.isEnabled = true
+                chip.setChipBackgroundColorResource(R.color.state_select_answer)
+            }
+            ChoicesState.NOT_SELECTED -> {
+                chip.isEnabled = true
+                chip.setChipBackgroundColorResource(R.color.state_answer_default)
+            }
         }
     }
 }

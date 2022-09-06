@@ -7,7 +7,7 @@ class GameQuestion {
     private var questionDescription: String = ""
     private var questionNumber: Int = 0
     private var difficulty: String = ""
-    private val answers: MutableList<String> = mutableListOf()
+    private val answers: MutableList<Choice> = mutableListOf()
     private var selectedAnswer = -1
     private var correctAnswer: String = ""
 
@@ -16,11 +16,11 @@ class GameQuestion {
         difficulty = question.difficulty ?: ""
         answers.clear()
         question.incorrectAnswers?.forEach { incorrectAnswer ->
-            answers.add(incorrectAnswer.htmlText())
+            answers.add(Choice(incorrectAnswer.htmlText(), ChoicesState.NOT_SELECTED))
         }
         question.correctAnswer?.let { correct ->
             correctAnswer = correct.htmlText()
-            answers.add(correctAnswer)
+            answers.add(Choice(correctAnswer, ChoicesState.NOT_SELECTED))
         }
         answers.shuffle()
     }
@@ -37,10 +37,11 @@ class GameQuestion {
 
     fun removeWrongAnswer(index: Int): Boolean {
         return if (index in answers.indices
-            && answers[index] != correctAnswer
-            && answers[index].isNotBlank()
+            && answers[index].answer != correctAnswer
+            && answers[index].answer.isNotBlank()
         ) {
-            answers[index] = ""
+            answers[index] = Choice("",ChoicesState.DISABLE_SELECTION)
+
             true
         } else {
             false
