@@ -163,7 +163,7 @@
                 android:text="@{viewModel.question.answers[0]}"
                 app:chipMinHeight="@dimen/height_chip"
                 app:chipMinTouchTargetSize="@dimen/zero"
-                app:choiceState="@{viewModel.choices[0]}"
+                app:choiceState="@{viewModel.first}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -177,7 +177,7 @@
                 android:text="@{viewModel.question.answers[1]}"
                 app:chipMinHeight="@dimen/height_chip"
                 app:chipMinTouchTargetSize="@dimen/zero"
-                app:choiceState="@{viewModel.choices[1]}"
+                app:choiceState="@{viewModel.second}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -191,7 +191,7 @@
                 android:text="@{viewModel.question.answers[2]}"
                 app:chipMinHeight="@dimen/height_chip"
                 app:chipMinTouchTargetSize="@dimen/zero"
-                app:choiceState="@{viewModel.choices[2]}"
+                app:choiceState="@{viewModel.third}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -205,7 +205,7 @@
                 android:text="@{viewModel.question.answers[3]}"
                 app:chipMinHeight="@dimen/height_chip"
                 app:chipMinTouchTargetSize="@dimen/zero"
-                app:choiceState="@{viewModel.choices[3]}"
+                app:choiceState="@{viewModel.forth}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 

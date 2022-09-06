@@ -1,7 +1,9 @@
 package com.example.onemillonwinner.ui.fragments.game
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.example.onemillonwinner.data.*
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.network.Repository
@@ -178,56 +180,121 @@ class GameViewModel : BaseViewModel() {
     fun getFriendHelp() = triviaQuestions.getFriendHelp()
 
     // ********************* the New way **********************\\
-    val choices =
-        listOf<MutableLiveData<ChoicesState>>(
-            MutableLiveData(ChoicesState.NOT_SELECTED),
-            MutableLiveData(ChoicesState.NOT_SELECTED),
-            MutableLiveData(ChoicesState.NOT_SELECTED),
-            MutableLiveData(ChoicesState.NOT_SELECTED)
-        )
+    val _first = MutableLiveData(ChoicesState.NOT_SELECTED)
 
-    fun isAnyChoiceSelected() = choices.any { it.value == ChoicesState.SELECTED }
+    val _second = MutableLiveData(ChoicesState.NOT_SELECTED)
+
+    val _third = MutableLiveData(ChoicesState.NOT_SELECTED)
+    val third: LiveData<ChoicesState> = _third
+
+    val _forth = MutableLiveData(ChoicesState.NOT_SELECTED)
+    val forth: LiveData<ChoicesState> = _forth
+
+
+    val first: LiveData<ChoicesState> =
+        _first.combineWith(_second, _third, _forth) { first, second, third, forth ->
+            val output = if (second == ChoicesState.SELECTED
+                || third == ChoicesState.SELECTED
+                || forth == ChoicesState.SELECTED
+            ) {
+                ChoicesState.NOT_SELECTED
+            } else if (first == ChoicesState.SELECTED) {
+                ChoicesState.SELECTED
+            } else {
+                ChoicesState.NOT_SELECTED
+            }
+            output
+        }
+    val second: LiveData<ChoicesState> =
+        _second.combineWith(_first, _third, _forth) { current, second, third, forth ->
+            combine()
+        }
+
+
+    fun combine():ChoicesState{
+      return ChoicesState.NOT_SELECTED
+    }
+
+    val choiceMediator = MediatorLiveData<ChoicesState>()
+
+
+    fun <T> LiveData<T>.combineWith(
+        liveData1: LiveData<T>,
+        liveData2: LiveData<T>,
+        liveData3: LiveData<T>,
+        block: (T?, T?, T?, T?) -> T
+    ): LiveData<T> {
+        val result = MediatorLiveData<T>()
+        result.addSource(this) {
+            result.value = block(this.value, liveData1.value, liveData2.value, liveData3.value)
+        }
+        result.addSource(liveData1) {
+            result.value = block(this.value, liveData1.value, liveData2.value, liveData3.value)
+        }
+        result.addSource(liveData2) {
+            result.value = block(this.value, liveData1.value, liveData2.value, liveData3.value)
+        }
+        result.addSource(liveData3) {
+            result.value = block(this.value, liveData1.value, liveData2.value, liveData3.value)
+        }
+        return result
+    }
+
+    fun isAnyChoiceSelected() = true//choices.any { it.value == ChoicesState.SELECTED }
 
     private fun displayCorrectAnswer(correctChoiceIndex: Int) {
-        val choiceIndex = choices.indexOfFirst { it.value == ChoicesState.SELECTED }
-        choices.forEachIndexed { index, choice ->
-            if (correctChoiceIndex == index) {
-                choice.postValue(ChoicesState.CORRECT)
-            } else if (choiceIndex == index) {
-                choice.postValue(ChoicesState.WRONG)
-            } else {
-                choice.postValue(ChoicesState.DISABLE_SELECTION)
-            }
-        }
+//        val choiceIndex = choices.indexOfFirst { it.value == ChoicesState.SELECTED }
+//        choices.forEachIndexed { index, choice ->
+//            if (correctChoiceIndex == index) {
+//                choice.postValue(ChoicesState.CORRECT)
+//            } else if (choiceIndex == index) {
+//                choice.postValue(ChoicesState.WRONG)
+//            } else {
+//                choice.postValue(ChoicesState.DISABLE_SELECTION)
+//            }
+//        }
     }
 
     private fun resetChoices() {
-        choices.forEach { choice ->
-            choice.value = ChoicesState.NOT_SELECTED
-            choice.postValue(choice.value)
-        }
+//        choices.forEach { choice ->
+//            choice.value = ChoicesState.NOT_SELECTED
+//            choice.postValue(choice.value)
+//        }
     }
 
     fun updateChoice(choiceNumber: Int) {
         triviaQuestions.getCurrentQuestion().setSelectedAnswer(choiceNumber)
 
-        choices.forEachIndexed { index, choice ->
-            if (index == choiceNumber) {
-                choice.postValue(ChoicesState.SELECTED)
-            }else if (choice.value == ChoicesState.DISABLE_SELECTION){
-                choice.postValue(ChoicesState.DISABLE_SELECTION)
-            } else {
-                choice.postValue(ChoicesState.NOT_SELECTED)
+        when (choiceNumber) {
+            0 -> {
+                _first.postValue(ChoicesState.SELECTED)
+            }
+            1 -> {
+                _second.postValue(ChoicesState.SELECTED)
+            }
+            2 -> {
+                _third.postValue(ChoicesState.SELECTED)
+            }
+            3 -> {
+                _forth.postValue(ChoicesState.SELECTED)
             }
         }
+//        choices.forEachIndexed { index, choice ->
+//            if (index == choiceNumber) {
+//                choice.postValue(ChoicesState.SELECTED)
+//            } else if (choice.value == ChoicesState.DISABLE_SELECTION) {
+//                choice.postValue(ChoicesState.DISABLE_SELECTION)
+//            } else {
+//                choice.postValue(ChoicesState.NOT_SELECTED)
+//            }
+//        }
     }
 
     private fun disableHalfChoices(choicesIndex: List<Int>) {
-        choicesIndex.forEach { index ->
-            choices[index].value = ChoicesState.DISABLE_SELECTION
-            choices[index].postValue(choices[index].value)
-        }
+//        choicesIndex.forEach { index ->
+//            choices[index].value = ChoicesState.DISABLE_SELECTION
+//            choices[index].postValue(choices[index].value)
+//        }
     }
 
 }
-
