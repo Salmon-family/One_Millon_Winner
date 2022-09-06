@@ -1,9 +1,7 @@
 package com.example.onemillonwinner.ui.fragments.game
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import com.example.onemillonwinner.data.*
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.network.Repository
@@ -27,11 +25,9 @@ class GameViewModel : BaseViewModel() {
     val isDeleteHalfOfAnswers = MutableLiveData(false)
     val isHelpByFriends = MutableLiveData(false)
 
-
-    private val _gameState = MutableLiveData<GameState>()
-    val state: LiveData<GameState>
+    private val _gameState = MutableLiveData<State<TriviaResponse>>()
+    val state: LiveData<State<TriviaResponse>>
         get() = _gameState
-
 
     private val _questionState = MutableLiveData<QuestionState>()
     val questionState: LiveData<QuestionState> = _questionState
@@ -48,25 +44,28 @@ class GameViewModel : BaseViewModel() {
     val prize: LiveData<Int>
         get() = _prize
 
+    private val _choices = MutableLiveData<List<Choice>>()
+    val choices: LiveData<List<Choice>>
+        get() = _choices
 
     init {
-        _gameState.postValue(GameState.Loading)
+        _gameState.postValue(State.Loading)
         repository.getAllQuestions().observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion).addTo(disposable)
     }
 
     private fun onSuccessUpdateQuestion(state: State<TriviaResponse>) {
-        _gameState.postValue(GameState.Success)
         startTimer()
         state.toData()?.let {
             triviaQuestions.setQuestions(it.questions)
+            _gameState.postValue(State.Success(it))
             updateView()
         }
     }
 
     private fun onErrorUpdateQuestion(throwable: Throwable) {
-        _gameState.postValue(GameState.Failure)
+        _gameState.postValue(State.Failure(throwable.message.toString()))
     }
 
     fun onClickToUpdateView() {
@@ -79,7 +78,7 @@ class GameViewModel : BaseViewModel() {
                     _questionState.postValue(QuestionState.GAME_OVER)
                 }
                 QuestionState.QUESTION_START -> {
-                    if (isAnyChoiceSelected()) {
+                    if (triviaQuestions.getCurrentQuestion().isAnswerSelected()) {
                         showAnswer()
                     } else {
                         null
@@ -97,7 +96,7 @@ class GameViewModel : BaseViewModel() {
     }
 
     private fun showAnswer() {
-        displayCorrectAnswer(triviaQuestions.getIndexCorrectAnswer())
+        displayCorrectAnswer()
         setGameState()
         calculatePrize()
         _question.postValue(triviaQuestions.getCurrentQuestion())
@@ -115,44 +114,27 @@ class GameViewModel : BaseViewModel() {
         if (!triviaQuestions.isGameOver()) {
             _questionState.postValue(QuestionState.QUESTION_START)
             _question.postValue(triviaQuestions.updateQuestion())
+            _choices.postValue(triviaQuestions.getAnswersCurrentQuestion())
             restartTimer()
-            choices.postValue(triviaQuestions.getAnswersCurrentQuestion())
         } else {
             timerDisposable.dispose()
             _questionState.postValue(QuestionState.GAME_OVER)
         }
     }
 
-    fun replaceQuestion() {
-        if (_questionState.value != QuestionState.QUESTION_SUBMITTED
-            && _questionState.value != QuestionState.WRONG_ANSWER_SUBMITTED
-        ) {
-            _questionState.postValue(QuestionState.QUESTION_START)
-            isChangeQuestion.postValue(true)
-            _question.postValue(triviaQuestions.replaceQuestion())
-            restartTimer()
-            choices.postValue(triviaQuestions.getAnswersCurrentQuestion())
-        }
+    private fun displayCorrectAnswer() {
+        _choices.postValue(triviaQuestions.updateAnswersState())
     }
 
-    fun deleteHalfOfAnswers() {
-        if (_questionState.value != QuestionState.QUESTION_SUBMITTED
-            && _questionState.value != QuestionState.WRONG_ANSWER_SUBMITTED
-        ) {
-            _questionState.postValue(QuestionState.QUESTION_START)
-            isDeleteHalfOfAnswers.postValue(true)
-            choices.postValue(triviaQuestions.deleteTwoWrongAnswersRandomly())
-            _question.postValue(triviaQuestions.getCurrentQuestion())
-        }
+    fun updateChoice(choiceNumber: Int) {
+        triviaQuestions.getCurrentQuestion().setSelectedAnswer(choiceNumber)
+        _choices.postValue(triviaQuestions.updateChoice(choiceNumber))
     }
 
+    // Timer
     private fun restartTimer() {
         timerDisposable.dispose()
         startTimer()
-    }
-
-    fun helpByFriends() {
-        isHelpByFriends.postValue(true)
     }
 
     private fun startTimer() {
@@ -172,44 +154,40 @@ class GameViewModel : BaseViewModel() {
 
     private fun endTheCountDown() {
         timerDisposable.dispose()
-        triviaQuestions.getCurrentQuestion().setSelectedAnswer(-1)
+        triviaQuestions.getCurrentQuestion().removeAllSelection()
         _prize.postValue(triviaQuestions.getPrize())
         _questionState.postValue(QuestionState.GAME_OVER)
     }
 
+
+    //Helper functions ...
     fun getFriendHelp() = triviaQuestions.getFriendHelp()
 
-    // ********************* the New way **********************\\
-    val choices = MutableLiveData(triviaQuestions.getAnswersCurrentQuestion())
-
-    fun isAnyChoiceSelected() = triviaQuestions.getAnswersCurrentQuestion().any { it.state == ChoicesState.SELECTED }
-
-    private fun displayCorrectAnswer(correctChoiceIndex: Int) {
-        val choiceIndex = triviaQuestions.getAnswersCurrentQuestion().indexOfFirst { it.state == ChoicesState.SELECTED }
-        triviaQuestions.getAnswersCurrentQuestion().forEachIndexed { index, choice ->
-            if (correctChoiceIndex == index) {
-                choice.state = ChoicesState.CORRECT
-            } else if (choiceIndex == index) {
-                choice.state = ChoicesState.WRONG
-            } else {
-                choice.state = ChoicesState.DISABLE_SELECTION
-            }
-        }
-        choices.postValue(triviaQuestions.getAnswersCurrentQuestion())
+    fun helpByFriends() {
+        isHelpByFriends.postValue(true)
     }
 
-
-    fun updateChoice(choiceNumber: Int) {
-        triviaQuestions.getCurrentQuestion().setSelectedAnswer(choiceNumber)
-        triviaQuestions.getAnswersCurrentQuestion().forEachIndexed { index, choice ->
-            if (index == choiceNumber) {
-                choice.state = ChoicesState.SELECTED
-            } else if (choice.state == ChoicesState.DISABLE_SELECTION) {
-                choice.state = ChoicesState.DISABLE_SELECTION
-            } else {
-                choice.state = ChoicesState.NOT_SELECTED
-            }
+    fun replaceQuestion() {
+        if (_questionState.value != QuestionState.QUESTION_SUBMITTED
+            && _questionState.value != QuestionState.WRONG_ANSWER_SUBMITTED
+        ) {
+            isChangeQuestion.postValue(true)
+            _questionState.postValue(QuestionState.QUESTION_START)
+            _question.postValue(triviaQuestions.replaceQuestion())
+            _choices.postValue(triviaQuestions.getAnswersCurrentQuestion())
+            restartTimer()
         }
-        choices.postValue(triviaQuestions.getAnswersCurrentQuestion())
     }
+
+    fun deleteHalfOfAnswers() {
+        if (_questionState.value != QuestionState.QUESTION_SUBMITTED
+            && _questionState.value != QuestionState.WRONG_ANSWER_SUBMITTED
+        ) {
+            _questionState.postValue(QuestionState.QUESTION_START)
+            isDeleteHalfOfAnswers.postValue(true)
+            _choices.postValue(triviaQuestions.deleteTwoWrongAnswersRandomly())
+            _question.postValue(triviaQuestions.getCurrentQuestion())
+        }
+    }
+
 }

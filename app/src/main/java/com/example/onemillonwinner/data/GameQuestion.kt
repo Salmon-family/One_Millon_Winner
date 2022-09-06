@@ -8,7 +8,6 @@ class GameQuestion {
     private var questionNumber: Int = 0
     private var difficulty: String = ""
     private val answers: MutableList<Choice> = mutableListOf()
-    private var selectedAnswer = -1
     private var correctAnswer: String = ""
 
     fun setQuestion(question: Question) {
@@ -40,8 +39,7 @@ class GameQuestion {
             && answers[index].answer != correctAnswer
             && answers[index].answer.isNotBlank()
         ) {
-            answers[index] = Choice("",ChoicesState.DISABLE_SELECTION)
-
+            answers[index] = Choice("", ChoicesState.DISABLE_SELECTION)
             true
         } else {
             false
@@ -52,9 +50,36 @@ class GameQuestion {
 
     fun getCorrectAnswer() = correctAnswer
 
-    fun getSelectedAnswer() = selectedAnswer
+    fun isWrongAnswerSelected(): Boolean {
+        return answers.indexOfFirst { it.state == ChoicesState.WRONG } != -1
+    }
+
+    fun getSelectedAnswer() = answers.indexOfFirst { it.state == ChoicesState.SELECTED }
 
     fun setSelectedAnswer(index: Int) {
-        selectedAnswer = index
+        answers[index].state = ChoicesState.SELECTED
     }
+
+    fun removeAllSelection() {
+        answers.forEach {
+            it.state = ChoicesState.DISABLE_SELECTION
+        }
+    }
+
+    fun isAnswerSelected() = answers.any { it.state == ChoicesState.SELECTED }
+
+    fun setCorrectAnswer(){
+        val correctChoiceIndex = answers.indexOfFirst { it.answer == correctAnswer }
+        val choiceIndex = answers.indexOfFirst { it.state == ChoicesState.SELECTED }
+        answers.forEachIndexed { index, choice ->
+            if (correctChoiceIndex == index) {
+                choice.state = ChoicesState.CORRECT
+            } else if (choiceIndex == index) {
+                choice.state = ChoicesState.WRONG
+            } else {
+                choice.state = ChoicesState.DISABLE_SELECTION
+            }
+        }
+    }
+
 }

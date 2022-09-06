@@ -66,6 +66,24 @@ class TriviaQuestion {
         return currentQuestion
     }
 
+    fun updateAnswersState(): List<Choice> {
+        currentQuestion.setCorrectAnswer()
+        return currentQuestion.getAnswers()
+    }
+
+    fun updateChoice(choiceNumber: Int): List<Choice> {
+        currentQuestion.getAnswers().forEachIndexed { index, choice ->
+            if (index == choiceNumber) {
+                choice.state = ChoicesState.SELECTED
+            } else if (choice.state == ChoicesState.DISABLE_SELECTION) {
+                choice.state = ChoicesState.DISABLE_SELECTION
+            } else {
+                choice.state = ChoicesState.NOT_SELECTED
+            }
+        }
+        return currentQuestion.getAnswers()
+    }
+
     fun getCurrentQuestion() = currentQuestion
 
     fun getAnswersCurrentQuestion() = currentQuestion.getAnswers()
@@ -78,7 +96,7 @@ class TriviaQuestion {
 
     fun getPrize(): Int? {
         val questionNumber = currentQuestion.getQuestionNumber()
-        return if (isSelectWrongAnswer()) {
+        return if (currentQuestion.isWrongAnswerSelected()) {
             val result = when (questionNumber) {
                 in 6..10 -> prizeList[5]
                 in 11..15 -> prizeList[10]
@@ -92,14 +110,9 @@ class TriviaQuestion {
         }
     }
 
-    private fun isSelectWrongAnswer(): Boolean {
-        return currentQuestion.getAnswers()
-            .indexOfFirst { it.answer == currentQuestion.getCorrectAnswer() } !=
-                currentQuestion.getSelectedAnswer()
-    }
 
     fun isGameOver(): Boolean {
-        return questions.isEmpty() || isSelectWrongAnswer()
+        return questions.isEmpty() || currentQuestion.isWrongAnswerSelected()
     }
 
     fun getFriendHelp(): String {

@@ -1,11 +1,5 @@
 package com.example.onemillonwinner.data
 
-enum class GameState {
-    Loading,
-    Success,
-    Failure
-}
-
 enum class QuestionState {
     GAME_OVER,
     QUESTION_START,

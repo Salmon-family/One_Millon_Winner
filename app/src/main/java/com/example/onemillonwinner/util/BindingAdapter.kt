@@ -9,10 +9,8 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.example.onemillonwinner.R
-import com.example.onemillonwinner.data.Choice
-import com.example.onemillonwinner.data.ChoicesState
-import com.example.onemillonwinner.data.GameState
-import com.example.onemillonwinner.data.QuestionState
+import com.example.onemillonwinner.data.*
+import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.google.android.material.chip.Chip
 
 @BindingAdapter(value = ["app:hide"])
@@ -35,8 +33,8 @@ fun disableButton(view: View, value: Boolean?) {
 }
 
 @BindingAdapter("app:isLoading")
-fun showWhenLoading(view: View, state: GameState?) {
-    if (state == GameState.Loading) {
+fun showWhenLoading(view: View, state: State<TriviaResponse>?) {
+    if (state == State.Loading) {
         view.visibility = View.VISIBLE
     } else {
         view.visibility = View.GONE
@@ -44,8 +42,8 @@ fun showWhenLoading(view: View, state: GameState?) {
 }
 
 @BindingAdapter("app:isSuccess")
-fun showWhenSuccess(view: View, state: GameState?) {
-    if (state != GameState.Loading && state != GameState.Failure) {
+fun showWhenSuccess(view: View, state: State<TriviaResponse>?) {
+    if (state != State.Loading && state !is State.Failure) {
         view.visibility = View.VISIBLE
     } else {
         view.visibility = View.INVISIBLE
@@ -53,8 +51,8 @@ fun showWhenSuccess(view: View, state: GameState?) {
 }
 
 @BindingAdapter("app:isFail")
-fun showWhenFail(view: View, state: GameState?) {
-    if (state == GameState.Failure) {
+fun showWhenFail(view: View, state: State<TriviaResponse>?) {
+    if (state is State.Failure) {
         view.visibility = View.VISIBLE
     } else {
         view.visibility = View.GONE
@@ -88,13 +86,16 @@ fun updateTextButton(submitButton: Button, state: QuestionState?) {
 
 
 @BindingAdapter("app:choiceState")
-fun updateChip(chip: Chip, state: Choice?) {
+fun updateChip(chip: Chip, state: ChoicesState?) {
     state?.let {
-        when (it.state) {
-            ChoicesState.WRONG, ChoicesState.CORRECT -> {
+        when (it) {
+            ChoicesState.WRONG -> {
                 chip.isEnabled = false
-                chip.chipBackgroundColor =
-                    AppCompatResources.getColorStateList(chip.context, R.color.answer_chip)
+                chip.setChipBackgroundColorResource(R.color.state_wrong_answer)
+            }
+            ChoicesState.CORRECT -> {
+                chip.isEnabled = false
+                chip.setChipBackgroundColorResource(R.color.state_success_answer)
             }
             ChoicesState.DISABLE_SELECTION -> {
                 chip.isEnabled = false
