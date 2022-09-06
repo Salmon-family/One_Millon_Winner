@@ -6,41 +6,32 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.BindingAdapter
 import androidx.core.view.children
+import androidx.core.view.isVisible
 import com.airbnb.lottie.LottieAnimationView
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.data.GameQuestion
 import com.example.onemillonwinner.data.GameState
+import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.data.StateNetwork
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
 
 @BindingAdapter("app:isLoading")
-fun showWhenLoading(view: View, state: StateNetwork?) {
-    stateVisibleView (view,state == StateNetwork.LOADING)
+fun <T> showWhenLoading(view: View, state: State<T>?) {
+    view.isVisible = state is State.Loading
 }
 
 @BindingAdapter("app:isSuccess")
-fun showWhenSuccess(view: View, state: StateNetwork?) {
-    if (state != StateNetwork.LOADING && state != StateNetwork.FAILURE) {
-        view.visibility = View.VISIBLE
-    } else {
-        view.visibility = View.INVISIBLE
-    }
+fun <T> showWhenSuccess(view: View, state: State<T>?) {
+    view.isVisible = state is State.Success
 }
 
 @BindingAdapter("app:isFail")
-fun showWhenFail(view: View, state: StateNetwork?) {
-    stateVisibleView (view,state == StateNetwork.FAILURE)
+fun <T> showWhenFail(view: View, state: State<T>?) {
+    view.isVisible = state is State.Failure
 }
 
-private fun stateVisibleView(view: View, visibleView: Boolean){
-    if (visibleView) {
-        view.visibility = View.VISIBLE
-    } else {
-        view.visibility = View.GONE
-    }
-}
 
 @BindingAdapter("app:buttonUpdateText")
 fun updateTextButton(submitButton: Button, state: GameState?) {
