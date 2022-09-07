@@ -55,7 +55,6 @@
             android:layout_marginEnd="@dimen/help_button_dimension"
             android:onClick="@{() -> viewModel.helpByFriends()}"
             app:cornerRadius="@dimen/spacing_medium"
-            android:enabled="@{!viewModel.isHelpByFriends()}"
             app:icon="@drawable/ic_phone"
             app:layout_constraintEnd_toEndOf="@+id/card_view"
             app:layout_constraintTop_toBottomOf="@+id/timer_progress_bar" />
@@ -288,7 +287,7 @@
                  answersChipGroup,
                  text_calculate_prize,
                  submit_button "
-            app:isSuccess="@{viewModel.responseState}" />
+            app:isSuccess="@{viewModel.state}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

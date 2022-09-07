@@ -13,9 +13,8 @@ class ResultViewModel : BaseViewModel() {
     val prize: LiveData<Int>
         get() = _prize
 
-    private val _isHasPrize = MutableLiveData<Boolean>()
-    val isHasPrize: LiveData<Boolean>
-        get() = _isHasPrize
+    val isHasPrize : Boolean
+        get() = _prize.value != 0
 
     private val _navigateGame = MutableLiveData<Boolean>()
     val navigateGame: LiveData<Boolean>
@@ -25,12 +24,8 @@ class ResultViewModel : BaseViewModel() {
     val navigateHome: LiveData<Boolean>
         get() = _navigateHome
 
-    init {
-        isWon()
-    }
-
     fun setPrize(prize: Int) {
-        _prize.postValue(prize)
+        _prize.value = prize
         repository.setBestPrize(prize)
     }
 
@@ -40,10 +35,6 @@ class ResultViewModel : BaseViewModel() {
 
     fun backToTheHome() {
         _navigateHome.postValue(true)
-    }
-
-    fun isWon() {
-        _isHasPrize.value = prize.value != 0
     }
 
 }
