@@ -13,33 +13,11 @@ class Repository {
 
     fun getAllQuestions(): Observable<State<TriviaResponse>> {
         return wrapperWithState {
-            onCallQuestion(QuestionLevel.EASY.value).subscribeOn(Schedulers.io())
-                .zipWith(onCallQuestion(QuestionLevel.MEDIUM.value).subscribeOn(Schedulers.io()),
-                    BiFunction { firstResponse: Response<TriviaResponse>,
-                                 secondResponse: Response<TriviaResponse> ->
-                        combineResult(firstResponse, secondResponse)
-                    }).zipWith(
-                    onCallQuestion(QuestionLevel.HARD.value),
-                    BiFunction { firstResponse: Response<TriviaResponse>,
-                                 secondResponse: Response<TriviaResponse> ->
-                        combineResult(firstResponse, secondResponse)
-                    }
-                ).toObservable()
+            Observable.fromIterable(QuestionLevel.values().toList())
+                .concatMapSingle {
+                    Api.triviaService.getQuestions(NUMBER_OF_QUESTIONS_PER_REQUEST, it.value)
+                }
         }
-    }
-
-    fun onCallQuestion(level: String) =
-        Api.triviaService.getQuestions(NUMBER_OF_QUESTIONS_PER_REQUEST, level)
-
-
-    private fun combineResult(
-        firstResponse: Response<TriviaResponse>,
-        secondResponse: Response<TriviaResponse>
-    ): Response<TriviaResponse> {
-        firstResponse.body().apply {
-            secondResponse.body()?.questions?.let { this?.questions?.addAll(it) }
-        }
-        return firstResponse
     }
 
     private fun <T> wrapperWithState(function: () -> Observable<Response<T>>): Observable<State<T>> {

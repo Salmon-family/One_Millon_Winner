@@ -1,5 +1,6 @@
 package com.example.onemillonwinner.ui.fragments.game
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.onemillonwinner.data.GameQuestion
