@@ -29,10 +29,8 @@ abstract class BaseDialogFragment<VDB : ViewDataBinding, VM : BaseViewModel> : D
         viewModel = ViewModelProvider(this)[viewModelClass]
         _binding = DataBindingUtil.inflate(inflater, layoutIdFragment, container, false)
         _binding.apply {
-            lifecycleOwner = viewLifecycleOwner
+            lifecycleOwner = this@BaseDialogFragment
             setVariable(BR.viewModel, viewModel)
-            dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog?.setCancelable(false)
             return root
         }
     }

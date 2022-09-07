@@ -5,9 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import com.example.onemillonwinner.ui.base.BaseViewModel
 
 class ExitViewModel : BaseViewModel() {
+
     private val _isExitGame = MutableLiveData(false)
     val isExitGame : LiveData<Boolean>
         get() = _isExitGame
+
     private val _isDialogClose = MutableLiveData(false)
     val isDialogClose: LiveData<Boolean>
         get() = _isDialogClose

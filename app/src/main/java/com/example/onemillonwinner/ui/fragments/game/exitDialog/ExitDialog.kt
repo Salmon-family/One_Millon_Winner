@@ -1,5 +1,7 @@
 package com.example.onemillonwinner.ui.fragments.game.exitDialog
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.navigation.fragment.findNavController
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.databinding.DialogExitBinding
@@ -9,9 +11,9 @@ class ExitDialog : BaseDialogFragment<DialogExitBinding, ExitViewModel>() {
 
     override val layoutIdFragment = R.layout.dialog_exit
     override val viewModelClass = ExitViewModel::class.java
+
     override fun setup() {
-        binding.lifecycleOwner = this
-        binding.viewModel = viewModel
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         exitGame()
     }
 
