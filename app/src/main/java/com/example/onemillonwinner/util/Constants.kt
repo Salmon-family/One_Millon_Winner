@@ -1,6 +1,6 @@
 package com.example.onemillonwinner.util
 
-object NetworkConstants {
+object ApiConstants {
     const val BASE_URL = "https://opentdb.com/"
     const val MULTIPLE_QUESTION_TYPE = "multiple"
     const val NUMBER_OF_QUESTIONS_PER_REQUEST = 6

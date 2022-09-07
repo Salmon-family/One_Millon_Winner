@@ -1,7 +1,7 @@
 package com.example.onemillonwinner.network
 
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
-import com.example.onemillonwinner.util.NetworkConstants
+import com.example.onemillonwinner.util.ApiConstants
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 import retrofit2.http.GET
@@ -12,6 +12,6 @@ interface TriviaService {
     fun getQuestions(
         @Query("amount") questionNumbers: Int,
         @Query("difficulty") QuestionDifficulty: String,
-        @Query("type") questionType: String = NetworkConstants.MULTIPLE_QUESTION_TYPE,
+        @Query("type") questionType: String = ApiConstants.MULTIPLE_QUESTION_TYPE,
     ): Single<Response<TriviaResponse>>
 }

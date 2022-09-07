@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="homeViewModel"
+            name="viewModel"
             type="com.example.onemillonwinner.ui.fragments.home.HomeViewModel" />
 
     </data>
@@ -49,10 +49,10 @@
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@{@string/your_score(homeViewModel.bestPrize.toString())}"
+            android:text="@{@string/your_score(viewModel.bestPrize.toString())}"
             android:textSize="@dimen/font_size_primary"
             android:textStyle="bold"
-            app:hide="@{homeViewModel.bestPrize}"
+            app:hide="@{viewModel.bestPrize}"
             app:layout_constraintBottom_toTopOf="@+id/start_game_button"
             app:layout_constraintEnd_toEndOf="@+id/lottie_home"
             app:layout_constraintHorizontal_bias="0.0"
@@ -67,6 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/spacing_extra_large"
             android:layout_marginBottom="@dimen/spacing_extra_large"
+            android:onClick="@{ () -> viewModel.navigateToGameFragment()}"
             android:backgroundTint="@color/primary_color"
             android:textColor="@color/white"
             android:padding="@dimen/spacing_medium"
