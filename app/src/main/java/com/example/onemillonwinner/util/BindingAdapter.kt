@@ -4,13 +4,14 @@ import android.content.res.Configuration
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.data.*
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
+import com.example.onemillonwinner.util.enumState.ChoicesState
+import com.example.onemillonwinner.util.enumState.QuestionState
 import com.google.android.material.chip.Chip
 
 @BindingAdapter(value = ["app:hide"])

@@ -7,6 +7,7 @@ import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.network.Repository
 import com.example.onemillonwinner.ui.base.BaseViewModel
 import com.example.onemillonwinner.util.Constants.QUESTION_TIME
+import com.example.onemillonwinner.util.enumState.QuestionState
 import com.example.onemillonwinner.util.extension.addTo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -48,6 +49,7 @@ class GameViewModel : BaseViewModel() {
     val choices: LiveData<List<Choice>>
         get() = _choices
 
+    // Call and handler API  ...
     init {
         _gameState.postValue(State.Loading)
         repository.getAllQuestions().observeOn(AndroidSchedulers.mainThread())
@@ -67,33 +69,7 @@ class GameViewModel : BaseViewModel() {
     private fun onErrorUpdateQuestion(throwable: Throwable) {
         _gameState.postValue(State.Failure(throwable.message.toString()))
     }
-
-    fun onClickToUpdateView() {
-        _questionState.value?.let { state ->
-            when (state) {
-                QuestionState.QUESTION_SUBMITTED -> {
-                    updateView()
-                }
-                QuestionState.WRONG_ANSWER_SUBMITTED -> {
-                    _questionState.postValue(QuestionState.GAME_OVER)
-                }
-                QuestionState.QUESTION_START -> {
-                    if (triviaQuestions.getCurrentQuestion().isAnswerSelected()) {
-                        showAnswer()
-                    } else {
-                        null
-                    }
-                }
-                QuestionState.GAME_OVER -> {
-                    null
-                }
-            }
-        }
-    }
-
-    private fun calculatePrize() {
-        _prize.postValue(triviaQuestions.getPrize())
-    }
+    // END of API
 
     private fun showAnswer() {
         displayCorrectAnswer()
@@ -101,13 +77,6 @@ class GameViewModel : BaseViewModel() {
         calculatePrize()
         _question.postValue(triviaQuestions.getCurrentQuestion())
         timerDisposable.dispose()
-    }
-
-    private fun setGameState() {
-        if (triviaQuestions.isGameOver())
-            _questionState.postValue(QuestionState.WRONG_ANSWER_SUBMITTED)
-        else
-            _questionState.postValue(QuestionState.QUESTION_SUBMITTED)
     }
 
     private fun updateView() {
@@ -122,12 +91,42 @@ class GameViewModel : BaseViewModel() {
         }
     }
 
+    private fun setGameState() {
+        if (triviaQuestions.isGameOver())
+            _questionState.postValue(QuestionState.WRONG_ANSWER_SUBMITTED)
+        else
+            _questionState.postValue(QuestionState.QUESTION_SUBMITTED)
+    }
+
+    private fun calculatePrize() {
+        _prize.postValue(triviaQuestions.getPrize())
+    }
+
     private fun displayCorrectAnswer() {
         _choices.postValue(triviaQuestions.updateAnswersState())
     }
 
+    //Call by xml
+    fun onClickToUpdateView() {
+        _questionState.value?.let { state ->
+            when (state) {
+                QuestionState.QUESTION_SUBMITTED -> {
+                    updateView()
+                }
+                QuestionState.WRONG_ANSWER_SUBMITTED -> {
+                    _questionState.postValue(QuestionState.GAME_OVER)
+                }
+                QuestionState.QUESTION_START -> {
+                    if (triviaQuestions.isAnswerSelected()) {
+                        showAnswer()
+                    }
+                }
+                else -> {}
+            }
+        }
+    }
+
     fun updateChoice(choiceNumber: Int) {
-        triviaQuestions.getCurrentQuestion().setSelectedAnswer(choiceNumber)
         _choices.postValue(triviaQuestions.updateChoice(choiceNumber))
     }
 
@@ -159,9 +158,8 @@ class GameViewModel : BaseViewModel() {
         _questionState.postValue(QuestionState.GAME_OVER)
     }
 
-
     //Helper functions ...
-    fun getFriendHelp() = triviaQuestions.getFriendHelp()
+    fun getFriendHelp() = triviaQuestions.getCorrectAnswer()
 
     fun helpByFriends() {
         isHelpByFriends.postValue(true)

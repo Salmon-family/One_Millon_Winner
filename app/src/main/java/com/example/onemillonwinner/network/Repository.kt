@@ -3,7 +3,7 @@ package com.example.onemillonwinner.network
 import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.util.ApiConstants.NUMBER_OF_QUESTIONS_PER_REQUEST
-import com.example.onemillonwinner.util.enum.QuestionLevel
+import com.example.onemillonwinner.util.enumState.QuestionLevel
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.functions.BiFunction
 import io.reactivex.rxjava3.schedulers.Schedulers
