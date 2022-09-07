@@ -9,7 +9,7 @@ import com.example.onemillonwinner.util.Event
 
 class HomeViewModel : BaseViewModel() {
     private val repository = Repository()
-    private val _bestPrize = MutableLiveData<Int>()
+    private val _bestPrize = MutableLiveData<Int>(repository.getBestPrize())
 
     private val _navigateToGameFragment = MutableLiveData(Event(false))
     val navigateToGameFragment: LiveData<Event<Boolean>>
@@ -18,11 +18,8 @@ class HomeViewModel : BaseViewModel() {
     val bestPrize: LiveData<Int>
         get() = _bestPrize
 
-    init {
-        _bestPrize.value = repository.getBestPrize()
-    }
 
-    fun navigateToGameFragment(){
+    fun navigateToGameFragment() {
         _navigateToGameFragment.postValue(Event(true))
     }
 }

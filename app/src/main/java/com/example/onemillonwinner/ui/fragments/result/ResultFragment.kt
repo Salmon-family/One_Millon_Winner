@@ -1,7 +1,7 @@
 package com.example.onemillonwinner.ui.fragments.result
 
 import android.media.MediaPlayer
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.databinding.FragmentResultBinding
@@ -14,9 +14,7 @@ class ResultFragment : BaseFragment<FragmentResultBinding, ResultViewModel>() {
     private val arguments: ResultFragmentArgs by navArgs()
 
     override fun setup() {
-        binding.viewModel = resultViewModel
-
-        resultViewModel.setPrize(arguments.prize)
+        viewModel.setPrize(arguments.prize)
 
         navigateToGameFragment()
         navigateToHomeFragment()
@@ -24,14 +22,14 @@ class ResultFragment : BaseFragment<FragmentResultBinding, ResultViewModel>() {
     }
 
     private fun navigateToGameFragment() {
-        resultViewModel.navigateGame.observe(viewLifecycleOwner) {
+        viewModel.navigateGame.observe(viewLifecycleOwner) {
             findNavController().navigate(R.id.gameFragment)
         }
     }
 
 
     private fun navigateToHomeFragment() {
-        resultViewModel.navigateHome.observe(viewLifecycleOwner) {
+        viewModel.navigateHome.observe(viewLifecycleOwner) {
             findNavController().popBackStack(R.id.homeFragment, false)
         }
     }

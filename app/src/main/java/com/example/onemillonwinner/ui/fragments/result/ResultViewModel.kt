@@ -26,7 +26,7 @@ class ResultViewModel : BaseViewModel() {
         get() = _navigateHome
 
     init {
-        isOwning()
+        isWon()
     }
 
     fun setPrize(prize: Int) {
@@ -42,7 +42,7 @@ class ResultViewModel : BaseViewModel() {
         _navigateHome.postValue(true)
     }
 
-    fun isOwning() {
+    fun isWon() {
         _isHasPrize.value = prize.value != 0
     }
 
