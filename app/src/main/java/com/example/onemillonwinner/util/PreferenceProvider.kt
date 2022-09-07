@@ -6,7 +6,7 @@ import android.content.SharedPreferences
 
 class PreferenceProvider {
 
-    fun getInt(key: String) = sharedPrefs?.getInt(key, -1)
+    fun getInt(key: String) = sharedPrefs?.getInt(key, 0)
 
     fun setInt(key: String, value: Int) {
         sharedPrefs?.edit()?.putInt(key, value)?.apply()
