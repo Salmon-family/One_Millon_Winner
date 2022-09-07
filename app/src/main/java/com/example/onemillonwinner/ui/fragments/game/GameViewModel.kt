@@ -58,10 +58,10 @@ class GameViewModel : BaseViewModel() {
     }
 
     private fun onSuccessUpdateQuestion(state: State<TriviaResponse>) {
+        startTimer()
         state.toData()?.let {
             _gameState.postValue(State.Success(it))
             triviaQuestions = TriviaQuestion(it.questions)
-            startTimer()
             updateView()
         }
     }
