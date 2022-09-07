@@ -94,20 +94,20 @@ fun updateChip(chipGroup: ChipGroup, question: GameQuestion?, gameState: GameSta
 }
 
 @BindingAdapter("app:prizeLottie")
-fun setPrizeLottie(view: LottieAnimationView, prize: Int) {
-    if (prize == 0) {
-        view.setAnimation(R.raw.lottie_loss)
-    } else {
+fun setPrizeLottie(view: LottieAnimationView, isPrize: Boolean) {
+    if (isPrize) {
         view.setAnimation(R.raw.lottie_congratulation)
+    } else {
+        view.setAnimation(R.raw.lottie_loss)
     }
 }
 
 @BindingAdapter("app:prizeText")
-fun setPrizeText(view: TextView, prize: Int) {
-    if (prize == 0) {
-        view.setText(R.string.better_luck_next_time)
-    } else {
+fun setPrizeText(view: TextView, isPrize: Boolean) {
+    if (isPrize) {
         view.setText(R.string.text_congratulation)
+    } else {
+        view.setText(R.string.better_luck_next_time)
     }
 }
 
