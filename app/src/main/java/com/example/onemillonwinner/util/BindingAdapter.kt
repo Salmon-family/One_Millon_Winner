@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.example.onemillonwinner.R
-import com.example.onemillonwinner.data.*
+import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.util.enumState.ChoicesState
 import com.example.onemillonwinner.util.enumState.QuestionState
@@ -66,12 +66,7 @@ fun updateTextButton(submitButton: Button, state: QuestionState?) {
         when (state) {
             QuestionState.QUESTION_SUBMITTED -> {
                 submitButton.text = submitButton.context.resources.getText(R.string.next_question)
-                submitButton.setCompoundDrawablesWithIntrinsicBounds(
-                    0,
-                    0,
-                    R.drawable.ic_arrow_right,
-                    0
-                )
+                submitButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_right, 0)
             }
             QuestionState.WRONG_ANSWER_SUBMITTED -> {
                 submitButton.text = submitButton.context.resources.getText(R.string.game_over)
