@@ -233,7 +233,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            app:isLoading="@{viewModel.stateNetWork}"
+            app:isLoading="@{viewModel.responseState}"
             app:layout_constraintWidth_percent="0.3"
             app:layout_constraintHeight_percent="0.2"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -249,7 +249,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="fitXY"
-            app:isFail="@{viewModel.stateNetWork}"
+            app:isFail="@{viewModel.responseState}"
             app:layout_constraintWidth_percent="0.95"
             app:layout_constraintHeight_percent="0.4"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -286,7 +286,7 @@
                  answersChipGroup,
                  text_calculate_prize,
                  submit_button "
-            app:isSuccess="@{viewModel.stateNetWork}" />
+            app:isSuccess="@{viewModel.responseState}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

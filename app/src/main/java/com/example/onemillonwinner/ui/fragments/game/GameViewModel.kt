@@ -25,9 +25,9 @@ class GameViewModel : BaseViewModel() {
     val isDeleteHalfOfAnswers = MutableLiveData(false)
     val isHelpByFriends = MutableLiveData(false)
 
-    private val _stateNetWork = MutableLiveData<State<TriviaResponse>>()
-    val stateNetWork: LiveData<State<TriviaResponse>>
-        get() = _stateNetWork
+    private val _responseState = MutableLiveData<State<TriviaResponse>>()
+    val responseState: LiveData<State<TriviaResponse>>
+        get() = _responseState
 
     private val _gameState = MutableLiveData<GameState>()
     val state: LiveData<GameState>
@@ -47,13 +47,13 @@ class GameViewModel : BaseViewModel() {
 
 
     init {
-        _stateNetWork.postValue(State.Loading)
+        _responseState.postValue(State.Loading)
         repository.getAllQuestions().observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
             .subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion).addTo(disposable)
     }
 
     private fun onSuccessUpdateQuestion(state: State<TriviaResponse>) {
-        _stateNetWork.postValue(State.Success(state.toData()))
+        _responseState.postValue(State.Success(state.toData()))
         startTimer()
         state.toData()?.let {
             triviaQuestions.setQuestions(it.questions)
@@ -62,7 +62,7 @@ class GameViewModel : BaseViewModel() {
     }
 
     private fun onErrorUpdateQuestion(throwable: Throwable) {
-        _stateNetWork.postValue(State.Failure(throwable.message.toString()))
+        _responseState.postValue(State.Failure(throwable.message.toString()))
     }
 
     fun onClickToUpdateView() {
