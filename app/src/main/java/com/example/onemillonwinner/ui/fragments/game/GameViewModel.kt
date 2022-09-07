@@ -2,10 +2,7 @@ package com.example.onemillonwinner.ui.fragments.game
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.onemillonwinner.data.GameQuestion
-import com.example.onemillonwinner.data.TriviaQuestion
-import com.example.onemillonwinner.data.GameState
-import com.example.onemillonwinner.data.State
+import com.example.onemillonwinner.data.*
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.network.Repository
 import com.example.onemillonwinner.ui.base.BaseViewModel
@@ -28,6 +25,10 @@ class GameViewModel : BaseViewModel() {
     val isDeleteHalfOfAnswers = MutableLiveData(false)
     val isHelpByFriends = MutableLiveData(false)
 
+    private val _responseState = MutableLiveData<State<TriviaResponse>>()
+    val responseState: LiveData<State<TriviaResponse>>
+        get() = _responseState
+
     private val _gameState = MutableLiveData<GameState>()
     val state: LiveData<GameState>
         get() = _gameState
@@ -46,13 +47,13 @@ class GameViewModel : BaseViewModel() {
 
 
     init {
-        _gameState.postValue(GameState.Loading)
+        _responseState.postValue(State.Loading)
         repository.getAllQuestions().observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
             .subscribe(::onSuccessUpdateQuestion, ::onErrorUpdateQuestion).addTo(disposable)
     }
 
     private fun onSuccessUpdateQuestion(state: State<TriviaResponse>) {
-        _gameState.postValue(GameState.Success)
+        _responseState.postValue(State.Success(state.toData()))
         startTimer()
         state.toData()?.let {
             triviaQuestions.setQuestions(it.questions)
@@ -61,7 +62,7 @@ class GameViewModel : BaseViewModel() {
     }
 
     private fun onErrorUpdateQuestion(throwable: Throwable) {
-        _gameState.postValue(GameState.Failure)
+        _responseState.postValue(State.Failure(throwable.message.toString()))
     }
 
     fun onClickToUpdateView() {

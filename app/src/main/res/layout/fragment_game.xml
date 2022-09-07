@@ -55,7 +55,7 @@
             android:layout_marginEnd="@dimen/help_button_dimension"
             android:onClick="@{() -> viewModel.helpByFriends()}"
             app:cornerRadius="@dimen/spacing_medium"
-            app:disableButton="@{viewModel.isHelpByFriends()}"
+            android:enabled="@{!viewModel.isHelpByFriends()}"
             app:icon="@drawable/ic_phone"
             app:layout_constraintEnd_toEndOf="@+id/card_view"
             app:layout_constraintTop_toBottomOf="@+id/timer_progress_bar" />
@@ -67,7 +67,7 @@
             android:layout_height="@dimen/help_button_dimension"
             android:onClick="@{() -> viewModel.deleteHalfOfAnswers()}"
             app:cornerRadius="@dimen/spacing_medium"
-            app:disableButton="@{viewModel.isDeleteHalfOfAnswers()}"
+            android:enabled="@{!viewModel.isDeleteHalfOfAnswers()}"
             app:layout_constraintBottom_toBottomOf="@+id/phone_button"
             app:layout_constraintEnd_toStartOf="@+id/phone_button"
             app:layout_constraintStart_toEndOf="@+id/change_question_button"
@@ -94,7 +94,7 @@
             android:layout_marginStart="@dimen/help_button_dimension"
             android:onClick="@{() -> viewModel.replaceQuestion()}"
             app:cornerRadius="@dimen/spacing_medium"
-            app:disableButton="@{viewModel.isChangeQuestion()}"
+            android:enabled="@{!viewModel.isChangeQuestion()}"
             app:icon="@drawable/ic_repeat"
             app:layout_constraintStart_toStartOf="@+id/card_view"
             app:layout_constraintTop_toTopOf="@+id/delete_half_answer_button" />
@@ -233,7 +233,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            app:isLoading="@{viewModel.state}"
+            app:isLoading="@{viewModel.responseState}"
             app:layout_constraintWidth_percent="0.3"
             app:layout_constraintHeight_percent="0.2"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -242,14 +242,14 @@
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:setAnimationLottie="@{null}" />
+            app:lottie_rawRes="@raw/lottie_loading" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie_error"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="fitXY"
-            app:isFail="@{viewModel.state}"
+            app:isFail="@{viewModel.responseState}"
             app:layout_constraintWidth_percent="0.95"
             app:layout_constraintHeight_percent="0.4"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -286,7 +286,7 @@
                  answersChipGroup,
                  text_calculate_prize,
                  submit_button "
-            app:isSuccess="@{viewModel.state}" />
+            app:isSuccess="@{viewModel.responseState}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

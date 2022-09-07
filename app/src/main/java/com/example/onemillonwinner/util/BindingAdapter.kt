@@ -1,65 +1,37 @@
 package com.example.onemillonwinner.util
 
-import android.content.res.Configuration
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.core.view.children
+import androidx.core.view.isVisible
 import com.airbnb.lottie.LottieAnimationView
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.data.GameQuestion
 import com.example.onemillonwinner.data.GameState
+import com.example.onemillonwinner.data.State
+import com.example.onemillonwinner.data.StateNetwork
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
-@BindingAdapter(value = ["app:hide"])
-fun hideScoreOfFirstLogin(view: View, value: Int?) {
-    if (value != -1) {
-        view.visibility = View.VISIBLE
-    } else {
-        view.visibility = View.INVISIBLE
-    }
-}
-
-@BindingAdapter(value = ["app:disableButton"])
-fun disableButton(view: View, value: Boolean?) {
-    if (value == true) {
-        view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.state_disable_button))
-        view.isClickable = false
-    } else {
-        view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.secondary_color))
-    }
-}
 
 @BindingAdapter("app:isLoading")
-fun showWhenLoading(view: View, state: GameState?) {
-    if (state == GameState.Loading) {
-        view.visibility = View.VISIBLE
-    } else {
-        view.visibility = View.GONE
-    }
+fun <T> showWhenLoading(view: View, state: State<T>?) {
+    view.isVisible = state is State.Loading
 }
 
 @BindingAdapter("app:isSuccess")
-fun showWhenSuccess(view: View, state: GameState?) {
-    if (state != GameState.Loading && state != GameState.Failure) {
-        view.visibility = View.VISIBLE
-    } else {
-        view.visibility = View.INVISIBLE
-    }
+fun <T> showWhenSuccess(view: View, state: State<T>?) {
+    view.isVisible = state is State.Success
 }
 
 @BindingAdapter("app:isFail")
-fun showWhenFail(view: View, state: GameState?) {
-    if (state == GameState.Failure) {
-        view.visibility = View.VISIBLE
-    } else {
-        view.visibility = View.GONE
-    }
+fun <T> showWhenFail(view: View, state: State<T>?) {
+    view.isVisible = state is State.Failure
 }
+
 
 @BindingAdapter("app:buttonUpdateText")
 fun updateTextButton(submitButton: Button, state: GameState?) {
@@ -139,15 +111,3 @@ fun setPrizeText(view: TextView, prize: Int) {
     }
 }
 
-@BindingAdapter("app:setAnimationLottie")
-fun setAnimation(view: LottieAnimationView,id: Int?) {
-    when (getThemeMode(view)) {
-        Configuration.UI_MODE_NIGHT_YES -> view.setAnimation(R.raw.lottie_dark_loading)
-        Configuration.UI_MODE_NIGHT_NO -> view.setAnimation(R.raw.lottie_light_loading)
-        Configuration.UI_MODE_NIGHT_UNDEFINED -> view.setAnimation(R.raw.lottie_light_loading)
-    }
-}
-
-private fun getThemeMode(view: View): Int {
-    return view.context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-}
