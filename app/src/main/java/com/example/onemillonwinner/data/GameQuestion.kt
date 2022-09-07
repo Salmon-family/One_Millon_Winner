@@ -54,7 +54,7 @@ class GameQuestion(question: Question) {
 
     fun removeAllSelection() {
         answers.forEach {
-            it.state = ChoicesState.DISABLE_SELECTION
+            it.state = ChoicesState.WRONG
         }
     }
 
