@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit
 
 class GameViewModel : BaseViewModel() {
 
-    private val triviaQuestions: TriviaQuestion by lazy { TriviaQuestion() }
+    private lateinit var triviaQuestions: TriviaQuestion
     private val repository: Repository by lazy { Repository() }
     private lateinit var timerDisposable: Disposable
 
@@ -58,10 +58,11 @@ class GameViewModel : BaseViewModel() {
     }
 
     private fun onSuccessUpdateQuestion(state: State<TriviaResponse>) {
+        // we need to delete it because it reset in updateView
         startTimer()
         state.toData()?.let {
-            triviaQuestions.setQuestions(it.questions)
             _gameState.postValue(State.Success(it))
+            triviaQuestions = TriviaQuestion(it.questions)
             updateView()
         }
     }
@@ -83,7 +84,8 @@ class GameViewModel : BaseViewModel() {
         if (!triviaQuestions.isGameOver()) {
             _questionState.postValue(QuestionState.QUESTION_START)
             _question.postValue(triviaQuestions.updateQuestion())
-            _choices.postValue(triviaQuestions.getAnswersCurrentQuestion())
+//            _choices.postValue(triviaQuestions.getAnswersCurrentQuestion())
+            _choices.postValue(triviaQuestions.getCurrentQuestion().answers)
             restartTimer()
         } else {
             timerDisposable.dispose()
@@ -103,7 +105,7 @@ class GameViewModel : BaseViewModel() {
     }
 
     private fun displayCorrectAnswer() {
-        _choices.postValue(triviaQuestions.updateAnswersState())
+        _choices.postValue(triviaQuestions.getCurrentQuestion().setCorrectAnswer())
     }
 
     //Call by xml
@@ -117,7 +119,7 @@ class GameViewModel : BaseViewModel() {
                     _questionState.postValue(QuestionState.GAME_OVER)
                 }
                 QuestionState.QUESTION_START -> {
-                    if (triviaQuestions.isAnswerSelected()) {
+                    if (triviaQuestions.getCurrentQuestion().isAnswerSelected()) {
                         showAnswer()
                     }
                 }
@@ -127,7 +129,7 @@ class GameViewModel : BaseViewModel() {
     }
 
     fun updateChoice(choiceNumber: Int) {
-        _choices.postValue(triviaQuestions.updateChoice(choiceNumber))
+        _choices.postValue(triviaQuestions.getCurrentQuestion().updateChoice(choiceNumber))
     }
 
     // Timer
@@ -159,7 +161,7 @@ class GameViewModel : BaseViewModel() {
     }
 
     //Helper functions ...
-    fun getFriendHelp() = triviaQuestions.getCorrectAnswer()
+    fun getFriendHelp() = triviaQuestions.getCurrentQuestion().correctAnswer
 
     fun helpByFriends() {
         isHelpByFriends.postValue(true)
@@ -172,7 +174,9 @@ class GameViewModel : BaseViewModel() {
             isChangeQuestion.postValue(true)
             _questionState.postValue(QuestionState.QUESTION_START)
             _question.postValue(triviaQuestions.replaceQuestion())
-            _choices.postValue(triviaQuestions.getAnswersCurrentQuestion())
+//            _choices.postValue(triviaQuestions.getAnswersCurrentQuestion())
+            _choices.postValue(triviaQuestions.getCurrentQuestion().answers)
+
             restartTimer()
         }
     }
@@ -183,7 +187,7 @@ class GameViewModel : BaseViewModel() {
         ) {
             _questionState.postValue(QuestionState.QUESTION_START)
             isDeleteHalfOfAnswers.postValue(true)
-            _choices.postValue(triviaQuestions.deleteTwoWrongAnswersRandomly())
+            _choices.postValue(triviaQuestions.getCurrentQuestion().deleteTwoWrongAnswersRandomly())
             _question.postValue(triviaQuestions.getCurrentQuestion())
         }
     }

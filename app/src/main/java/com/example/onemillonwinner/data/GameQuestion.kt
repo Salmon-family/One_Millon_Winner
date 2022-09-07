@@ -4,35 +4,43 @@ import com.example.onemillonwinner.data.questionResponse.Question
 import com.example.onemillonwinner.util.enumState.ChoicesState
 import com.example.onemillonwinner.util.extension.htmlText
 
-class GameQuestion {
-    private var questionDescription: String = ""
-    var questionNumber: Int = 0
-    private var difficulty: String = ""
-    private val answers: MutableList<Choice> = mutableListOf()
-    private var correctAnswer: String = ""
+class GameQuestion(question: Question) {
 
-    fun setQuestion(question: Question, questionNumber: Int) {
+    val questionDescription: String
+    var questionNumber: Int = 0
+    val difficulty: String
+    val answers: MutableList<Choice>
+    val correctAnswer: String
+
+    init {
         questionDescription = question.question?.htmlText() ?: ""
         difficulty = question.difficulty ?: ""
-        answers.clear()
-        this.questionNumber = questionNumber
+        answers = mutableListOf()
+        this.questionNumber = 0
         question.incorrectAnswers?.forEach { incorrectAnswer ->
             answers.add(Choice(incorrectAnswer.htmlText(), ChoicesState.NOT_SELECTED))
         }
+        var correctA = ""
         question.correctAnswer?.let { correct ->
-            correctAnswer = correct.htmlText()
-            answers.add(Choice(correctAnswer, ChoicesState.NOT_SELECTED))
+            correctA = correct.htmlText()
+            answers.add(Choice(correctA, ChoicesState.NOT_SELECTED))
         }
+        correctAnswer = correctA
         answers.shuffle()
     }
 
-    fun getQuestion() = questionDescription
-
-    fun getAnswers() = answers.toList()
-
-    fun getDifficulty() = difficulty
-
-    fun getCorrectAnswer() = correctAnswer
+    fun updateChoice(choiceNumber: Int): List<Choice> {
+        answers.forEachIndexed { index, choice ->
+            if (index == choiceNumber) {
+                choice.state = ChoicesState.SELECTED
+            } else if (choice.state == ChoicesState.DISABLE_SELECTION) {
+                choice.state = ChoicesState.DISABLE_SELECTION
+            } else {
+                choice.state = ChoicesState.NOT_SELECTED
+            }
+        }
+        return answers
+    }
 
     fun isWrongAnswerSelected(): Boolean {
         return answers.indexOfFirst { it.state == ChoicesState.WRONG } != -1
@@ -52,7 +60,7 @@ class GameQuestion {
 
     fun isAnswerSelected() = answers.any { it.state == ChoicesState.SELECTED }
 
-    fun setCorrectAnswer() {
+    fun setCorrectAnswer(): List<Choice> {
         val correctChoiceIndex = answers.indexOfFirst { it.answer == correctAnswer }
         val choiceIndex = answers.indexOfFirst { it.state == ChoicesState.SELECTED }
         answers.forEachIndexed { index, choice ->
@@ -64,6 +72,7 @@ class GameQuestion {
                 choice.state = ChoicesState.DISABLE_SELECTION
             }
         }
+        return answers
     }
 
     fun checkToRemoveAnswer(index: Int): Boolean {
@@ -83,5 +92,4 @@ class GameQuestion {
         }
         return answers
     }
-
 }
