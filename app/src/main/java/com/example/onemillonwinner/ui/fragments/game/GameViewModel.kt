@@ -58,11 +58,10 @@ class GameViewModel : BaseViewModel() {
     }
 
     private fun onSuccessUpdateQuestion(state: State<TriviaResponse>) {
-        // we need to delete it because it reset in updateView
-        startTimer()
         state.toData()?.let {
             _gameState.postValue(State.Success(it))
             triviaQuestions = TriviaQuestion(it.questions)
+            startTimer()
             updateView()
         }
     }
@@ -84,7 +83,6 @@ class GameViewModel : BaseViewModel() {
         if (!triviaQuestions.isGameOver()) {
             _questionState.postValue(QuestionState.QUESTION_START)
             _question.postValue(triviaQuestions.updateQuestion())
-//            _choices.postValue(triviaQuestions.getAnswersCurrentQuestion())
             _choices.postValue(triviaQuestions.getCurrentQuestion().answers)
             restartTimer()
         } else {
@@ -174,7 +172,6 @@ class GameViewModel : BaseViewModel() {
             isChangeQuestion.postValue(true)
             _questionState.postValue(QuestionState.QUESTION_START)
             _question.postValue(triviaQuestions.replaceQuestion())
-//            _choices.postValue(triviaQuestions.getAnswersCurrentQuestion())
             _choices.postValue(triviaQuestions.getCurrentQuestion().answers)
 
             restartTimer()
