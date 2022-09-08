@@ -1,4 +1,4 @@
-package com.example.onemillonwinner.ui.fragments.game.exitDialog
+package com.example.onemillonwinner.ui.game.exitDialog
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

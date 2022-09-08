@@ -1,4 +1,4 @@
-package com.example.onemillonwinner.network
+package com.example.onemillonwinner.data.network
 
 import com.example.onemillonwinner.data.State
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
@@ -7,8 +7,6 @@ import com.example.onemillonwinner.util.Constants.KEY_SCORE
 import com.example.onemillonwinner.util.PreferenceProvider
 import com.example.onemillonwinner.util.enumState.QuestionLevel
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.functions.BiFunction
-import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.Response
 
 class Repository {

@@ -6,7 +6,7 @@
     app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.onemillonwinner.ui.fragments.home.HomeFragment"
+        android:name="com.example.onemillonwinner.ui.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
-        android:name="com.example.onemillonwinner.ui.fragments.game.GameFragment"
+        android:name="com.example.onemillonwinner.ui.game.GameFragment"
         android:label="GameFragment"
         tools:layout="@layout/fragment_game">
         <action
@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/resultFragment"
-        android:name="com.example.onemillonwinner.ui.fragments.result.ResultFragment"
+        android:name="com.example.onemillonwinner.ui.result.ResultFragment"
         android:label="ResultFragment"
         tools:layout="@layout/fragment_result" >
 
@@ -46,7 +46,7 @@
     </fragment>
     <dialog
         android:id="@+id/helpFriendDialog"
-        android:name="com.example.onemillonwinner.ui.fragments.game.callFriendDialog.CallFriendDialog"
+        android:name="com.example.onemillonwinner.ui.game.callFriendDialog.CallFriendDialog"
         android:label="fragment_help_friend_dialog"
         tools:layout="@layout/dialog_call_friend">
         <argument android:name="correctAnswer"
@@ -55,7 +55,7 @@
     </dialog>
     <dialog
         android:id="@+id/exitDialog"
-        android:name="com.example.onemillonwinner.ui.fragments.game.exitDialog.ExitDialog"
+        android:name="com.example.onemillonwinner.ui.game.exitDialog.ExitDialog"
         android:label="ExitDialog"
         tools:layout="@layout/dialog_exit"/>
 </navigation>

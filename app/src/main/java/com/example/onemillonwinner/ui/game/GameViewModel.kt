@@ -1,10 +1,10 @@
-package com.example.onemillonwinner.ui.fragments.game
+package com.example.onemillonwinner.ui.game
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.onemillonwinner.data.*
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
-import com.example.onemillonwinner.network.Repository
+import com.example.onemillonwinner.data.network.Repository
 import com.example.onemillonwinner.ui.base.BaseViewModel
 import com.example.onemillonwinner.util.Constants.MAX_NUMBER_OF_QUESTIONS
 import com.example.onemillonwinner.util.Constants.NUMBER_OF_QUESTIONS_PER_LEVEL

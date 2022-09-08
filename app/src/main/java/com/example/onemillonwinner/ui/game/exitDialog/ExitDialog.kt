@@ -1,4 +1,4 @@
-package com.example.onemillonwinner.ui.fragments.game.exitDialog
+package com.example.onemillonwinner.ui.game.exitDialog
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable

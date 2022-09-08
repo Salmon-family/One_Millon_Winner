@@ -1,4 +1,4 @@
-package com.example.onemillonwinner.ui.fragments.result
+package com.example.onemillonwinner.ui.result
 
 import android.media.MediaPlayer
 import androidx.navigation.fragment.findNavController

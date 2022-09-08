@@ -1,4 +1,4 @@
-package com.example.onemillonwinner.ui.fragments.game.callFriendDialog
+package com.example.onemillonwinner.ui.game.callFriendDialog
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

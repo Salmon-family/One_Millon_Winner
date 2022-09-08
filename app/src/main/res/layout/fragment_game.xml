@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.onemillonwinner.ui.fragments.game.GameViewModel" />
+            type="com.example.onemillonwinner.ui.game.GameViewModel" />
 
     </data>
 

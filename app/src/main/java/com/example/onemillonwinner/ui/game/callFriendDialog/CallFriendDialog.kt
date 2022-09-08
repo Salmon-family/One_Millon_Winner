@@ -1,4 +1,4 @@
-package com.example.onemillonwinner.ui.fragments.game.callFriendDialog
+package com.example.onemillonwinner.ui.game.callFriendDialog
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable

@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.onemillonwinner.ui.fragments.game.callFriendDialog.CallFriendViewModel" />
+            type="com.example.onemillonwinner.ui.game.callFriendDialog.CallFriendViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

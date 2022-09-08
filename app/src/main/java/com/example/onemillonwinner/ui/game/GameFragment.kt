@@ -1,14 +1,12 @@
-package com.example.onemillonwinner.ui.fragments.game
+package com.example.onemillonwinner.ui.game
 
 import android.media.MediaPlayer
-import android.app.AlertDialog
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.databinding.FragmentGameBinding
 import com.example.onemillonwinner.ui.base.BaseFragment
 import com.example.onemillonwinner.util.EventObserve
-import com.example.onemillonwinner.util.HelpFriendDialog
 import com.example.onemillonwinner.util.enumState.QuestionState
 
 class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
