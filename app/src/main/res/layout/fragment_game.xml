@@ -36,13 +36,13 @@
 
         <TextView
             android:id="@+id/text_timer"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.questionTime.toString()}"
-            android:textColor="@color/primary_color"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/timer_progress_bar"
             app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/primary_color"
+            android:text="@{viewModel.questionTime.toString()}"
+            app:layout_constraintBottom_toBottomOf="@+id/timer_progress_bar"
             app:layout_constraintStart_toEndOf="@+id/timer_progress_bar"
             app:layout_constraintTop_toTopOf="@+id/timer_progress_bar" />
 
@@ -55,6 +55,7 @@
             android:layout_marginEnd="@dimen/help_button_dimension"
             android:onClick="@{() -> viewModel.helpByFriends()}"
             app:cornerRadius="@dimen/spacing_medium"
+            android:enabled="@{!viewModel.isHelpByFriends().peekContent()}"
             app:icon="@drawable/ic_phone"
             app:layout_constraintEnd_toEndOf="@+id/card_view"
             app:layout_constraintTop_toBottomOf="@+id/timer_progress_bar" />
@@ -64,9 +65,9 @@
             style="@style/Theme.Button.Icon"
             android:layout_width="@dimen/help_button_dimension"
             android:layout_height="@dimen/help_button_dimension"
-            android:enabled="@{!viewModel.isDeleteHalfOfAnswers()}"
             android:onClick="@{() -> viewModel.deleteHalfOfAnswers()}"
             app:cornerRadius="@dimen/spacing_medium"
+            android:enabled="@{!viewModel.isDeleteHalfOfAnswers()}"
             app:layout_constraintBottom_toBottomOf="@+id/phone_button"
             app:layout_constraintEnd_toStartOf="@+id/phone_button"
             app:layout_constraintStart_toEndOf="@+id/change_question_button"
@@ -91,9 +92,9 @@
             android:layout_width="@dimen/help_button_dimension"
             android:layout_height="@dimen/help_button_dimension"
             android:layout_marginStart="@dimen/help_button_dimension"
-            android:enabled="@{!viewModel.isChangeQuestion()}"
             android:onClick="@{() -> viewModel.replaceQuestion()}"
             app:cornerRadius="@dimen/spacing_medium"
+            android:enabled="@{!viewModel.isChangeQuestion()}"
             app:icon="@drawable/ic_repeat"
             app:layout_constraintStart_toStartOf="@+id/card_view"
             app:layout_constraintTop_toTopOf="@+id/delete_half_answer_button" />
@@ -234,13 +235,13 @@
             android:layout_height="0dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
+            app:layout_constraintWidth_percent="0.3"
+            app:layout_constraintHeight_percent="0.2"
             app:isLoading="@{viewModel.state}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.3"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/lottie_loading" />
@@ -251,12 +252,12 @@
             android:layout_height="0dp"
             android:scaleType="fitXY"
             app:isFail="@{viewModel.state}"
+            app:layout_constraintWidth_percent="0.95"
+            app:layout_constraintHeight_percent="0.4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.95"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/lottie_error" />
@@ -266,13 +267,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_medium"
-            android:enabled="@{!viewModel.isHelpByFriends()}"
-            android:text="@{@string/prize(viewModel.prize.value)}"
+            android:text="@{@string/prize(viewModel.prize)}"
             android:textSize="@dimen/font_size_title"
             app:layout_constraintBottom_toBottomOf="@+id/submit_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/submit_button"
-            app:prizeSecured="@{viewModel.prize.isSecured}" />
+            app:layout_constraintTop_toTopOf="@+id/submit_button" />
 
         <androidx.constraintlayout.widget.Group
             android:layout_width="wrap_content"
