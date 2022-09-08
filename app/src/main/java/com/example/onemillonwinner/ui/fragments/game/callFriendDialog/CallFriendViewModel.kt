@@ -3,6 +3,7 @@ package com.example.onemillonwinner.ui.fragments.game.callFriendDialog
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.onemillonwinner.ui.base.BaseViewModel
+import com.example.onemillonwinner.util.Event
 
 class CallFriendViewModel: BaseViewModel() {
 
@@ -10,8 +11,8 @@ class CallFriendViewModel: BaseViewModel() {
     val correctAnswer : LiveData<String>
     get() = _correctAnswer
 
-    private val _isDialogClose = MutableLiveData(false)
-    val isDialogClose : LiveData<Boolean>
+    private val _isDialogClose = MutableLiveData(Event(false))
+    val isDialogClose : LiveData<Event<Boolean>>
     get() = _isDialogClose
 
     fun setCorrectAnswer(answer : String){
@@ -19,6 +20,6 @@ class CallFriendViewModel: BaseViewModel() {
     }
 
     fun closeDialog(){
-        _isDialogClose.postValue(true)
+        _isDialogClose.postValue(Event(true))
     }
 }

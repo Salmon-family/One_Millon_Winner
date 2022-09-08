@@ -24,7 +24,7 @@ class GameViewModel : BaseViewModel() {
 
     val isChangeQuestion = MutableLiveData(false)
     val isDeleteHalfOfAnswers = MutableLiveData(false)
-    val isHelpByFriends = MutableLiveData(false)
+    val isHelpByFriends = MutableLiveData<Boolean>(false)
 
     private val _gameState = MutableLiveData<State<TriviaResponse>>()
     val state: LiveData<State<TriviaResponse>>
