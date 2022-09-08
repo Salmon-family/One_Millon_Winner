@@ -22,6 +22,12 @@
             android:id="@+id/action_gameFragment_to_resultFragment"
             app:destination="@id/resultFragment"
             app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_gameFragment_to_helpFriendDialog"
+            app:destination="@id/helpFriendDialog" />
+        <action
+            android:id="@+id/action_gameFragment_to_exitDialog"
+            app:destination="@id/exitDialog" />
     </fragment>
 
     <fragment
@@ -38,4 +44,22 @@
             app:destination="@id/gameFragment" />
 
     </fragment>
+    <dialog
+        android:id="@+id/helpFriendDialog"
+        android:name="com.example.onemillonwinner.ui.fragments.game.callFriendDialog.CallFriendDialog"
+        android:label="fragment_help_friend_dialog"
+        tools:layout="@layout/dialog_call_friend">
+        <argument android:name="correctAnswer"
+            app:argType="string"
+            app:nullable="true" />
+    </dialog>
+    <dialog
+        android:id="@+id/exitDialog"
+        android:name="com.example.onemillonwinner.ui.fragments.game.exitDialog.ExitDialog"
+        android:label="ExitDialog"
+        tools:layout="@layout/dialog_exit">
+        <action
+            android:id="@+id/action_exitDialog_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </dialog>
 </navigation>
