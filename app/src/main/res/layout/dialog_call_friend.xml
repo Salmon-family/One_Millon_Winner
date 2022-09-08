@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.text.Html"/>
 
         <variable
             name="viewModel"
@@ -25,7 +27,8 @@
             android:layout_marginTop="16dp"
             android:src="@drawable/ic_person_icon"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/primary_text"
@@ -46,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_medium"
-            android:text="@{@string/friend_help(viewModel.correctAnswer)}"
+            android:text="@{Html.fromHtml(@string/friend_help(viewModel.correctAnswer))}"
             android:textColor="@color/primary_text_color"
             android:textSize="@dimen/font_size_primary"
             app:layout_constraintBottom_toTopOf="@+id/close"
