@@ -20,7 +20,7 @@
     <string name="dialog_message">Are you sure you want Exit?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="your_score">Your highest prize is : %s$</string>
+    <string name="your_score">Your highest prize is : $%s</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
 </resources>
