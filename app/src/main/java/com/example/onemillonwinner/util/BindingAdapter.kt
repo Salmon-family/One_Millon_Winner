@@ -1,8 +1,10 @@
 package com.example.onemillonwinner.util
 
+import android.graphics.Typeface
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.core.view.isVisible
 import com.airbnb.lottie.LottieAnimationView
@@ -93,5 +95,17 @@ fun setPrizeText(view: TextView, isPrize: Boolean) {
         view.setText(R.string.text_congratulation)
     } else {
         view.setText(R.string.better_luck_next_time)
+    }
+}
+
+
+@BindingAdapter("app:prizeSecured")
+fun setPrizeStyle(view: TextView, prizeSecured: Boolean) {
+    if (prizeSecured) {
+        view.typeface = Typeface.DEFAULT_BOLD
+        view.setTextColor(ContextCompat.getColor(view.context, R.color.state_success_answer))
+    } else {
+        view.typeface = Typeface.DEFAULT
+        view.setTextColor(ContextCompat.getColor(view.context, R.color.black))
     }
 }

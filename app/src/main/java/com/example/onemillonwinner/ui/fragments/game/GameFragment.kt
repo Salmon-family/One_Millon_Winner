@@ -61,7 +61,7 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
             if (it == QuestionState.GAME_OVER) {
                 viewModel.prize.value?.let { prize ->
                     findNavController().navigate(
-                        GameFragmentDirections.actionGameFragmentToResultFragment(prize)
+                        GameFragmentDirections.actionGameFragmentToResultFragment(prize.first)
                     )
                 }
             }
