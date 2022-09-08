@@ -7,9 +7,9 @@ import com.example.onemillonwinner.util.enumState.ChoicesState
 import com.example.onemillonwinner.util.enumState.QuestionLevel
 import kotlin.collections.ArrayList
 
-class TriviaQuestion(newQuestions: List<Question>) {
+class TriviaQuestion {
     private val questions = ArrayList<GameQuestion>()
-    private var currentQuestion: GameQuestion
+    private lateinit var currentQuestion: GameQuestion
     private val replaceableQuestions: ArrayList<GameQuestion> = ArrayList()
 
     private val prizeList = mapOf(
@@ -30,18 +30,16 @@ class TriviaQuestion(newQuestions: List<Question>) {
         15 to 1000000
     )
 
-    init {
-        QuestionLevel.values().forEach { level ->
-            val result = newQuestions.filter { it.difficulty == level.value }
-                .apply {
-                    replaceableQuestions.add(GameQuestion(this.last()))
-                }.take(NUMBER_OF_QUESTIONS_PER_LEVEL)
-            result.forEach {
-                questions.add(GameQuestion(it))
-            }
+
+    fun setQuestion(questionResponse: List<Question>) {
+        for (index in 0 until NUMBER_OF_QUESTIONS_PER_LEVEL) {
+            questions.add(GameQuestion(questionResponse[index]))
         }
+        replaceableQuestions.add(GameQuestion(questionResponse.last()))
         currentQuestion = questions.first()
     }
+
+    fun getQuestionSize() = questions.size
 
     fun getCurrentQuestion() = currentQuestion
 

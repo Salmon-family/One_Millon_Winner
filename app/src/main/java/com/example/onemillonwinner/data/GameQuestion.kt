@@ -48,10 +48,6 @@ class GameQuestion(question: Question) {
 
     fun getSelectedAnswer() = answers.indexOfFirst { it.state == ChoicesState.SELECTED }
 
-    fun setSelectedAnswer(index: Int) {
-        answers[index].state = ChoicesState.SELECTED
-    }
-
     fun removeAllSelection() {
         answers.forEach {
             it.state = ChoicesState.WRONG
@@ -75,7 +71,7 @@ class GameQuestion(question: Question) {
         return answers
     }
 
-    fun checkToRemoveAnswer(index: Int): Boolean {
+    private fun checkToRemoveAnswer(index: Int): Boolean {
         return (index in answers.indices
                 && answers[index].answer != correctAnswer
                 && answers[index].answer.isNotBlank())
