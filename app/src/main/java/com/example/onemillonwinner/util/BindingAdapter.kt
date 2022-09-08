@@ -97,8 +97,8 @@ fun setPrizeText(view: TextView, isPrize: Boolean) {
 }
 
 @BindingAdapter("app:formattingTimer")
-fun setFormattingTimerText(view: TextView, timer: Long){
-    var seconds = timer
+fun setFormattingTimerText(view: TextView, timeInSecond: Long){
+    var seconds = timeInSecond
     val minutes = seconds / 60
     seconds %= 60
     view.text = String.format(String.format("%d:%02d", minutes, seconds))
