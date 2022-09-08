@@ -7,6 +7,7 @@ import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.network.Repository
 import com.example.onemillonwinner.ui.base.BaseViewModel
 import com.example.onemillonwinner.util.Constants.QUESTION_TIME
+import com.example.onemillonwinner.util.Event
 import com.example.onemillonwinner.util.enumState.QuestionState
 import com.example.onemillonwinner.util.extension.addTo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -24,7 +25,7 @@ class GameViewModel : BaseViewModel() {
 
     val isChangeQuestion = MutableLiveData(false)
     val isDeleteHalfOfAnswers = MutableLiveData(false)
-    val isHelpByFriends = MutableLiveData(false)
+    val isHelpByFriends = MutableLiveData(Event(false))
 
     private val _gameState = MutableLiveData<State<TriviaResponse>>()
     val state: LiveData<State<TriviaResponse>>
@@ -162,7 +163,7 @@ class GameViewModel : BaseViewModel() {
     fun getFriendHelp() = triviaQuestions.getCurrentQuestion().correctAnswer
 
     fun helpByFriends() {
-        isHelpByFriends.postValue(true)
+        isHelpByFriends.postValue(Event(true))
     }
 
     fun replaceQuestion() {
