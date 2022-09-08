@@ -7,6 +7,7 @@ import com.example.onemillonwinner.R
 import com.example.onemillonwinner.databinding.DialogExitBinding
 import com.example.onemillonwinner.ui.base.BaseDialogFragment
 import com.example.onemillonwinner.util.EventObserve
+import com.example.onemillonwinner.util.extension.setWidthPercent
 
 class ExitDialog : BaseDialogFragment<DialogExitBinding, ExitViewModel>() {
 
@@ -14,21 +15,15 @@ class ExitDialog : BaseDialogFragment<DialogExitBinding, ExitViewModel>() {
     override val viewModelClass = ExitViewModel::class.java
 
     override fun setup() {
-        dialogDimensions()
-        exitGame()
-    }
-    private fun dialogDimensions() {
-        val metrics = resources.displayMetrics
-        val width = metrics.widthPixels
-        val height = metrics.heightPixels
-        dialog?.window?.setLayout((6 * width)/7, (3 * height)/10)
+        setWidthPercent(85)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        exitGame()
     }
 
     private fun exitGame() {
         viewModel.isExitGame.observe(this,EventObserve{
             if (it) {
-                findNavController().navigate(R.id.homeFragment)
+                findNavController().popBackStack(R.id.homeFragment, false)
             }
         })
     }

@@ -7,6 +7,7 @@ import com.example.onemillonwinner.R
 import com.example.onemillonwinner.databinding.DialogCallFriendBinding
 import com.example.onemillonwinner.ui.base.BaseDialogFragment
 import com.example.onemillonwinner.util.EventObserve
+import com.example.onemillonwinner.util.extension.setWidthPercent
 
 class CallFriendDialog : BaseDialogFragment<DialogCallFriendBinding, CallFriendViewModel>(){
 
@@ -15,16 +16,9 @@ class CallFriendDialog : BaseDialogFragment<DialogCallFriendBinding, CallFriendV
     override val layoutIdFragment = R.layout.dialog_call_friend
 
     override fun setup() {
-        dialogDimensions()
-        arguments.correctAnswer?.let { viewModel.setCorrectAnswer(it) }
-     }
-
-    private fun dialogDimensions() {
-        val metrics = resources.displayMetrics
-        val width = metrics.widthPixels
-        val height = metrics.heightPixels
-        dialog?.window?.setLayout((6 * width)/7, (3 * height)/10)
+        setWidthPercent(85)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        arguments.correctAnswer?.let { viewModel.setCorrectAnswer(it) }
      }
 
     override fun closeDialog() {
