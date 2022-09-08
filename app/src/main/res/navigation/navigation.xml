@@ -57,9 +57,5 @@
         android:id="@+id/exitDialog"
         android:name="com.example.onemillonwinner.ui.fragments.game.exitDialog.ExitDialog"
         android:label="ExitDialog"
-        tools:layout="@layout/dialog_exit">
-        <action
-            android:id="@+id/action_exitDialog_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </dialog>
+        tools:layout="@layout/dialog_exit"/>
 </navigation>

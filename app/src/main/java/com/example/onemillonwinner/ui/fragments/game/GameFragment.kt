@@ -7,6 +7,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.databinding.FragmentGameBinding
 import com.example.onemillonwinner.ui.base.BaseFragment
+import com.example.onemillonwinner.util.EventObserve
 import com.example.onemillonwinner.util.HelpFriendDialog
 import com.example.onemillonwinner.util.enumState.QuestionState
 
@@ -23,12 +24,12 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
     }
 
     private fun observeOnCallFriend() {
-        viewModel.isHelpByFriends.observe(viewLifecycleOwner) { callAFriend ->
-            if (callAFriend) {
+        viewModel.isHelpByFriends.observe(this, EventObserve{
+            if (it) {
                 findNavController().navigate(GameFragmentDirections
                     .actionGameFragmentToHelpFriendDialog(viewModel.getFriendHelp()))
              }
-        }
+        })
     }
 
     private fun callBacks() {
