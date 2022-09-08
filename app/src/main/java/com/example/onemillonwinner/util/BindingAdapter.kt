@@ -3,8 +3,8 @@ package com.example.onemillonwinner.util
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import androidx.databinding.BindingAdapter
 import androidx.core.view.isVisible
+import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.data.State
@@ -94,4 +94,11 @@ fun setPrizeText(view: TextView, isPrize: Boolean) {
     } else {
         view.setText(R.string.better_luck_next_time)
     }
+}
+
+@BindingAdapter("app:timerInMinutes")
+fun setFormattingTimerText(view: TextView, timeInSecond: Long){
+    val minutes = timeInSecond / 60
+    val seconds = timeInSecond % 60
+    view.text = String.format(String.format("%d:%02d", minutes, seconds))
 }
