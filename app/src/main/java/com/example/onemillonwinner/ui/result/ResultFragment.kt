@@ -1,11 +1,11 @@
 package com.example.onemillonwinner.ui.result
 
-import android.media.MediaPlayer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.databinding.FragmentResultBinding
 import com.example.onemillonwinner.ui.base.BaseFragment
+import com.example.onemillonwinner.util.MediaPlayer
 
 class ResultFragment : BaseFragment<FragmentResultBinding, ResultViewModel>() {
 

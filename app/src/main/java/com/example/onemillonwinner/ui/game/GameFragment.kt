@@ -1,12 +1,13 @@
 package com.example.onemillonwinner.ui.game
 
-import android.media.MediaPlayer
 import androidx.activity.OnBackPressedCallback
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.databinding.FragmentGameBinding
 import com.example.onemillonwinner.ui.base.BaseFragment
 import com.example.onemillonwinner.util.EventObserve
+import com.example.onemillonwinner.util.MediaPlayer
 import com.example.onemillonwinner.util.enumState.QuestionState
 
 class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
@@ -22,7 +23,15 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
         observeOnCallFriend()
     }
 
-    private fun observeOnMusic() = mediaPlayer.observeOnAnswersToGiveThemMusic(context, viewLifecycleOwner)
+    private fun observeOnMusic() {
+        viewModel.questionState.observe(viewLifecycleOwner) {
+            if (it == QuestionState.QUESTION_SUBMITTED) {
+                viewModel.prize.value?.let {
+                    mediaPlayer.effectWinner(context)
+                }
+            }
+        }
+    }
 
     private fun observeOnCallFriend() {
         viewModel.isHelpByFriends.observe(this, EventObserve{
