@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            android:textColor="@color/primary_color"
+            android:textColor="@color/timer_text_color"
             app:timerInMinutes="@{viewModel.questionTime}"
             app:layout_constraintBottom_toBottomOf="@+id/timer_progress_bar"
             app:layout_constraintStart_toEndOf="@+id/timer_progress_bar"

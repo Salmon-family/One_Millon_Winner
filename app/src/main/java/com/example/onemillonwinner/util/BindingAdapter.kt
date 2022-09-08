@@ -105,7 +105,7 @@ fun setPrizeStyle(view: TextView, isPrizeSecured: Boolean) {
         view.setTextColor(ContextCompat.getColor(view.context, R.color.state_success_answer))
     } else {
         view.typeface = Typeface.DEFAULT
-        view.setTextColor(ContextCompat.getColor(view.context, R.color.black))
+        view.setTextColor(ContextCompat.getColor(view.context, R.color.primary_text_color))
     }
 }
 
