@@ -7,6 +7,8 @@ import com.example.onemillonwinner.data.*
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.network.Repository
 import com.example.onemillonwinner.ui.base.BaseViewModel
+import com.example.onemillonwinner.util.Constants.MAX_NUMBER_OF_QUESTIONS
+import com.example.onemillonwinner.util.Constants.NUMBER_OF_QUESTIONS_PER_LEVEL
 import com.example.onemillonwinner.util.Constants.QUESTION_TIME
 import com.example.onemillonwinner.util.enumState.QuestionState
 import com.example.onemillonwinner.util.extension.addTo
@@ -19,7 +21,7 @@ import java.util.concurrent.TimeUnit
 
 class GameViewModel : BaseViewModel() {
 
-    private lateinit var triviaQuestions: TriviaQuestion
+    private val triviaQuestions: TriviaQuestion = TriviaQuestion()
     private val repository: Repository by lazy { Repository() }
     private lateinit var timerDisposable: Disposable
 
@@ -42,8 +44,8 @@ class GameViewModel : BaseViewModel() {
     val questionTime: LiveData<Int>
         get() = _questionTime
 
-    private val _prize = MutableLiveData(0)
-    val prize: LiveData<Int>
+    private val _prize = MutableLiveData(Pair(0, false))
+    val prize: LiveData<Pair<Int, Boolean>>
         get() = _prize
 
     private val _choices = MutableLiveData<List<Choice>>()
@@ -59,11 +61,14 @@ class GameViewModel : BaseViewModel() {
     }
 
     private fun onSuccessUpdateQuestion(state: State<TriviaResponse>) {
-        startTimer()
         state.toData()?.let {
-            _gameState.postValue(State.Success(it))
-            triviaQuestions = TriviaQuestion(it.questions)
-            updateView()
+            triviaQuestions.setQuestion(it.questions)
+            if (triviaQuestions.getQuestionSize() >= MAX_NUMBER_OF_QUESTIONS) {
+                startTimer()
+                _gameState.postValue(State.Success(it))
+                updateView()
+
+            }
         }
     }
 
@@ -100,7 +105,12 @@ class GameViewModel : BaseViewModel() {
     }
 
     private fun calculatePrize() {
-        _prize.postValue(triviaQuestions.getPrize())
+        val securedPrize =
+            triviaQuestions.getCurrentQuestion().questionNumber % NUMBER_OF_QUESTIONS_PER_LEVEL == 0
+        val prize = triviaQuestions.getPrize()
+        prize?.let {
+            _prize.postValue(Pair(it,securedPrize))
+        }
     }
 
     private fun displayCorrectAnswer() {
@@ -155,7 +165,7 @@ class GameViewModel : BaseViewModel() {
     private fun endTheCountDown() {
         timerDisposable.dispose()
         triviaQuestions.getCurrentQuestion().removeAllSelection()
-        _prize.postValue(triviaQuestions.getPrize())
+        calculatePrize()
         _questionState.postValue(QuestionState.GAME_OVER)
     }
 
