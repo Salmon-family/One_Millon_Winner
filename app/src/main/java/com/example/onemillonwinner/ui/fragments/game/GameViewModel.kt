@@ -1,6 +1,5 @@
 package com.example.onemillonwinner.ui.fragments.game
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.onemillonwinner.data.*
@@ -45,8 +44,7 @@ class GameViewModel : BaseViewModel() {
     val questionTime: LiveData<Int>
         get() = _questionTime
 
-    private val prizeUser = Prize(0, false)
-    private val _prize = MutableLiveData(prizeUser)
+    private val _prize = MutableLiveData(Prize(0, false))
     val prize: LiveData<Prize>
         get() = _prize
 
@@ -107,12 +105,12 @@ class GameViewModel : BaseViewModel() {
     }
 
     private fun calculatePrize() {
-        prizeUser.isSecured =
+        val isSecured =
             triviaQuestions.getCurrentQuestion().questionNumber % NUMBER_OF_QUESTIONS_PER_LEVEL == 0
-        triviaQuestions.getPrize()?.let {
-            prizeUser.value = it
+        val prizeValue = triviaQuestions.getPrize()
+        prizeValue?.let {
+            _prize.postValue(Prize(prizeValue, isSecured))
         }
-        _prize.postValue(prizeUser)
     }
 
     private fun displayCorrectAnswer() {
