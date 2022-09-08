@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="com.example.onemillonwinner.data.GameState" />
+        <import type="com.example.onemillonwinner.data.State" />
 
         <variable
             name="viewModel"
@@ -55,7 +55,7 @@
             android:layout_marginEnd="@dimen/help_button_dimension"
             android:onClick="@{() -> viewModel.helpByFriends()}"
             app:cornerRadius="@dimen/spacing_medium"
-            app:disableButton="@{viewModel.isHelpByFriends()}"
+            android:enabled="@{!viewModel.isHelpByFriends()}"
             app:icon="@drawable/ic_phone"
             app:layout_constraintEnd_toEndOf="@+id/card_view"
             app:layout_constraintTop_toBottomOf="@+id/timer_progress_bar" />
@@ -67,7 +67,7 @@
             android:layout_height="@dimen/help_button_dimension"
             android:onClick="@{() -> viewModel.deleteHalfOfAnswers()}"
             app:cornerRadius="@dimen/spacing_medium"
-            app:disableButton="@{viewModel.isDeleteHalfOfAnswers()}"
+            android:enabled="@{!viewModel.isDeleteHalfOfAnswers()}"
             app:layout_constraintBottom_toBottomOf="@+id/phone_button"
             app:layout_constraintEnd_toStartOf="@+id/phone_button"
             app:layout_constraintStart_toEndOf="@+id/change_question_button"
@@ -94,7 +94,7 @@
             android:layout_marginStart="@dimen/help_button_dimension"
             android:onClick="@{() -> viewModel.replaceQuestion()}"
             app:cornerRadius="@dimen/spacing_medium"
-            app:disableButton="@{viewModel.isChangeQuestion()}"
+            android:enabled="@{!viewModel.isChangeQuestion()}"
             app:icon="@drawable/ic_repeat"
             app:layout_constraintStart_toStartOf="@+id/card_view"
             app:layout_constraintTop_toTopOf="@+id/delete_half_answer_button" />
@@ -133,7 +133,7 @@
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacing_medium"
-            android:text="@{viewModel.question.question}"
+            android:text="@{viewModel.question.questionDescription}"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/card_view"
             app:layout_constraintEnd_toEndOf="@+id/card_view"
@@ -147,8 +147,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium"
-            app:changeColorSelection="@{viewModel.question}"
-            app:gameState="@{viewModel.state}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/card_view"
@@ -161,10 +159,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:onClick="@{() -> viewModel.updateGameState(GameState.ANSWER_SELECTED)}"
-                android:text="@{viewModel.question.answers[0]}"
+                android:onClick="@{() -> viewModel.updateChoice(0)}"
+                android:text="@{viewModel.question.answers[0].answer}"
                 app:chipMinHeight="@dimen/height_chip"
                 app:chipMinTouchTargetSize="@dimen/zero"
+                app:choiceState="@{viewModel.choices[0].state}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -174,10 +173,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:onClick="@{() -> viewModel.updateGameState(GameState.ANSWER_SELECTED)}"
+                android:onClick="@{() -> viewModel.updateChoice(1)}"
+                android:text="@{viewModel.question.answers[1].answer}"
                 app:chipMinHeight="@dimen/height_chip"
                 app:chipMinTouchTargetSize="@dimen/zero"
-                android:text="@{viewModel.question.answers[1]}"
+                app:choiceState="@{viewModel.choices[1].state}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -187,10 +187,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:onClick="@{() -> viewModel.updateGameState(GameState.ANSWER_SELECTED)}"
-                android:text="@{viewModel.question.answers[2]}"
+                android:onClick="@{() -> viewModel.updateChoice(2)}"
+                android:text="@{viewModel.question.answers[2].answer}"
                 app:chipMinHeight="@dimen/height_chip"
                 app:chipMinTouchTargetSize="@dimen/zero"
+                app:choiceState="@{viewModel.choices[2].state}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -200,10 +201,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:onClick="@{() -> viewModel.updateGameState(GameState.ANSWER_SELECTED)}"
-                android:text="@{viewModel.question.answers[3]}"
+                android:onClick="@{() -> viewModel.updateChoice(3)}"
+                android:text="@{viewModel.question.answers[3].answer}"
                 app:chipMinHeight="@dimen/height_chip"
                 app:chipMinTouchTargetSize="@dimen/zero"
+                app:choiceState="@{viewModel.choices[3].state}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -221,7 +223,7 @@
             android:text="@string/submit"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_caption"
-            app:buttonUpdateText="@{viewModel.state}"
+            app:buttonUpdateText="@{viewModel.questionState}"
             app:cornerRadius="@dimen/spacing_small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -233,16 +235,16 @@
             android:layout_height="0dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            app:isLoading="@{viewModel.state}"
             app:layout_constraintWidth_percent="0.3"
             app:layout_constraintHeight_percent="0.2"
+            app:isLoading="@{viewModel.state}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:setAnimationLottie="@{null}" />
+            app:lottie_rawRes="@raw/lottie_loading" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie_error"
@@ -264,8 +266,8 @@
             android:id="@+id/text_calculate_prize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/prize(viewModel.prize)}"
             android:layout_marginStart="@dimen/spacing_medium"
+            android:text="@{@string/prize(viewModel.prize)}"
             android:textSize="@dimen/font_size_title"
             app:layout_constraintBottom_toBottomOf="@+id/submit_button"
             app:layout_constraintStart_toStartOf="parent"

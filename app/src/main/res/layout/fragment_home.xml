@@ -52,7 +52,6 @@
             android:text="@{@string/your_score(viewModel.bestPrize.toString())}"
             android:textSize="@dimen/font_size_primary"
             android:textStyle="bold"
-            app:hide="@{viewModel.bestPrize}"
             app:layout_constraintBottom_toTopOf="@+id/start_game_button"
             app:layout_constraintEnd_toEndOf="@+id/lottie_home"
             app:layout_constraintHorizontal_bias="0.0"

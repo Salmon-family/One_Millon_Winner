@@ -4,6 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.databinding.FragmentHomeBinding
+import com.example.onemillonwinner.network.Repository
 import com.example.onemillonwinner.ui.base.BaseFragment
 import com.example.onemillonwinner.util.EventObserve
 
