@@ -1,3 +1,3 @@
 package com.example.onemillonwinner.data
 
-data class Prize(val value: Int, var isSecured: Boolean)
+data class Prize(var value: Int, var isSecured: Boolean)

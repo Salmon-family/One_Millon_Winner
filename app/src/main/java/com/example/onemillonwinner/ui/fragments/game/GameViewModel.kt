@@ -45,7 +45,8 @@ class GameViewModel : BaseViewModel() {
     val questionTime: LiveData<Int>
         get() = _questionTime
 
-    private val _prize = MutableLiveData(Prize(0, false))
+    private val prizeUser = Prize(0, false)
+    private val _prize = MutableLiveData(prizeUser)
     val prize: LiveData<Prize>
         get() = _prize
 
@@ -106,12 +107,12 @@ class GameViewModel : BaseViewModel() {
     }
 
     private fun calculatePrize() {
-        val securedPrize =
+        prizeUser.isSecured =
             triviaQuestions.getCurrentQuestion().questionNumber % NUMBER_OF_QUESTIONS_PER_LEVEL == 0
-        val prize = triviaQuestions.getPrize()
-        prize?.let {
-            _prize.postValue(Prize(it, securedPrize))
+        triviaQuestions.getPrize()?.let {
+            prizeUser.value = it
         }
+        _prize.postValue(prizeUser)
     }
 
     private fun displayCorrectAnswer() {
