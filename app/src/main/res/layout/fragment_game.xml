@@ -267,12 +267,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_medium"
             android:enabled="@{!viewModel.isHelpByFriends()}"
-            android:text="@{@string/prize(viewModel.prize.first)}"
+            android:text="@{@string/prize(viewModel.prize.value)}"
             android:textSize="@dimen/font_size_title"
             app:layout_constraintBottom_toBottomOf="@+id/submit_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/submit_button"
-            app:prizeSecured="@{viewModel.prize.second}" />
+            app:prizeSecured="@{viewModel.prize.isSecured}" />
 
         <androidx.constraintlayout.widget.Group
             android:layout_width="wrap_content"

@@ -44,8 +44,8 @@ class GameViewModel : BaseViewModel() {
     val questionTime: LiveData<Int>
         get() = _questionTime
 
-    private val _prize = MutableLiveData(Pair(0, false))
-    val prize: LiveData<Pair<Int, Boolean>>
+    private val _prize = MutableLiveData(Prize(0, false))
+    val prize: LiveData<Prize>
         get() = _prize
 
     private val _choices = MutableLiveData<List<Choice>>()
@@ -109,7 +109,7 @@ class GameViewModel : BaseViewModel() {
             triviaQuestions.getCurrentQuestion().questionNumber % NUMBER_OF_QUESTIONS_PER_LEVEL == 0
         val prize = triviaQuestions.getPrize()
         prize?.let {
-            _prize.postValue(Pair(it,securedPrize))
+            _prize.postValue(Prize(it, securedPrize))
         }
     }
 

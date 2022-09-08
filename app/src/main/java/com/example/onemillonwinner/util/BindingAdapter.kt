@@ -37,7 +37,12 @@ fun updateTextButton(submitButton: Button, state: QuestionState?) {
         when (state) {
             QuestionState.QUESTION_SUBMITTED -> {
                 submitButton.text = submitButton.context.resources.getText(R.string.next_question)
-                submitButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_right, 0)
+                submitButton.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.ic_arrow_right,
+                    0
+                )
             }
             QuestionState.WRONG_ANSWER_SUBMITTED -> {
                 submitButton.text = submitButton.context.resources.getText(R.string.game_over)
@@ -98,10 +103,9 @@ fun setPrizeText(view: TextView, isPrize: Boolean) {
     }
 }
 
-
 @BindingAdapter("app:prizeSecured")
-fun setPrizeStyle(view: TextView, prizeSecured: Boolean) {
-    if (prizeSecured) {
+fun setPrizeStyle(view: TextView, isPrizeSecured: Boolean) {
+    if (isPrizeSecured) {
         view.typeface = Typeface.DEFAULT_BOLD
         view.setTextColor(ContextCompat.getColor(view.context, R.color.state_success_answer))
     } else {
