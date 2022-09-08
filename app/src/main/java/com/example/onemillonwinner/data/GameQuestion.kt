@@ -1,59 +1,91 @@
 package com.example.onemillonwinner.data
 
 import com.example.onemillonwinner.data.questionResponse.Question
+import com.example.onemillonwinner.util.enumState.ChoicesState
 import com.example.onemillonwinner.util.extension.htmlText
 
-class GameQuestion {
-    private var questionDescription: String = ""
-    private var questionNumber: Int = 0
-    private var difficulty: String = ""
-    private val answers: MutableList<String> = mutableListOf()
-    private var selectedAnswer = -1
-    private var correctAnswer: String = ""
+class GameQuestion(question: Question) {
 
-    fun setQuestion(question: Question) {
+    val questionDescription: String
+    var questionNumber: Int = 0
+    val difficulty: String
+    val answers: MutableList<Choice>
+    val correctAnswer: String
+
+    init {
         questionDescription = question.question?.htmlText() ?: ""
         difficulty = question.difficulty ?: ""
-        answers.clear()
+        answers = mutableListOf()
+        this.questionNumber = 0
         question.incorrectAnswers?.forEach { incorrectAnswer ->
-            answers.add(incorrectAnswer.htmlText())
+            answers.add(Choice(incorrectAnswer.htmlText(), ChoicesState.NOT_SELECTED))
         }
+        var correctA = ""
         question.correctAnswer?.let { correct ->
-            correctAnswer = correct.htmlText()
-            answers.add(correctAnswer)
+            correctA = correct.htmlText()
+            answers.add(Choice(correctA, ChoicesState.NOT_SELECTED))
         }
+        correctAnswer = correctA
         answers.shuffle()
     }
 
-    fun getQuestion() = questionDescription
-
-    fun setQuestionNumber(number: Int) {
-        questionNumber = number
+    fun updateChoice(choiceNumber: Int): List<Choice> {
+        answers.forEachIndexed { index, choice ->
+            if (index == choiceNumber) {
+                choice.state = ChoicesState.SELECTED
+            } else if (choice.state == ChoicesState.DISABLE_SELECTION) {
+                choice.state = ChoicesState.DISABLE_SELECTION
+            } else {
+                choice.state = ChoicesState.NOT_SELECTED
+            }
+        }
+        return answers
     }
 
-    fun getQuestionNumber() = questionNumber
+    fun isWrongAnswerSelected(): Boolean {
+        return answers.indexOfFirst { it.state == ChoicesState.WRONG } != -1
+    }
 
-    fun getAnswers() = answers.toList()
+    fun getSelectedAnswer() = answers.indexOfFirst { it.state == ChoicesState.SELECTED }
 
-    fun removeWrongAnswer(index: Int): Boolean {
-        return if (index in answers.indices
-            && answers[index] != correctAnswer
-            && answers[index].isNotBlank()
-        ) {
-            answers[index] = ""
-            true
-        } else {
-            false
+    fun removeAllSelection() {
+        answers.forEach {
+            it.state = ChoicesState.WRONG
         }
     }
 
-    fun getDifficulty() = difficulty
+    fun isAnswerSelected() = answers.any { it.state == ChoicesState.SELECTED }
 
-    fun getCorrectAnswer() = correctAnswer
+    fun setCorrectAnswer(): List<Choice> {
+        val correctChoiceIndex = answers.indexOfFirst { it.answer == correctAnswer }
+        val choiceIndex = answers.indexOfFirst { it.state == ChoicesState.SELECTED }
+        answers.forEachIndexed { index, choice ->
+            if (correctChoiceIndex == index) {
+                choice.state = ChoicesState.CORRECT
+            } else if (choiceIndex == index) {
+                choice.state = ChoicesState.WRONG
+            } else {
+                choice.state = ChoicesState.DISABLE_SELECTION
+            }
+        }
+        return answers
+    }
 
-    fun getSelectedAnswer() = selectedAnswer
+    private fun checkToRemoveAnswer(index: Int): Boolean {
+        return (index in answers.indices
+                && answers[index].answer != correctAnswer
+                && answers[index].answer.isNotBlank())
+    }
 
-    fun setSelectedAnswer(index: Int) {
-        selectedAnswer = index
+    fun deleteTwoWrongAnswersRandomly(): List<Choice> {
+        var deletedAnswers = 0
+        while (deletedAnswers != 2) {
+            val randomNumber = (0..3).random()
+            if (checkToRemoveAnswer(randomNumber)) {
+                answers[randomNumber] = Choice("", ChoicesState.DISABLE_SELECTION)
+                deletedAnswers++
+            }
+        }
+        return answers
     }
 }

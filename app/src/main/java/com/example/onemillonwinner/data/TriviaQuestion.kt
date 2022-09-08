@@ -3,13 +3,14 @@ package com.example.onemillonwinner.data
 import com.example.onemillonwinner.data.questionResponse.Question
 import com.example.onemillonwinner.util.Constants.MAX_NUMBER_OF_QUESTIONS
 import com.example.onemillonwinner.util.Constants.NUMBER_OF_QUESTIONS_PER_LEVEL
-import com.example.onemillonwinner.util.enum.QuestionLevel
+import com.example.onemillonwinner.util.enumState.ChoicesState
+import com.example.onemillonwinner.util.enumState.QuestionLevel
 import kotlin.collections.ArrayList
 
 class TriviaQuestion {
-    private val questions = ArrayList<Question>()
-    private val currentQuestion = GameQuestion()
-    private val replaceableQuestions: ArrayList<Question> = ArrayList()
+    private val questions = ArrayList<GameQuestion>()
+    private lateinit var currentQuestion: GameQuestion
+    private val replaceableQuestions: ArrayList<GameQuestion> = ArrayList()
 
     private val prizeList = mapOf(
         1 to 100,
@@ -29,48 +30,44 @@ class TriviaQuestion {
         15 to 1000000
     )
 
-    fun deleteTwoWrongAnswersRandomly(): GameQuestion {
-        var deletedAnswers = 0
-        while (deletedAnswers != 2) {
-            val randomNumber = (0..3).random()
-            if (currentQuestion.removeWrongAnswer(randomNumber)) {
-                deletedAnswers += 1
-            }
+
+    fun setQuestion(questionResponse: List<Question>) {
+        for (index in 0 until NUMBER_OF_QUESTIONS_PER_LEVEL) {
+            questions.add(GameQuestion(questionResponse[index]))
         }
-        return currentQuestion
+        replaceableQuestions.add(GameQuestion(questionResponse.last()))
+        currentQuestion = questions.first()
     }
 
-    fun setQuestions(newQuestions: List<Question>) {
-        QuestionLevel.values().forEach { level ->
-            questions.addAll(newQuestions.filter { it.difficulty == level.value }
-                .apply {
-                    replaceableQuestions.add(this.last())
-                }.take(NUMBER_OF_QUESTIONS_PER_LEVEL))
-        }
-    }
+    fun getQuestionSize() = questions.size
+
+    fun getCurrentQuestion() = currentQuestion
 
     fun replaceQuestion(): GameQuestion {
         val replaceableQuestion = replaceableQuestions.first {
-            it.difficulty == currentQuestion.getDifficulty()
+            it.difficulty == currentQuestion.difficulty
         }
-        currentQuestion.setQuestion(replaceableQuestion)
+        replaceableQuestion.questionNumber = currentQuestion.questionNumber
+        currentQuestion = replaceableQuestion
         return currentQuestion
     }
 
     private fun getQuestionNumber() = MAX_NUMBER_OF_QUESTIONS - questions.indices.last
 
     fun updateQuestion(): GameQuestion {
-        currentQuestion.setQuestion(questions.first())
-        currentQuestion.setQuestionNumber(getQuestionNumber())
+        currentQuestion = questions.first()
+        currentQuestion.questionNumber = getQuestionNumber()
         questions.removeFirst()
         return currentQuestion
     }
 
-    fun getCurrentQuestion() = currentQuestion
+    fun isGameOver(): Boolean {
+        return questions.isEmpty() || currentQuestion.isWrongAnswerSelected()
+    }
 
     fun getPrize(): Int? {
-        val questionNumber = currentQuestion.getQuestionNumber()
-        return if (isSelectWrongAnswer()) {
+        val questionNumber = currentQuestion.questionNumber
+        return if (currentQuestion.isWrongAnswerSelected()) {
             val result = when (questionNumber) {
                 in 6..10 -> prizeList[5]
                 in 11..15 -> prizeList[10]
@@ -83,18 +80,4 @@ class TriviaQuestion {
             prizeList[questionNumber]
         }
     }
-
-    private fun isSelectWrongAnswer(): Boolean {
-        return currentQuestion.getAnswers().indexOf(currentQuestion.getCorrectAnswer()) !=
-                currentQuestion.getSelectedAnswer()
-    }
-
-    fun isGameOver(): Boolean {
-        return questions.isEmpty() || isSelectWrongAnswer()
-    }
-
-    fun getFriendHelp(): String {
-        return currentQuestion.getCorrectAnswer()
-    }
-
 }

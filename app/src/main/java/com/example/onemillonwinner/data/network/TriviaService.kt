@@ -1,4 +1,4 @@
-package com.example.onemillonwinner.network
+package com.example.onemillonwinner.data.network
 
 import com.example.onemillonwinner.data.questionResponse.TriviaResponse
 import com.example.onemillonwinner.util.ApiConstants
