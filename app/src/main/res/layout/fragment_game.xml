@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             android:textColor="@color/primary_color"
-            android:text="@{viewModel.questionTime.toString()}"
+            app:formattingTimer="@{viewModel.questionTime}"
             app:layout_constraintBottom_toBottomOf="@+id/timer_progress_bar"
             app:layout_constraintStart_toEndOf="@+id/timer_progress_bar"
             app:layout_constraintTop_toTopOf="@+id/timer_progress_bar" />
