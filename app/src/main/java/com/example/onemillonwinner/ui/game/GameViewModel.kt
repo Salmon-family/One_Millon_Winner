@@ -34,7 +34,8 @@ class GameViewModel : BaseViewModel() {
         get() = _gameState
 
     private val _questionState = MutableLiveData<QuestionState>()
-    val questionState: LiveData<QuestionState> = _questionState
+    val questionState: LiveData<QuestionState>
+        get() = _questionState
 
     private val _question = MutableLiveData<GameQuestion>()
     val question: LiveData<GameQuestion>
