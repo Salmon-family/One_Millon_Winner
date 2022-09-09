@@ -1,4 +1,4 @@
-# :moneybag:	Hwo wants to be a Millionaire
+# :moneybag:	Who wants to be a Millionaire
 
 ## :rocket: Tech stack
 
