@@ -16,10 +16,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     private fun startTheGame() {
-        viewModel.navigateToGameFragment.observe(this, EventObserve{
-            if(it){
+        viewModel.navigateToGameFragment.observe(this, EventObserve {
+            if (it) {
                 Navigation.findNavController(binding.root)
-                    .navigate(HomeFragmentDirections.actionHomeFragmentToGameFragment())}
+                    .navigate(HomeFragmentDirections.actionHomeFragmentToGameFragment())
+            }
         })
-        }
+    }
 }

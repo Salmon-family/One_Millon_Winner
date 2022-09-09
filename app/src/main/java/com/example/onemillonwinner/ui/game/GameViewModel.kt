@@ -22,19 +22,20 @@ import java.util.concurrent.TimeUnit
 class GameViewModel : BaseViewModel() {
 
     private val triviaQuestions: TriviaQuestion = TriviaQuestion()
-    private val repository: Repository by lazy { Repository() }
+    private val repository: Repository = Repository()
     private lateinit var timerDisposable: Disposable
 
-    val isChangeQuestion = MutableLiveData(false)
-    val isDeleteHalfOfAnswers = MutableLiveData(false)
-    val isHelpByFriends = MutableLiveData(Event(false))
+    val isChangeQuestionClicked = MutableLiveData(false)
+    val isDeleteHalfOfAnswersClicked = MutableLiveData(false)
+    val isCallingFriendClicked = MutableLiveData(Event(false))
 
     private val _gameState = MutableLiveData<State<TriviaResponse>>()
     val state: LiveData<State<TriviaResponse>>
         get() = _gameState
 
     private val _questionState = MutableLiveData<QuestionState>()
-    val questionState: LiveData<QuestionState> = _questionState
+    val questionState: LiveData<QuestionState>
+        get() = _questionState
 
     private val _question = MutableLiveData<GameQuestion>()
     val question: LiveData<GameQuestion>
@@ -52,7 +53,6 @@ class GameViewModel : BaseViewModel() {
     val choices: LiveData<List<Choice>>
         get() = _choices
 
-    // Call and handler API  ...
     init {
         _gameState.postValue(State.Loading)
         repository.getAllQuestions().observeOn(AndroidSchedulers.mainThread())
@@ -75,7 +75,6 @@ class GameViewModel : BaseViewModel() {
     private fun onErrorUpdateQuestion(throwable: Throwable) {
         _gameState.postValue(State.Failure(throwable.message.toString()))
     }
-    // END of API
 
     private fun showAnswer() {
         displayCorrectAnswer()
@@ -117,7 +116,6 @@ class GameViewModel : BaseViewModel() {
         _choices.postValue(triviaQuestions.getCurrentQuestion().setCorrectAnswer())
     }
 
-    //Call by xml
     fun onClickToUpdateView() {
         _questionState.value?.let { state ->
             when (state) {
@@ -141,7 +139,6 @@ class GameViewModel : BaseViewModel() {
         _choices.postValue(triviaQuestions.getCurrentQuestion().updateChoice(choiceNumber))
     }
 
-    // Timer
     private fun restartTimer() {
         timerDisposable.dispose()
         startTimer()
@@ -169,18 +166,17 @@ class GameViewModel : BaseViewModel() {
         _questionState.postValue(QuestionState.GAME_OVER)
     }
 
-    //Helper functions ...
-    fun getFriendHelp() = triviaQuestions.getCurrentQuestion().correctAnswer
+    fun getFriendHelp() = triviaQuestions.getCurrentQuestion().getCorrectAnswer()
 
     fun helpByFriends() {
-        isHelpByFriends.postValue(Event(true))
+        isCallingFriendClicked.postValue(Event(true))
     }
 
     fun replaceQuestion() {
         if (_questionState.value != QuestionState.QUESTION_SUBMITTED
             && _questionState.value != QuestionState.WRONG_ANSWER_SUBMITTED
         ) {
-            isChangeQuestion.postValue(true)
+            isChangeQuestionClicked.postValue(true)
             _questionState.postValue(QuestionState.QUESTION_START)
             _question.postValue(triviaQuestions.replaceQuestion())
             _choices.postValue(triviaQuestions.getCurrentQuestion().answers)
@@ -194,7 +190,7 @@ class GameViewModel : BaseViewModel() {
             && _questionState.value != QuestionState.WRONG_ANSWER_SUBMITTED
         ) {
             _questionState.postValue(QuestionState.QUESTION_START)
-            isDeleteHalfOfAnswers.postValue(true)
+            isDeleteHalfOfAnswersClicked.postValue(true)
             _choices.postValue(triviaQuestions.getCurrentQuestion().deleteTwoWrongAnswersRandomly())
             _question.postValue(triviaQuestions.getCurrentQuestion())
         }

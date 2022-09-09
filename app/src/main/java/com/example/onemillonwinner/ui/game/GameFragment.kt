@@ -15,29 +15,19 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
     override val viewModelClass = GameViewModel::class.java
 
     override fun setup() {
-        callBacks()
-        observeOnGameDone()
         observeOnCallFriend()
+        observeOnGameDone()
+        showExitDialogWhenBackButtonPressed()
         observeOnAnswersToGiveThemEffect()
     }
 
     private fun observeOnCallFriend() {
-        viewModel.isHelpByFriends.observe(this, EventObserve{
+        viewModel.isCallingFriendClicked.observe(this, EventObserve{
             if (it) {
                 findNavController().navigate(GameFragmentDirections
                     .actionGameFragmentToHelpFriendDialog(viewModel.getFriendHelp()))
              }
         })
-    }
-
-    private fun callBacks() {
-        requireActivity().onBackPressedDispatcher
-            .addCallback(this, object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    findNavController().navigate(GameFragmentDirections
-                        .actionGameFragmentToExitDialog())
-                }
-            })
     }
 
     private fun observeOnGameDone() {
@@ -50,6 +40,16 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
                 }
             }
         }
+    }
+
+    private fun showExitDialogWhenBackButtonPressed() {
+        requireActivity().onBackPressedDispatcher
+            .addCallback(this, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().navigate(GameFragmentDirections
+                        .actionGameFragmentToExitDialog())
+                }
+            })
     }
 
     private fun observeOnAnswersToGiveThemEffect() {

@@ -39,30 +39,20 @@ class TriviaQuestion {
         currentQuestion = questions.first()
     }
 
-    fun getQuestionSize() = questions.size
-
-    fun getCurrentQuestion() = currentQuestion
-
     fun replaceQuestion(): GameQuestion {
         val replaceableQuestion = replaceableQuestions.first {
-            it.difficulty == currentQuestion.difficulty
+            it.getDifficulty() == currentQuestion.getDifficulty()
         }
         replaceableQuestion.questionNumber = currentQuestion.questionNumber
         currentQuestion = replaceableQuestion
         return currentQuestion
     }
 
-    private fun getQuestionNumber() = MAX_NUMBER_OF_QUESTIONS - questions.indices.last
-
     fun updateQuestion(): GameQuestion {
         currentQuestion = questions.first()
         currentQuestion.questionNumber = getQuestionNumber()
         questions.removeFirst()
         return currentQuestion
-    }
-
-    fun isGameOver(): Boolean {
-        return questions.isEmpty() || currentQuestion.isWrongAnswerSelected()
     }
 
     fun getPrize(): Int? {
@@ -80,4 +70,14 @@ class TriviaQuestion {
             prizeList[questionNumber]
         }
     }
+
+    fun isGameOver(): Boolean {
+        return questions.isEmpty() || currentQuestion.isWrongAnswerSelected()
+    }
+
+    fun getQuestionSize() = questions.size
+
+    fun getCurrentQuestion() = currentQuestion
+
+    private fun getQuestionNumber() = MAX_NUMBER_OF_QUESTIONS - questions.indices.last
 }
