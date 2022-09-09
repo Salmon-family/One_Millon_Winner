@@ -4,7 +4,7 @@
     <string name="friend_help">I am not sure of the answer but I think it is <![CDATA[<font color="#08A36A"><b>%s</b></font>]]> is the correct answer.</string>
     <string name="thank_you">Thank you</string>
     <string name="question_number">Question %s of 15</string>
-    <string name="prize" translatable="false">$ %s</string>
+    <string name="prize" translatable="false">$ %,01d</string>
     <string name="submit">Submit</string>
     <string name="game_over">Game Over</string>
     <string name="next_question">Next Question</string>
@@ -20,7 +20,7 @@
     <string name="dialog_message">Are you sure you want Exit?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="your_score">Your highest prize is : $%s</string>
+    <string name="your_score">Your highest prize is : $%,01d</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
 </resources>

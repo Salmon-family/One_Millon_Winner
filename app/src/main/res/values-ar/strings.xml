@@ -20,7 +20,7 @@
     <string name="dialog_message">هل تريد الخروج؟</string>
     <string name="yes">نعم</string>
     <string name="no">لا</string>
-    <string name="your_score">اعلى جائزة حصلت عليها هي : $%s</string>
+    <string name="your_score">اعلى جائزة حصلت عليها هي : $%,01d</string>
     <string name="confirm">تاكيد</string>
     <string name="cancel">الغاء</string>
 </resources>

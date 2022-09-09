@@ -50,7 +50,7 @@
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@{@string/your_score(viewModel.bestPrize.toString())}"
+            android:text="@{@string/your_score(viewModel.bestPrize)}"
             android:textSize="@dimen/font_size_primary"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/start_game_button"
