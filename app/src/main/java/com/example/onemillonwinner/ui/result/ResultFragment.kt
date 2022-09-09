@@ -1,17 +1,18 @@
 package com.example.onemillonwinner.ui.result
 
-import android.media.MediaPlayer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.onemillonwinner.R
 import com.example.onemillonwinner.databinding.FragmentResultBinding
 import com.example.onemillonwinner.ui.base.BaseFragment
+import com.example.onemillonwinner.util.GameMediaPlayer
 
 class ResultFragment : BaseFragment<FragmentResultBinding, ResultViewModel>() {
 
     override val layoutIdFragment = R.layout.fragment_result
     override val viewModelClass = ResultViewModel::class.java
     private val arguments: ResultFragmentArgs by navArgs()
+    private val gameMediaPlayer = GameMediaPlayer()
 
     override fun setup() {
         viewModel.setPrize(arguments.prize)
@@ -36,15 +37,16 @@ class ResultFragment : BaseFragment<FragmentResultBinding, ResultViewModel>() {
 
 
     private fun effectWhenDisplayTheResult() {
-        if (arguments.prize == 0) {
-            playMusic(R.raw.loss)
+        if (viewModel.isHasPrize) {
+            gameMediaPlayer.playSound(requireContext(), R.raw.result_game_winner)
         } else {
-            playMusic(R.raw.result_game_winner)
+            gameMediaPlayer.playSound(requireContext(), R.raw.loss)
         }
     }
 
-    private fun playMusic(resourcesId: Int) {
-        val mediaPlayer = MediaPlayer.create(context, resourcesId)
-        mediaPlayer.start()
+    override fun onPause() {
+        super.onPause()
+        gameMediaPlayer.stopSound()
     }
+
 }
