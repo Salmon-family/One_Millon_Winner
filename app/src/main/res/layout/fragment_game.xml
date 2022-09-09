@@ -55,7 +55,7 @@
             android:layout_marginEnd="@dimen/help_button_dimension"
             android:onClick="@{() -> viewModel.helpByFriends()}"
             app:cornerRadius="@dimen/spacing_medium"
-            android:enabled="@{!viewModel.isHelpByFriends().peekContent()}"
+            android:enabled="@{!viewModel.isCallingFriendClicked().peekContent()}"
             app:icon="@drawable/ic_phone"
             app:layout_constraintEnd_toEndOf="@+id/card_view"
             app:layout_constraintTop_toBottomOf="@+id/timer_progress_bar" />
@@ -67,7 +67,7 @@
             android:layout_height="@dimen/help_button_dimension"
             android:onClick="@{() -> viewModel.deleteHalfOfAnswers()}"
             app:cornerRadius="@dimen/spacing_medium"
-            android:enabled="@{!viewModel.isDeleteHalfOfAnswers()}"
+            android:enabled="@{!viewModel.isDeleteHalfOfAnswersClicked()}"
             app:layout_constraintBottom_toBottomOf="@+id/phone_button"
             app:layout_constraintEnd_toStartOf="@+id/phone_button"
             app:layout_constraintStart_toEndOf="@+id/change_question_button"
@@ -94,7 +94,7 @@
             android:layout_marginStart="@dimen/help_button_dimension"
             android:onClick="@{() -> viewModel.replaceQuestion()}"
             app:cornerRadius="@dimen/spacing_medium"
-            android:enabled="@{!viewModel.isChangeQuestion()}"
+            android:enabled="@{!viewModel.isChangeQuestionClicked()}"
             app:icon="@drawable/ic_repeat"
             app:layout_constraintStart_toStartOf="@+id/card_view"
             app:layout_constraintTop_toTopOf="@+id/delete_half_answer_button" />
