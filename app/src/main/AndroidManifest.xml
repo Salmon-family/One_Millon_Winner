@@ -16,7 +16,7 @@
         android:theme="@style/splashScreenTheme"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name=".ui.MainActivity"
             android:screenOrientation="locked"
             android:exported="true">
             <intent-filter>

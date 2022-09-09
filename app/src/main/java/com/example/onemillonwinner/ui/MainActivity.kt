@@ -1,4 +1,4 @@
-package com.example.onemillonwinner.ui.activity
+package com.example.onemillonwinner.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
