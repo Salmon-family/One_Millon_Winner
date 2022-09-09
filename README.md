@@ -1,4 +1,4 @@
-# :moneybag:	One Millon Winner
+# :moneybag:	Hwo wants to be a Millionaire
 
 ## :rocket: Tech stack
 
